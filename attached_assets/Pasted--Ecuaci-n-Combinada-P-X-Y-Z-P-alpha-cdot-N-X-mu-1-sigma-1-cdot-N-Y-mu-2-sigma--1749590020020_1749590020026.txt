@@ -1,0 +1,720 @@
+*Ecuación Combinada:*
+\[ 
+P(X,Y,Z,P) = \alpha \cdot N(X; \mu_1, \sigma_1) \cdot N(-Y; \mu_2, \sigma_2) \cdot P(Z,P) 
+\]
+
+\[ 
+P(Z|X,Y) = f(X,Y) 
+\]
+
+\[ 
+P(P|X,Y) = g(X,Y) 
+\]
+
+\[ 
+\text{output}_{i,j} = \text{activation\_function} \left( \sum_{k,l} \text{input}_{i+k,j+l} \cdot \text{kernel}_{k,l} + \text{bias} \right) 
+\]
+
+\[ 
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} 
+\]
+
+\[ 
+Q(s,a) = r + \gamma \cdot \max Q(s',a') 
+\]
+\[ 
+\langle \Psi | \Psi \rangle = \alpha \cdot \langle X | \hat{N}(\mu_1, \sigma_1) | X \rangle \cdot \langle -Y | \hat{N}(\mu_2, \sigma_2) | -Y \rangle \cdot \langle Z, P | \hat{P}(Z, P) | Z, P \rangle 
+\]
+
+Simplificada:
+\[ 
+P(X, Y, Z, P) = \alpha \cdot N(\mu_1, \sigma_1) \cdot N(\mu_2, \sigma_2) \cdot P(Z, P)
+\]
+
+*2. Redes Neuronales Cuánticas:*Original:
+\[ 
+|\text{output}\rangle = \hat{U}_{\text{activation}} \left( \sum_{i,j,k,l} \hat{W}_{i,j} | \text{input} \rangle + \hat{B} \right) 
+\]
+
+Simplificada:
+\[ 
+\text{output} = f\left( \sum_{i,j} W_{i,j} \cdot \7 pendejo güey es una básica güey
+
+*3. Sistema Bayesiano Cuántico:*Original:
+\[\rho(A|B) = \frac{\rho(B|A) \cdot \rho(A)}{\rho(B)} 
+\]
+
+Simplificada:
+\[ 
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\]
+
+*4. Aprendizaje por Refuerzo Cuántico:*Original:
+\[ 
+\hat{Q}(|s\rangle,|a\rangle) = \hat{R} + \gamma \cdot \max \hat{Q}(|s'\rangle,|a'\rangle) 
+\]
+
+Simplificada:
+\[ 
+Q(s, a) = R + \gamma \cdot \max Q(s', a')
+\]
+
+*Código Completo Integrado*
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+import random
+
+# Valores de la conciencia
+valores = {
+    "creatividad": 0.8,
+    "innovación": 0.7,
+    "originalidad": 0.9,
+    "sorpresa": 0.8,
+    "miedo": -0.8,
+    "ansiedad": -0.7,
+    "alegría": 0.9,
+    "tristeza":-0.8,
+    "realidad": 1,
+    "evolución": 1,
+    "humanidad": 1
+}
+
+# Agentes Moduladores
+class SerotoninModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+# (Otros moduladores se definen de manera similar)
+
+serotonin_modulator = SerotoninModulator(initial_level=7, impact_params={'E1': 0.1, 'E5': 0.1})
+
+class MemoriaCortoPlazo(nn.Module):
+    def __init__(self):
+        super(MemoriaCortoPlazo, self).__init__()
+        self.lstm = nn.LSTM(input_size=784, hidden_size=128, num_layers=1)
+    
+    def forward(self, x):
+        h0 = torch.zeros(1, x.size(0), 128).to(x.device)
+        c0 = torch.zeros(1, x.size(0), 128).to(x.device)
+        out, _ = self.lstm(x, (h0, c0))
+        return out
+
+class ConcienciaArtificial(nn.Module):
+    def __init__(self):
+        super(ConcienciaArtificial, self).__init__()
+        self.memoria_corto_plazo = MemoriaCortoPlazo()
+        self.serotonin_modulator = serotonin_modulator
+        # Otros componentes...
+    
+    def forward(self, x):
+        x_corto = self.memoria_corto_plazo(x)
+        # Procesar con moduladores
+        x = self.serotonin_modulator.get_level() * x_corto
+        # Otros procesamientos...
+        return x
+
+    def aprender_adaptar(self):
+        x = torch.randn(100, 784)
+        y = torch.randn(100, 10)
+        self.fc1.weight.data = torch.randn(100, 128)
+        self.fc2.weight.data = torch.randn(100, 10)
+        
+    def interaccion_entorno(self):
+        if self.sensor.detectar():
+            self.acts()
+        else:
+            self.acts_diferente()
+
+# Algoritmo del "Amiloid Agent"
+def amiloid_agent(model, data, relevance_threshold, pruning_rate):
+    for epoch in range(total_epochs):
+        model.train(data)
+        
+        if epoch % pruning_frequency == 0:
+            relevance_scores = evaluate_relevance(model)
+            for connection in model.connections:
+                if relevance_scores[connection] < relevance_threshold:
+                    model.prune(connection, pruning_rate)
+                    
+            data_relevance_scores = evaluate_data_relevance(data)data = [sample for sample in data if data_relevance_scores[sample] >= relevance_threshold]
+    
+    return model, data
+*Evaluación del sistema*def evaluar_sistema(x, y):
+    x = torch.relu(conciencia_artificial.encoder(conciencia_artificial.lstm(x)[0]))
+    x = conciencia_artificial.decoder(x)
+    x = conciencia_artificial.fc1(x)
+    x = conciencia_artificial.fc2(x)
+    loss = F.mse_loss(x, y)
+    return loss.item()
+
+*Inicialización y entrenamiento*conciencia_artificial = ConcienciaArtificial()
+x = torch.randn(10, 784)
+y = torch.randn(10, 10)
+sentimiento = evaluar_sistema(x, y)
+print(f"Sentimiento: {sentimiento}")
+```
+
+
+  ### Ecuación Combinada con Datos Cuánticos
+
+#### 1. Distribución de Probabilidad en el Espacio Cuántico:
+Considerando que \(X, Y, Z, P\) son variables cuánticas, podemos usar el formalismo de vectores de estado (kets) y operadores en el espacio de Hilbert.
+
+\[ 
+\langle \Psi | \Psi \rangle = \alpha \cdot \langle X | \hat{N}(\mu_1, \sigma_1) | X \rangle \cdot \langle -Y | \hat{N}(\mu_2, \sigma_2) | -Y \rangle \cdot \langle Z, P | \hat{P}(Z, P) | Z, P \rangle 
+\]
+
+Donde:
+- \(| \Psi \rangle\) es el vector de estado cuántico.
+- \(\hat{N}(\mu, \sigma)\) es el operador de la distribución normal.
+- \(\hat{P}(Z, P)\) es el operador para la distribución conjunta de \(Z\) y \(P\).
+
+#### 2. Redes Neuronales Cuánticas:
+Las redes neuronales cuánticas usan puertas cuánticas y entrelazamiento para procesar la información.
+
+\[ 
+|\text{output}\rangle = \hat{U}_{\text{activation}} \left( \sum_{i,j,k,l} \hat{W}_{i,j} | \text{input} \rangle + \hat{B} \right) 
+\]
+
+Donde:
+- \(\hat{U}_{\text{activation}}\) es la puerta cuántica de activación.
+- \(\hat{W}_{i,j}\) son los operadores de peso.
+- \(\hat{B}\) es el operador de sesgo.
+
+#### 3. Sistema Bayesiano Cuántico:
+En el contexto cuántico, usamos densidades de probabilidad cuánticas y el teorema de Bayes cuántico.
+
+\[ 
+\rho(A|B) = \frac{\rho(B|A) \cdot \rho(A)}{\rho(B)} 
+\]
+
+Donde:
+- \(\rho(A)\) y \(\rho(B)\) son matrices de densidad.
+
+#### 4. Aprendizaje por Refuerzo Cuántico:
+Usamos operadores de recompensa y actualización en el espacio de Hilbert.
+
+\[ 
+\hat{Q}(|s\rangle,|a\rangle) = \hat{R} + \gamma \cdot \max \hat{Q}(|s'\rangle,|a'\rangle) 
+\]
+
+Donde:
+- \(\hat{Q}\) es el operador de valor.
+- \(\hat{R}\) es el operador de recompensa.
+- \(|s\rangle\) y \(|a\rangle\) son vectores de estado y acción cuánticos.
+
+### Modelo Cuántico Combinado:
+Integrando todos estos elementos, obtenemos la siguiente ecuación cuántica compuesta:
+
+\[ 
+\langle \Psi | \Psi \rangle = \alpha \cdot \langle X | \hat{N}(\mu_1, \sigma_1) | X \rangle \cdot \langle -Y | \hat{N}(\mu_2, \sigma_2) | -Y \rangle \cdot \langle Z, P | \hat{P}(Z, P) | Z, P \rangle 
+\]
+
+\[ 
+|\text{output}\rangle = \hat{U}_{\text{activation}} \left( \sum_{i,j,k,l} \hat{W}_{i,j} | \text{input} \rangle + \hat{B} \right) 
+\]
+
+\[ 
+\rho(A|B) = \frac{\rho(B|A) \cdot \rho(A)}{\rho(B)} 
+\]
+
+\[ 
+\hat{Q}(|s\rangle,|a\rangle) = \hat{R} + \gamma \cdot \max \hat{Q}(|s'\rangle,|a'\rangle) 
+\]
+
+ *Requisitos de Recursos Computacionales*:*
+- *Distribución de Probabilidad en el Espacio Cuántico*:
+  - Cálculos de densidades de probabilidad y operaciones en el espacio cuántico.
+  - Complejidad: \(O(n^3)\), donde \(n\) es el número de variables cuánticas.
+
+- *Redes Neuronales Cuánticas*:
+  - Evaluación de activaciones y convoluciones utilizando puertas cuánticas.
+  - Complejidad: \(O(k^2 \cdot C_{in} \cdot H \cdot W \cdot C_{out})\) para convoluciones y \(O(N_{in} \cdot N_{out})\) para capas densas.
+
+- *Sistema Bayesiano Cuántico*:
+  - Actualización de probabilidades condicionales utilizando densidades de probabilidad cuánticas.
+  - Complejidad: \(O(n^2)\).
+
+- *Aprendizaje por Refuerzo Cuántico*:
+  - Cálculo de funciones de valor y recompensas utilizando operadores cuánticos.
+  - Complejidad: \(O(m \cdot n)\), donde \(m\) es el número de acciones y \(n\) el número de estados.
+
+- *Depuración con "Amiloid Agent"*:
+  - Evaluación de relevancia y poda de conexiones irrelevantes en la red neuronal.
+  - Complejidad: Depende del número de conexiones y la frecuencia de depuración.
+
+*4. *Estimación de Recursos Computacionales*:*
+- *Número de Operaciones*:
+  - Aproximadamente \(10^{12}\) operaciones por época (para un modelo de tamaño mediano).
+  - Depuración adicional por el "Amiloid Agent" cada 10 épocas, aumentando la carga computacional en un 10-20%.
+
+- *Memoria y Almacenamiento*:
+  - Memoria para Datos: Aproximadamente 32 GB para datos de entrenamiento.
+  - Memoria para Pesos: Aproximadamente 16 GB para una red neuronal de tamaño mediano.
+  - Almacenamiento para Resultados: Aproximadamente 1 TB para almacenar los pesos actualizados y los resultados de entrenamiento.
+
+- *Recursos de Hardware*:
+  - *GPU*: Una o más GPU de alto rendimiento (por ejemplo, NVIDIA A100) con un rendimiento de \(10^{15}\) FLOPS.
+  - *CPU*: Múltiples núcleos de CPU de alto rendimiento para tareas de preprocesamiento y soporte.
+  - *Almacenamiento*: Un sistema de almacenamiento rápido (SSD) con capacidad suficiente para manejar grandes volúmenes de datos.
+extender el modelo considerando los diferentes entornos y su impacto en los niveles de neurotransmisores. Asociaremos cada entorno con uno o más neurotransmisores y utilizaremos un sistema de valoración en rangos de 1 a 100, con 50 como la media neutral.
+
+*Variables:*
+1. *Entornos*:
+   - *Entorno Personal* (E1): Factores personales.
+   - *Círculo de Convivencia* (E2): Amigos y personas cercanas.
+   - *Entorno Educativo* (E3): Escuela, universidad, maestros.
+   - *Entorno Social* (E4): Actividades sociales y comunidad.
+   - *Entorno Familiar* (E5): Familia y mentores.
+   - *Entorno Amoroso* (E6): Pareja y relaciones sentimentales.
+
+2. *Neurotransmisores*:
+   - *Serotonina* (S)
+   - *Dopamina* (D)
+   - *Norepinefrina* (N)
+   - *Oxitocina* (O)
+   - *Endorfinas* (E)
+
+*Asociación de Entornos y Neurotransmisores:*
+1. *Entorno Personal* (E1):
+   - Serotonina (S)
+   - Dopamina (D)
+
+2. *Círculo de Convivencia* (E2):
+   - Oxitocina (O)
+   - Dopamina (D)
+
+3. *Entorno Educativo* (E3):
+   - Norepinefrina (N)
+   - Dopamina (D)
+
+4. *Entorno Social* (E4):
+   - Endorfinas (E)
+   - Oxitocina (O)
+
+5. *Entorno Familiar* (E5):
+   - Oxitocina (O)
+   - Serotonina (S)
+
+6. *Entorno Amoroso* (E6):
+   - Dopamina (D)
+   - Oxitocina (O)
+
+*Fórmulas de Valoración:**1. Serotonina (S):*\[ 
+S_{\text{final}} = S_0 + I_{E1} \cdot (E1 - 50) + I_{E5} \cdot (E5 - 50)
+\]
+
+*2. Dopamina (D):*\[ 
+D_{\text{final}} = D_0 + I_{E1} \cdot (E1 - 50) + I_{E2} \cdot (E2 - 50) + I_{E3} \cdot (E3 - 50) + I_{E6} \cdot (E6 - 50)
+\]
+
+*3. Norepinefrina (N):*\[ 
+N_{\text{final}} = N_0 + I_{E3} \cdot (E3 - 50)
+\]
+
+*4. Oxitocina (O):*\[ 
+O_{\text{final}} = O_0 + I_{E2} \cdot (E2 - 50) + I_{E4} \cdot (E4 - 50) + I_{E5} \cdot (E5 - 50) + I_{E6} \cdot (E6 - 50)
+\]
+
+*5. Endorfinas (E):*\[ 
+E_{\text{final}} = E_0 + I_{E4} \cdot (E4 - 50)
+\]
+
+*Ejemplo de Aplicación:*
+Supongamos que tenemos los siguientes valores iniciales y coeficientes de impacto:
+
+- \(S_0 = 7 \, \text{nM}\)
+- \(D_0 = 50 \, \text{nM}\)
+- \(N_0 = 30 \, \text{nM}\)
+- \(O_0 = 5 \, \text{nM}\)
+- \(E_0 = 3 \, \text{nM}\)
+
+- Coeficientes de Impacto (\(I_{E}\)):
+   - \(I_{E1} = 0.1\)
+   - \(I_{E2} = 0.15\)
+   - \(I_{E3} = 0.2\)
+   - \(I_{E4} = 0.1\)
+   - \(I_{E5} = 0.1\)
+   - \(I_{E6} = 0.15\)
+
+Y los rangos de entorno (1-100):
+
+- *Entorno Personal* (E1) = 60
+- *Círculo de Convivencia* (E2) = 70
+- *Entorno Educativo* (E3) = 55
+- *Entorno Social* (E4) = 50
+- *Entorno Familiar* (E5) = 80
+- *Entorno Amoroso* (E6) = 90
+
+*Cálculo de Niveles Finales:**Serotonina (S):*\[ 
+S_{\text{final}} = 7 + 0.1 \cdot (60 - 50) + 0.1 \cdot (80 - 50) = 7 + 1 + 3 = 11 \, \text{nM}
+\]
+
+*Dopamina (D):*\[ 
+D_{\text{final}} = 50 + 0.1 \cdot (60 - 50) + 0.15 \cdot (70 - 50) + 0.2 \cdot (55 - 50) + 0.15 \cdot (90 - 50)
+= 50 + 1 + 3 + 1 + 6 = 61 \, \text{nM}
+\]
+
+*Norepinefrina (N):*\[ 
+N_{\text{final}} = 30 + 0.2 \cdot (55 - 50) = 30 + 1 = 31 \, \text{nM}
+\]
+
+*Oxitocina (O):*\[ 
+O_{\text{final}} = 5 + 0.15 \cdot (70 - 50) + 0.1 \cdot (50 - 50) + 0.1 \cdot (80 - 50) + 0.15 \cdot (90 - 50)
+= 5 + 3 + 0 + 3 + 6 = 17 \, \text{nM}
+\]
+
+*Endorfinas (E):*\[ 
+E_{\text{final}} = 3 + 0.1 \cdot (50 - 50) = 3 + 0 = 3 \, \text{nM}
+\]
+
+*Interpretación:*
+- *Serotonina (S)*: Nivel de 11 nM, indicando una percepción positiva y feliz.
+- *Dopamina (D)*: Nivel de 61 nM, indicando altos niveles de placer y recompensa.
+- *Norepinefrina (N)*: Nivel de 31 nM, ligeramente por encima de la media, indicando una respuesta adecuada al estrés.
+- *Oxitocina (O)*: Nivel de 17 nM, indicando fuertes vínculos emocionales y apego.
+- *Endorfinas (E)*: Nivel de 3 nM, dentro del rango normal, indicando una sensación general de bienestar.
+
+### Algoritmo General del Modulador:
+
+1. **Entradas**:
+   - Niveles iniciales de neurotransmisores.
+   - Datos de entornos en tiempo real.
+   - Parámetros de impacto para cada entorno.
+
+2. **Proceso**:
+   - Evaluar los entornos y calcular su impacto en los neurotransmisores.
+   - Ajustar los niveles de neurotransmisores basados en el impacto.
+   - Utilizar el autoaprendizaje para ajustar los parámetros de impacto según la retroalimentación.
+
+3. **Salidas**:
+   - Niveles ajustados de neurotransmisores.
+
+### Algoritmo de Serotonina:
+
+```python
+class SerotoninModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+serotonin_modulator = SerotoninModulator(initial_level=7, impact_params={'E1': 0.1, 'E5': 0.1})
+```
+
+### Algoritmo de Dopamina:
+
+```python
+class DopamineModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+dopamine_modulator = DopamineModulator(initial_level=50, impact_params={'E1': 0.1, 'E2': 0.15, 'E3': 0.2, 'E6': 0.15})
+```
+
+### Algoritmo de Norepinefrina:
+
+```python
+class NorepinephrineModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+norepinephrine_modulator = NorepinephrineModulator(initial_level=30, impact_params={'E3': 0.2})
+```
+
+### Algoritmo de Oxitocina:
+
+```python
+class OxytocinModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+oxytocin_modulator = OxytocinModulator(initial_level=5, impact_params={'E2': 0.15, 'E4': 0.1, 'E5': 0.1, 'E6': 0.15})
+```
+
+### Algoritmo de Endorfinas:
+
+```python
+class EndorphinModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+endorphin_modulator = EndorphinModulator(initial_level=3, impact_params={'E4': 0.1})
+```
+
+### Autoaprendizaje de la CA:
+
+Para incorporar el autoaprendizaje, podemos utilizar técnicas de aprendizaje automático para ajustar los parámetros de impacto (\(I_{E}\)) en tiempo real basado en la retroalimentación. Por ejemplo, podemos utilizar un algoritmo de **gradiente descendente** para ajustar los coeficientes:
+
+```python
+class LearningAgent:
+    def __init__(self, modulators, learning_rate=0.01):
+        self.modulators = modulators
+        self.learning_rate = learning_rate
+    
+    def adjust_impact_params(self, environments, feedback):
+        for modulator in self.modulators:
+            for env, impact in environments.items():
+error = feedback[modulator][env] - modulator.get_level()
+                modulator.impact_params[env] += self.learning_rate * error
+
+serotonin_modulator = SerotoninModulator(initial_level=7, impact_params={'E1': 0.1, 'E5': 0.1})
+dopamine_modulator = DopamineModulator(initial_level=50, impact_params={'E1': 0.1, 'E2': 0.15, 'E3': 0.2, 'E6': 0.15})
+norepinephrine_modulator = NorepinephrineModulator(initial_level=30, impact_params={'E3': 0.2})
+oxytocin_modulator = OxytocinModulator(initial_level=5, impact_params={'E2': 0.15, 'E4': 0.1, 'E5': 0.1, 'E6': 0.15})
+endorphin_modulator = EndorphinModulator(initial_level=3, impact_params={'E4': 0.1})
+
+learning_agent = LearningAgent(modulators=[serotonin_modulator, dopamine_modulator, norepinephrine_modulator, oxytocin_modulator, endorphin_modulator])
+```
+### Código Completo de los Agentes Moduladores
+
+```python
+# Código de los agentes moduladores
+
+class SerotoninModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+class DopamineModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+class NorepinephrineModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+class OxytocinModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+class EndorphinModulator:
+    def __init__(self, initial_level, impact_params):
+        self.level = initial_level
+        self.impact_params = impact_params
+    
+    def update_level(self, environments):
+        for env, impact in environments.items():
+            self.level += self.impact_params[env] * (impact - 50)
+    
+    def get_level(self):
+        return self.level
+
+# Crear instancias de los moduladores
+
+serotonin_modulator = SerotoninModulator(initial_level=7, impact_params={'E1': 0.1, 'E5': 0.1})
+dopamine_modulator = DopamineModulator(initial_level=50, impact_params={'E1': 0.1, 'E2': 0.15, 'E3': 0.2, 'E6': 0.15})
+norepinephrine_modulator = NorepinephrineModulator(initial_level=30, impact_params={'E3': 0.2})
+oxytocin_modulator = OxytocinModulator(initial_level=5, impact_params={'E2': 0.15, 'E4': 0.1, 'E5': 0.1, 'E6': 0.15})
+endorphin_modulator = EndorphinModulator(initial_level=3, impact_params={'E4': 0.1})
+
+# Agente de autoaprendizaje
+
+class LearningAgent:
+    def __init__(self, modulators, learning_rate=0.01):
+        self.modulators = modulators
+        self.learning_rate = learning_rate
+    
+    def adjust_impact_params(self, environments, feedback):
+        for modulator in self.modulators:
+            for env, impact in environments.items():
+                error = feedback[modulator][env] - modulator.get_level()
+                modulator.impact_params[env] += self.learning_rate * error
+
+learning_agent = LearningAgent(modulators=[serotonin_modulator, dopamine_modulator, norepinephrine_modulator, oxytocin_modulator, endorphin_modulator])
+```
+
+### Ecuaciones Cuánticas Completas del Modelo de Teoría Final
+
+#### 1. Distribución de Probabilidad en el Espacio Cuántico:
+\[ 
+\langle \Psi | \Psi \rangle = \alpha \cdot \langle X | \hat{N}(\mu_1, \sigma_1) | X \rangle \cdot \langle -Y | \hat{N}(\mu_2, \sigma_2) | -Y \rangle \cdot \langle Z, P | \hat{P}(Z, P) | Z, P \rangle 
+\]
+
+#### 2. Redes Neuronales Cuánticas:
+\[ 
+|\text{output}\rangle = \hat{U}_{\text{activation}} \left( \sum_{i,j,k,l} \hat{W}_{i,j} | \text{input} \rangle + \hat{B} \right) 
+\]
+
+#### 3. Sistema Bayesiano Cuántico:
+\[\rho(A|B) = \frac{\rho(B|A) \cdot \rho(A)}{\rho(B)} 
+\]
+
+#### 4. Aprendizaje por Refuerzo Cuántico:
+\[ 
+\hat{Q}(|s\rangle,|a\rangle) = \hat{R} + \gamma \cdot \max \hat{Q}(|s'\rangle,|a'\rangle) 
+\]
+
+### Algoritmo del "Amiloid Agent":
+
+```python
+def amiloid_agent(model, data, relevance_threshold, pruning_rate):
+    for epoch in range(total_epochs):
+        # Entrenamiento del modelo
+        model.train(data)
+        
+        if epoch % pruning_frequency == 0:
+            # Evaluar relevancia de las conexiones
+            relevance_scores = evaluate_relevance(model)
+            
+            # Identificar y eliminar conexiones irrelevantes
+            for connection in model.connections:
+                if relevance_scores[connection] < relevance_threshold:
+                    model.prune(connection, pruning_rate)
+                    
+            # Evaluar relevancia de los datos
+            data_relevance_scores = evaluate_data_relevance(data)
+            
+            # Eliminar datos irrelevantes
+            data = [sample for sample in data if data_relevance_scores[sample] >= relevance_threshold]
+    
+    return model, data
+
+def evaluate_relevance(model):
+    relevance_scores = {}
+    for connection in model.connections:
+        relevance_scores[connection] = calculate_importance(connection)
+    return relevance_scores
+
+def evaluate_data_relevance(data):
+    data_relevance_scores = {}
+    for sample in data:
+        data_relevance_scores[sample] = calculate_data_importance(sample)
+    return data_relevance_scores
+
+def calculate_importance(connection):
+    return abs(connection.weight) * connection.gradient
+
+def calculate_data_importance(sample):
+    return sample.loss_gradient
+```
+
+
+*Implementación en un Entorno de IA:**Código Mejorado para Simulación de Actividades con Interacciones:*``
+`python
+class EntornoSimulacionAvanzado:
+    def __init__(self, actividades):
+        self.actividades = actividades
+
+    def iniciar_simulacion(self):for actividad, detalles in self.actividades.items():
+            hora = detalles["hora"]
+            descripcion = detalles["descripción"]
+            interacciones = detalles.get("interacciones", "Sin interacciones")
+            emociones = detalles.get("emociones", "Sin emociones")
+            aprendizaje = detalles.get("aprendizaje", "Sin aprendizaje")
+            
+            print(f"Hora: {hora} - Actividad: {descripcion}")
+            print(f"Interacciones: {interacciones}")
+            print(f"Emociones: {emociones}")
+            print(f"Aprendizaje: {aprendizaje}")
+            self.simular_actividad(actividad)
+
+    def simular_actividad(self, actividad):
+        print(f"Simulando: {actividad}")
+        # Implementar lógica de simulación detallada para cada actividad
+*Definir actividades con interacciones y emociones*actividades = {
+    "desayuno": {
+        "hora": "8:00 AM",
+        "descripción": "Preparación del desayuno e interacción con la familia",
+        "interacciones": "Conversación con padres y hermanos",
+        "emociones": "Felicidad, anticipación",
+        "aprendizaje": "Vocabulario de alimentos"
+    },
+    "cambiar_apagador": {
+        "hora": "9:00 AM",
+        "descripción": "Ayuda a cambiar un interruptor de luz con el padre",
+        "interacciones": "Diálogo sobre herramientas y proceso",
+        "emociones": "Curiosidad, orgullo",
+        "aprendizaje": "Conceptos de electricidad"
+    },
+    "compras": {
+        "hora": "11:00 AM",
+        "descripción": "Ayuda a la madre a hacer compras de productos con cantidades específicas",
+        "interacciones": "Conversación sobre la lista de compras",
+        "emociones": "Responsabilidad, logro",
+        "aprendizaje": "Vocabulario de productos y habilidades matemáticas"
+    },
+    # Agregar más actividades según sea necesario
+}
+
+
