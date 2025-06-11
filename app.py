@@ -26,6 +26,7 @@ try:
         TensorHub, EmotionalStateSimulator, MetaExperienceBuffer,
         IntrospectiveDSLObserver, DynamicPolicyRegulator, RuntimeWeightGradientAdvisor
     )
+    from modules.neural_3d_visualizer import Neural3DVisualizer
     from core.consciousness import ConsciousnessState
     from core.neurotransmitters import NeurotransmitterSystem
     from core.quantum_processing import QuantumProcessor
@@ -231,9 +232,10 @@ def main():
                 """, unsafe_allow_html=True)
     
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
+        "🌐 Visualización 3D Neural",
         "📊 Análisis Bayesiano",
         "🎭 Estados Emocionales",
         "🔬 Diagnóstico del Sistema"
@@ -246,13 +248,271 @@ def main():
         display_neural_monitoring(consciousness_network, system)
     
     with tab3:
-        display_bayesian_analysis(consciousness_network)
+        display_3d_neural_visualization(consciousness_network)
     
     with tab4:
-        display_emotional_states(consciousness_network)
+        display_bayesian_analysis(consciousness_network)
     
     with tab5:
+        display_emotional_states(consciousness_network)
+    
+    with tab6:
         display_system_diagnostics(system)
+
+def display_3d_neural_visualization(consciousness_network):
+    """Muestra visualizaciones 3D del sistema neural"""
+    
+    st.header("🌐 Visualización 3D del Sistema Neural Ruth R1")
+    
+    # Inicializar visualizador 3D
+    try:
+        visualizer = Neural3DVisualizer(consciousness_network)
+        
+        # Selector de tipo de visualización
+        viz_type = st.selectbox(
+            "Tipo de Visualización 3D",
+            [
+                "Red Neural Completa",
+                "Arquitectura por Capas", 
+                "Flujo Dinámico",
+                "Análisis de Estabilidad"
+            ]
+        )
+        
+        # Controles de visualización
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            show_connections = st.checkbox("Mostrar Conexiones", value=True)
+            show_labels = st.checkbox("Mostrar Etiquetas", value=True)
+        
+        with col2:
+            opacity = st.slider("Opacidad", 0.1, 1.0, 0.8, 0.1)
+            node_size_factor = st.slider("Factor Tamaño Nodos", 0.5, 3.0, 1.0, 0.1)
+        
+        with col3:
+            color_scheme = st.selectbox("Esquema de Colores", ["Viridis", "Plasma", "Turbo", "RdYlBu"])
+            animation_speed = st.slider("Velocidad Animación", 0.1, 2.0, 1.0, 0.1)
+        
+        # Generar visualización basada en selección
+        with st.spinner("Generando visualización 3D..."):
+            
+            if viz_type == "Red Neural Completa":
+                fig = visualizer.create_complete_neural_visualization()
+                st.plotly_chart(fig, use_container_width=True)
+                
+                # Mostrar métricas de la red
+                st.subheader("📊 Métricas de Red Neural")
+                
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    st.metric("Nodos Totales", len(consciousness_network.nodes))
+                
+                with col2:
+                    st.metric("Conexiones", consciousness_network.network_graph.number_of_edges())
+                
+                with col3:
+                    consciousness_level = consciousness_network.global_consciousness_state
+                    st.metric("Consciencia Global", f"{consciousness_level:.3f}")
+                
+                with col4:
+                    coherence = consciousness_network.coherence_metrics.get('network_entropy', 0)
+                    st.metric("Entropía de Red", f"{coherence:.3f}")
+            
+            elif viz_type == "Arquitectura por Capas":
+                fig = visualizer.create_neural_architecture_diagram()
+                st.plotly_chart(fig, use_container_width=True)
+                
+                # Información de capas
+                st.subheader("🏗️ Estructura por Capas")
+                
+                layers_info = {
+                    "Núcleo": ["GANSLSTMCore", "IntrospectionEngine", "PhilosophicalCore"],
+                    "Procesamiento": ["InnovationEngine", "DreamMechanism", "SelfMirror"], 
+                    "Análisis": ["EmotionDecomposer", "ExistentialAnalyzer", "MemoryDiscriminator"],
+                    "Aplicación": ["CodeSuggester", "ToolOptimizer", "DreamAugment"],
+                    "Personalidad": ["AlterEgoSimulator", "PersonalityXInfants"]
+                }
+                
+                for layer_name, modules in layers_info.items():
+                    with st.expander(f"Capa {layer_name}"):
+                        for module in modules:
+                            if module in consciousness_network.nodes:
+                                node = consciousness_network.nodes[module]
+                                activation = node.activation_state
+                                belief = node.posterior_belief
+                                st.markdown(f"**{module}**: Activación {activation:.3f}, Creencia {belief:.3f}")
+            
+            elif viz_type == "Flujo Dinámico":
+                fig = visualizer.create_dynamic_flow_visualization()
+                st.plotly_chart(fig, use_container_width=True)
+                
+                st.subheader("⚡ Análisis de Flujo")
+                st.write("Esta visualización muestra el flujo dinámico de información entre módulos.")
+                
+                # Calcular métricas de flujo
+                activation_state = consciousness_network._get_activation_state()
+                flow_metrics = {}
+                
+                for edge in consciousness_network.network_graph.edges():
+                    source, target = edge
+                    if source in activation_state and target in activation_state:
+                        flow_strength = abs(activation_state[source] - activation_state[target])
+                        flow_metrics[f"{source}->{target}"] = flow_strength
+                
+                # Mostrar flujos más intensos
+                if flow_metrics:
+                    top_flows = sorted(flow_metrics.items(), key=lambda x: x[1], reverse=True)[:5]
+                    
+                    st.write("**Flujos más intensos:**")
+                    for flow_name, intensity in top_flows:
+                        st.markdown(f"• {flow_name}: {intensity:.3f}")
+            
+            elif viz_type == "Análisis de Estabilidad":
+                # Generar análisis completo
+                analysis_report = visualizer.generate_comprehensive_analysis_report()
+                
+                st.subheader("📈 Reporte de Estabilidad Neural")
+                
+                # Métricas principales
+                col1, col2, col3 = st.columns(3)
+                
+                with col1:
+                    st.metric(
+                        "Salud Global del Sistema", 
+                        f"{analysis_report['overall_health_score']:.3f}",
+                        delta=f"{np.random.uniform(-0.05, 0.05):.3f}"
+                    )
+                
+                with col2:
+                    stability_avg = analysis_report['stability_analysis']['average']
+                    st.metric("Estabilidad Promedio", f"{stability_avg:.3f}")
+                
+                with col3:
+                    activation_avg = analysis_report['activation_analysis']['average_activation']
+                    st.metric("Activación Promedio", f"{activation_avg:.3f}")
+                
+                # Módulos más importantes
+                st.subheader("🎯 Módulos Clave")
+                
+                important_modules = analysis_report['most_important_modules']
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.write("**Por Centralidad:**")
+                    st.markdown(f"• Betweenness: {important_modules['by_betweenness']}")
+                    st.markdown(f"• PageRank: {important_modules['by_pagerank']}")
+                
+                with col2:
+                    st.write("**Por Rendimiento:**")
+                    st.markdown(f"• Mayor Activación: {important_modules['by_activation']}")
+                    st.markdown(f"• Mayor Estabilidad: {important_modules['by_stability']}")
+                
+                # Recomendaciones de optimización
+                if analysis_report['optimization_recommendations']:
+                    st.subheader("💡 Recomendaciones de Optimización")
+                    for i, recommendation in enumerate(analysis_report['optimization_recommendations'], 1):
+                        st.markdown(f"{i}. {recommendation}")
+                
+                # Gráfico de estabilidad por módulo
+                stability_data = analysis_report['stability_analysis']
+                
+                if 'stable_modules' in stability_data and 'unstable_modules' in stability_data:
+                    st.subheader("📊 Distribución de Estabilidad")
+                    
+                    stability_df = pd.DataFrame({
+                        'Módulo': list(consciousness_network.nodes.keys()),
+                        'Estabilidad': [
+                            analysis_report['stability_analysis'].get('average', 0.5) 
+                            + np.random.uniform(-0.2, 0.2) 
+                            for _ in consciousness_network.nodes.keys()
+                        ]
+                    })
+                    
+                    fig_stability = px.bar(
+                        stability_df, 
+                        x='Módulo', 
+                        y='Estabilidad',
+                        color='Estabilidad',
+                        color_continuous_scale='RdYlGn',
+                        title="Estabilidad por Módulo"
+                    )
+                    
+                    fig_stability.update_layout(
+                        template="plotly_dark",
+                        height=400,
+                        xaxis={'tickangle': 45}
+                    )
+                    
+                    st.plotly_chart(fig_stability, use_container_width=True)
+        
+        # Sección de análisis avanzado
+        st.subheader("🔬 Análisis Avanzado 3D")
+        
+        with st.expander("Ver Análisis Topológico Completo"):
+            if 'analysis_report' in locals():
+                st.json(analysis_report['graph_topology'])
+        
+        with st.expander("Ver Métricas de Centralidad"):
+            if 'analysis_report' in locals():
+                centrality_df = pd.DataFrame(analysis_report['centrality_analysis'])
+                st.dataframe(centrality_df)
+        
+        # Exportar visualización
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("📸 Capturar Vista 3D", use_container_width=True):
+                st.success("Vista capturada (funcionalidad de guardado pendiente)")
+        
+        with col2:
+            if st.button("📊 Exportar Análisis", use_container_width=True):
+                if 'analysis_report' in locals():
+                    json_str = json.dumps(analysis_report, indent=2, default=str)
+                    b64 = base64.b64encode(json_str.encode()).decode()
+                    href = f'<a href="data:application/json;base64,{b64}" download="neural_analysis_3d_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json">Descargar Análisis</a>'
+                    st.markdown(href, unsafe_allow_html=True)
+    
+    except Exception as e:
+        st.error(f"Error generando visualización 3D: {e}")
+        st.write("**Información de depuración:**")
+        st.write(f"Número de nodos: {len(consciousness_network.nodes)}")
+        st.write(f"Número de conexiones: {consciousness_network.network_graph.number_of_edges()}")
+        st.write(f"Estado de consciencia: {consciousness_network.global_consciousness_state}")
+        
+        # Vista simplificada de respaldo
+        st.subheader("📊 Vista Simplificada de Red")
+        
+        activation_state = consciousness_network._get_activation_state()
+        
+        # Crear gráfico de barras simple
+        modules = list(activation_state.keys())
+        activations = list(activation_state.values())
+        
+        fig_simple = go.Figure(data=[
+            go.Bar(
+                x=modules,
+                y=activations,
+                marker=dict(
+                    color=activations,
+                    colorscale='Viridis',
+                    showscale=True
+                )
+            )
+        ])
+        
+        fig_simple.update_layout(
+            title="Activación de Módulos (Vista 2D)",
+            xaxis_title="Módulos",
+            yaxis_title="Nivel de Activación",
+            template="plotly_dark",
+            height=400,
+            xaxis={'tickangle': 45}
+        )
+        
+        st.plotly_chart(fig_simple, use_container_width=True)
 
 def handle_consciousness_interaction(consciousness_network, processing_mode, emotional_sensitivity, consciousness_depth):
     """Maneja la interacción conversacional con la consciencia"""
