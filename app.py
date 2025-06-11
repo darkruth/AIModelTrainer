@@ -118,7 +118,7 @@ def initialize_system():
         # Sistemas principales
         consciousness = ConsciousnessState(config.get_consciousness_config())
         neurotransmitters = NeurotransmitterSystem(config.get_neurotransmitter_config())
-        quantum_processor = QuantumProcessor(config.get_quantum_config())
+        quantum_processor = QuantumProcessor(config.get_quantum_config()['n_qubits'])
         bayesian_quantum = BayesianQuantumSystem()
         
         # Red de consciencia bayesiana
