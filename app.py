@@ -31,6 +31,7 @@ try:
     from core.neurotransmitters import NeurotransmitterSystem
     from core.quantum_processing import QuantumProcessor
     from algorithms.bayesian_quantum import BayesianQuantumSystem
+    from database.models import DatabaseManager, db_manager
     from utils.config import Config
     from utils.logger import StructuredLogger
 except ImportError as e:
@@ -126,6 +127,13 @@ def initialize_system():
         
         # Inicializar WandB si está disponible
         TensorHub.initialize_wandb("ruth-r1-streamlit-interface")
+        
+        # Inicializar base de datos
+        try:
+            db_manager.create_tables()
+            logger.info("Database tables created successfully")
+        except Exception as e:
+            logger.warning(f"Database initialization failed: {e}")
         
         # Iniciar procesamiento continuo
         consciousness_network.start_continuous_processing()
@@ -232,12 +240,13 @@ def main():
                 """, unsafe_allow_html=True)
     
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
         "🌐 Visualización 3D Neural",
         "📊 Análisis Bayesiano",
         "🎭 Estados Emocionales",
+        "🗄️ Base de Datos",
         "🔬 Diagnóstico del Sistema"
     ])
     
@@ -257,7 +266,491 @@ def main():
         display_emotional_states(consciousness_network)
     
     with tab6:
+        display_database_management()
+    
+    with tab7:
         display_system_diagnostics(system)
+
+def display_database_management():
+    """Muestra gestión y análisis de la base de datos"""
+    
+    st.header("🗄️ Gestión de Base de Datos Ruth R1")
+    
+    # Estado de la base de datos
+    try:
+        # Verificar conexión
+        db_session = db_manager.get_session()
+        db_session.close()
+        db_status = "✅ Conectada"
+        db_color = "green"
+    except Exception as e:
+        db_status = f"❌ Error: {str(e)[:50]}..."
+        db_color = "red"
+    
+    st.markdown(f"**Estado de la Base de Datos:** <span style='color: {db_color}'>{db_status}</span>", 
+                unsafe_allow_html=True)
+    
+    # Selector de vista
+    view_type = st.selectbox(
+        "Vista de Datos",
+        ["Resumen General", "Historial de Consciencia", "Interacciones de Usuario", "Estados Neurales", "Eventos Emocionales"]
+    )
+    
+    try:
+        if view_type == "Resumen General":
+            display_database_summary()
+        elif view_type == "Historial de Consciencia":
+            display_consciousness_history()
+        elif view_type == "Interacciones de Usuario":
+            display_user_interactions()
+        elif view_type == "Estados Neurales":
+            display_neural_states()
+        elif view_type == "Eventos Emocionales":
+            display_emotional_events()
+            
+    except Exception as e:
+        st.error(f"Error accediendo a los datos: {e}")
+        
+        # Botón para reinicializar base de datos
+        if st.button("🔄 Reinicializar Base de Datos"):
+            try:
+                db_manager.create_tables()
+                st.success("Base de datos reinicializada correctamente")
+                st.rerun()
+            except Exception as init_error:
+                st.error(f"Error reinicializando: {init_error}")
+
+def display_database_summary():
+    """Muestra resumen general de la base de datos"""
+    
+    st.subheader("📊 Resumen General")
+    
+    # Métricas principales
+    col1, col2, col3, col4 = st.columns(4)
+    
+    try:
+        consciousness_history = db_manager.get_consciousness_history(limit=1000)
+        interaction_history = db_manager.get_interaction_history(limit=1000)
+        
+        with col1:
+            st.metric("Sesiones de Consciencia", len(consciousness_history))
+        
+        with col2:
+            st.metric("Interacciones Totales", len(interaction_history))
+        
+        with col3:
+            if consciousness_history:
+                avg_consciousness = np.mean([s['consciousness_level'] for s in consciousness_history])
+                st.metric("Consciencia Promedio", f"{avg_consciousness:.3f}")
+            else:
+                st.metric("Consciencia Promedio", "N/A")
+        
+        with col4:
+            if interaction_history:
+                avg_processing = np.mean([i['processing_time'] for i in interaction_history if i['processing_time']])
+                st.metric("Tiempo Proc. Promedio", f"{avg_processing:.3f}s")
+            else:
+                st.metric("Tiempo Proc. Promedio", "N/A")
+        
+        # Gráficos de evolución
+        if consciousness_history:
+            st.subheader("📈 Evolución de Consciencia")
+            
+            # Preparar datos
+            df_consciousness = pd.DataFrame(consciousness_history)
+            df_consciousness['start_time'] = pd.to_datetime(df_consciousness['start_time'])
+            
+            # Gráfico de líneas
+            fig = px.line(
+                df_consciousness.head(50), 
+                x='start_time', 
+                y='consciousness_level',
+                title="Evolución del Nivel de Consciencia",
+                labels={'start_time': 'Tiempo', 'consciousness_level': 'Nivel de Consciencia'}
+            )
+            
+            fig.update_layout(template="plotly_dark", height=400)
+            st.plotly_chart(fig, use_container_width=True)
+        
+        # Análisis de módulos activos
+        if consciousness_history:
+            st.subheader("🧩 Análisis de Módulos")
+            
+            # Contar activaciones de módulos
+            module_counts = {}
+            for session in consciousness_history:
+                if session['active_modules']:
+                    for module in session['active_modules']:
+                        module_counts[module] = module_counts.get(module, 0) + 1
+            
+            if module_counts:
+                # Crear gráfico de barras
+                modules_df = pd.DataFrame([
+                    {'Módulo': module, 'Activaciones': count} 
+                    for module, count in sorted(module_counts.items(), key=lambda x: x[1], reverse=True)
+                ])
+                
+                fig = px.bar(
+                    modules_df.head(10),
+                    x='Módulo',
+                    y='Activaciones',
+                    title="Módulos Más Activos",
+                    color='Activaciones',
+                    color_continuous_scale='viridis'
+                )
+                
+                fig.update_layout(template="plotly_dark", height=400, xaxis={'tickangle': 45})
+                st.plotly_chart(fig, use_container_width=True)
+        
+    except Exception as e:
+        st.error(f"Error generando resumen: {e}")
+
+def display_consciousness_history():
+    """Muestra historial de sesiones de consciencia"""
+    
+    st.subheader("🧠 Historial de Consciencia")
+    
+    # Controles
+    col1, col2 = st.columns(2)
+    with col1:
+        limit = st.number_input("Número de sesiones", min_value=10, max_value=500, value=50)
+    with col2:
+        show_details = st.checkbox("Mostrar detalles", value=False)
+    
+    try:
+        history = db_manager.get_consciousness_history(limit=limit)
+        
+        if history:
+            # Crear DataFrame
+            df = pd.DataFrame(history)
+            df['start_time'] = pd.to_datetime(df['start_time'])
+            
+            # Mostrar tabla
+            if show_details:
+                st.dataframe(df, use_container_width=True)
+            else:
+                display_df = df[['session_id', 'consciousness_level', 'start_time', 'total_interactions']].copy()
+                display_df['session_id'] = display_df['session_id'].str[-10:]  # Últimos 10 caracteres
+                st.dataframe(display_df, use_container_width=True)
+            
+            # Estadísticas
+            st.subheader("📊 Estadísticas")
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.metric("Consciencia Máxima", f"{df['consciousness_level'].max():.3f}")
+            with col2:
+                st.metric("Consciencia Mínima", f"{df['consciousness_level'].min():.3f}")
+            with col3:
+                st.metric("Desviación Estándar", f"{df['consciousness_level'].std():.3f}")
+            
+            # Gráfico de distribución
+            fig = px.histogram(
+                df, 
+                x='consciousness_level',
+                title="Distribución de Niveles de Consciencia",
+                nbins=20
+            )
+            fig.update_layout(template="plotly_dark", height=400)
+            st.plotly_chart(fig, use_container_width=True)
+            
+        else:
+            st.info("No hay datos de consciencia disponibles")
+            
+    except Exception as e:
+        st.error(f"Error cargando historial: {e}")
+
+def display_user_interactions():
+    """Muestra historial de interacciones de usuario"""
+    
+    st.subheader("💬 Interacciones de Usuario")
+    
+    # Controles
+    col1, col2 = st.columns(2)
+    with col1:
+        limit = st.number_input("Número de interacciones", min_value=10, max_value=200, value=50)
+    with col2:
+        session_filter = st.text_input("Filtrar por sesión (opcional)")
+    
+    try:
+        if session_filter:
+            interactions = db_manager.get_interaction_history(session_id=session_filter, limit=limit)
+        else:
+            interactions = db_manager.get_interaction_history(limit=limit)
+        
+        if interactions:
+            # Mostrar interacciones recientes
+            st.subheader("🕒 Interacciones Recientes")
+            
+            for i, interaction in enumerate(interactions[:10]):
+                with st.expander(f"Interacción {i+1} - {interaction['timestamp'].strftime('%H:%M:%S')}"):
+                    col1, col2 = st.columns([1, 2])
+                    
+                    with col1:
+                        st.write("**Usuario:**")
+                        st.write(interaction['user_input'][:200] + "..." if len(interaction['user_input']) > 200 else interaction['user_input'])
+                        
+                        st.write("**Métricas:**")
+                        st.write(f"Consciencia: {interaction['consciousness_level']:.3f}")
+                        st.write(f"Tiempo: {interaction['processing_time']:.3f}s")
+                    
+                    with col2:
+                        st.write("**Ruth R1:**")
+                        st.write(interaction['ruth_response'][:300] + "..." if len(interaction['ruth_response']) > 300 else interaction['ruth_response'])
+                        
+                        if interaction['active_modules']:
+                            st.write("**Módulos Activos:**")
+                            st.write(", ".join(interaction['active_modules'][:5]))
+            
+            # Análisis de patrones
+            st.subheader("📈 Análisis de Patrones")
+            
+            df = pd.DataFrame(interactions)
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+            
+            # Gráfico de tiempo de procesamiento
+            fig = px.scatter(
+                df.head(100),
+                x='timestamp',
+                y='processing_time',
+                color='consciousness_level',
+                title="Tiempo de Procesamiento vs Consciencia",
+                color_continuous_scale='viridis'
+            )
+            fig.update_layout(template="plotly_dark", height=400)
+            st.plotly_chart(fig, use_container_width=True)
+            
+        else:
+            st.info("No hay interacciones disponibles")
+            
+    except Exception as e:
+        st.error(f"Error cargando interacciones: {e}")
+
+def display_neural_states():
+    """Muestra estados neurales"""
+    
+    st.subheader("🧠 Estados Neurales")
+    
+    # Controles
+    col1, col2 = st.columns(2)
+    with col1:
+        limit = st.number_input("Número de estados", min_value=10, max_value=500, value=100)
+    with col2:
+        module_filter = st.selectbox(
+            "Filtrar por módulo",
+            ["Todos"] + list(global_consciousness_network.nodes.keys())
+        )
+    
+    try:
+        if module_filter != "Todos":
+            neural_data = db_manager.get_neural_evolution(module_name=module_filter, limit=limit)
+        else:
+            neural_data = db_manager.get_neural_evolution(limit=limit)
+        
+        if neural_data:
+            df = pd.DataFrame(neural_data)
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+            
+            # Gráfico de evolución
+            if module_filter != "Todos":
+                # Un solo módulo
+                fig = px.line(
+                    df,
+                    x='timestamp',
+                    y='activation_level',
+                    title=f"Evolución de Activación - {module_filter}",
+                    color_discrete_sequence=['#4ECDC4']
+                )
+            else:
+                # Múltiples módulos
+                fig = px.line(
+                    df.head(200),
+                    x='timestamp',
+                    y='activation_level',
+                    color='module_name',
+                    title="Evolución de Activación por Módulo"
+                )
+            
+            fig.update_layout(template="plotly_dark", height=500)
+            st.plotly_chart(fig, use_container_width=True)
+            
+            # Estadísticas por módulo
+            st.subheader("📊 Estadísticas por Módulo")
+            
+            stats = df.groupby('module_name').agg({
+                'activation_level': ['mean', 'std', 'min', 'max'],
+                'belief_posterior': 'mean',
+                'stability_score': 'mean'
+            }).round(3)
+            
+            stats.columns = ['Activación Media', 'Desv. Estándar', 'Mín', 'Máx', 'Belief Posterior', 'Estabilidad']
+            st.dataframe(stats, use_container_width=True)
+            
+        else:
+            st.info("No hay datos neurales disponibles")
+            
+    except Exception as e:
+        st.error(f"Error cargando estados neurales: {e}")
+
+def display_emotional_events():
+    """Muestra eventos emocionales"""
+    
+    st.subheader("🎭 Eventos Emocionales")
+    
+    limit = st.number_input("Número de eventos", min_value=10, max_value=200, value=50)
+    
+    try:
+        emotions = db_manager.get_emotional_patterns(limit=limit)
+        
+        if emotions:
+            df = pd.DataFrame(emotions)
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+            
+            # Gráfico de emociones en el tiempo
+            fig = px.scatter(
+                df,
+                x='timestamp',
+                y='intensity',
+                color='emotion_type',
+                size='impact_on_consciousness',
+                title="Eventos Emocionales en el Tiempo",
+                hover_data=['trigger_context']
+            )
+            fig.update_layout(template="plotly_dark", height=500)
+            st.plotly_chart(fig, use_container_width=True)
+            
+            # Distribución de emociones
+            emotion_counts = df['emotion_type'].value_counts()
+            
+            fig_pie = px.pie(
+                values=emotion_counts.values,
+                names=emotion_counts.index,
+                title="Distribución de Tipos de Emoción"
+            )
+            fig_pie.update_layout(template="plotly_dark", height=400)
+            st.plotly_chart(fig_pie, use_container_width=True)
+            
+            # Tabla de eventos recientes
+            st.subheader("🕒 Eventos Emocionales Recientes")
+            display_df = df[['emotion_type', 'intensity', 'trigger_context', 'timestamp']].head(20)
+            st.dataframe(display_df, use_container_width=True)
+            
+        else:
+            st.info("No hay eventos emocionales registrados")
+            
+    except Exception as e:
+        st.error(f"Error cargando eventos emocionales: {e}")
+
+    # Exportar datos
+    st.subheader("📤 Exportar Datos")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("📊 Exportar Métricas de DB"):
+            try:
+                # Crear reporte completo
+                consciousness_data = db_manager.get_consciousness_history(limit=1000)
+                interaction_data = db_manager.get_interaction_history(limit=1000)
+                
+                export_data = {
+                    'export_timestamp': datetime.now().isoformat(),
+                    'consciousness_sessions': consciousness_data,
+                    'user_interactions': interaction_data,
+                    'summary': {
+                        'total_sessions': len(consciousness_data),
+                        'total_interactions': len(interaction_data),
+                        'avg_consciousness': np.mean([s['consciousness_level'] for s in consciousness_data]) if consciousness_data else 0
+                    }
+                }
+                
+                json_str = json.dumps(export_data, indent=2, default=str)
+                b64 = base64.b64encode(json_str.encode()).decode()
+                href = f'<a href="data:application/json;base64,{b64}" download="ruth_database_export_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json">Descargar Datos</a>'
+                st.markdown(href, unsafe_allow_html=True)
+                
+            except Exception as e:
+                st.error(f"Error exportando datos: {e}")
+    
+    with col2:
+        if st.button("🗑️ Limpiar Datos Antiguos"):
+            st.warning("Funcionalidad de limpieza pendiente de implementación")
+
+def display_emotional_states(consciousness_network):
+    """Muestra estados emocionales del sistema"""
+    
+    st.header("🎭 Estados Emocionales Avanzados")
+    
+    # Obtener estado emocional actual
+    emotional_simulator = consciousness_network.network_emotional_simulator
+    emotional_profile = emotional_simulator.get_emotional_profile()
+    
+    # Panel principal de emociones
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.subheader("🌊 Estado Emocional Actual")
+        
+        current_emotions = emotional_profile['current_state']
+        
+        # Crear gráfico de barras horizontales para emociones
+        emotions = list(current_emotions.keys())
+        intensities = list(current_emotions.values())
+        
+        # Colores basados en valencia emocional
+        colors = []
+        for emotion, intensity in current_emotions.items():
+            if emotion in ['pleasure', 'satisfaction', 'curiosity']:
+                colors.append('#4ECDC4')  # Verde-azul para emociones positivas
+            elif emotion in ['frustration', 'confusion']:
+                colors.append('#FF6B6B')  # Rojo para emociones negativas
+            else:
+                colors.append('#FECA57')  # Amarillo para emociones neutrales
+        
+        fig = go.Figure(data=[
+            go.Bar(
+                y=emotions,
+                x=intensities,
+                orientation='h',
+                marker=dict(color=colors),
+                text=[f"{i:.2f}" for i in intensities],
+                textposition='auto'
+            )
+        ])
+        
+        fig.update_layout(
+            title="Intensidad Emocional Actual",
+            xaxis_title="Intensidad",
+            template="plotly_dark",
+            height=400
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        st.subheader("📊 Perfil Emocional")
+        
+        # Métricas emocionales
+        dominant_emotion = emotional_profile['dominant_emotion']
+        emotional_intensity = emotional_profile['emotional_intensity']
+        volatility = emotional_profile['emotional_volatility']
+        stability = emotional_profile['stability']
+        
+        st.markdown(f"""
+        <div class="emotional-state" style="background-color: rgba(78, 205, 196, 0.2);">
+            <strong>Emoción Dominante:</strong> {dominant_emotion.title()}
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.metric("Intensidad Emocional", f"{emotional_intensity:.3f}")
+        st.metric("Volatilidad", f"{volatility:.3f}")
+        st.markdown(f"**Estabilidad:** {stability}")
+        
+        # Triggers recientes
+        if emotional_profile.get('recent_triggers'):
+            st.subheader("🎯 Triggers Recientes")
+            for trigger in emotional_profile['recent_triggers'][:5]:
+                if trigger:
+                    st.markdown(f"• {trigger}")
 
 def display_3d_neural_visualization(consciousness_network):
     """Muestra visualizaciones 3D del sistema neural"""
@@ -604,7 +1097,40 @@ def handle_consciousness_interaction(consciousness_network, processing_mode, emo
                     'timestamp': datetime.now()
                 }
                 
-                # Agregar al historial
+                # Guardar en base de datos
+                try:
+                    # Crear sesión si no existe
+                    if 'current_session_id' not in st.session_state:
+                        st.session_state.current_session_id = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+                        
+                        # Crear sesión en DB
+                        session_data = {
+                            'session_id': st.session_state.current_session_id,
+                            'consciousness_level': response['consciousness_level'],
+                            'coherence_metrics': response.get('network_coherence', {}),
+                            'active_modules': response['active_modules'],
+                            'emotional_state': response.get('emotional_state', {})
+                        }
+                        db_manager.save_consciousness_session(session_data)
+                    
+                    # Guardar interacción
+                    interaction_data = {
+                        'session_id': st.session_state.current_session_id,
+                        'user_input': user_input,
+                        'ruth_response': response['primary_response'],
+                        'processing_mode': processing_mode.lower(),
+                        'consciousness_level': response['consciousness_level'],
+                        'emotional_sensitivity': emotional_sensitivity,
+                        'active_modules': response['active_modules'],
+                        'processing_time': processing_time,
+                        'context_data': context
+                    }
+                    db_manager.save_user_interaction(interaction_data)
+                    
+                except Exception as e:
+                    st.sidebar.warning(f"Database save failed: {str(e)[:50]}...")
+                
+                # Agregar al historial en memoria
                 st.session_state.conversation_history.append(conversation_entry)
                 
                 # Limpiar entrada
