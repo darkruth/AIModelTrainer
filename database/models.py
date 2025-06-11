@@ -247,6 +247,67 @@ class DatabaseManager:
             } for s in sessions]
         finally:
             db.close()
+    
+    def get_interaction_history(self, session_id: str = None, limit: int = 50) -> List[Dict]:
+        """Obtiene historial de interacciones"""
+        db = self.get_session()
+        try:
+            query = db.query(UserInteraction)
+            if session_id:
+                query = query.filter(UserInteraction.session_id == session_id)
+            
+            interactions = query.order_by(
+                UserInteraction.timestamp.desc()
+            ).limit(limit).all()
+            
+            return [{
+                'user_input': i.user_input,
+                'ruth_response': i.ruth_response,
+                'consciousness_level': i.consciousness_level,
+                'processing_time': i.processing_time,
+                'timestamp': i.timestamp,
+                'active_modules': i.active_modules
+            } for i in interactions]
+        finally:
+            db.close()
+    
+    def get_neural_evolution(self, module_name: str = None, limit: int = 100) -> List[Dict]:
+        """Obtiene evolución neural"""
+        db = self.get_session()
+        try:
+            query = db.query(NeuralState)
+            if module_name:
+                query = query.filter(NeuralState.module_name == module_name)
+            
+            states = query.order_by(NeuralState.timestamp.desc()).limit(limit).all()
+            
+            return [{
+                'module_name': s.module_name,
+                'activation_level': s.activation_level,
+                'belief_posterior': s.belief_posterior,
+                'stability_score': s.stability_score,
+                'timestamp': s.timestamp
+            } for s in states]
+        finally:
+            db.close()
+    
+    def get_emotional_patterns(self, limit: int = 100) -> List[Dict]:
+        """Obtiene patrones emocionales"""
+        db = self.get_session()
+        try:
+            emotions = db.query(EmotionalEvent).order_by(
+                EmotionalEvent.timestamp.desc()
+            ).limit(limit).all()
+            
+            return [{
+                'emotion_type': e.emotion_type,
+                'intensity': e.intensity,
+                'trigger_context': e.trigger_context,
+                'timestamp': e.timestamp,
+                'impact_on_consciousness': e.impact_on_consciousness
+            } for e in emotions]
+        finally:
+            db.close()
 
 # Instancia global del gestor de base de datos
 db_manager = DatabaseManager()
