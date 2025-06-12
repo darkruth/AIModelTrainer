@@ -26,8 +26,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "streamlit run app.py --server.port 5000"
-waitForPort = 5000
+args = "streamlit run app.py --server.port 8501"
 
 [[workflows.workflow]]
 name = "AGI Consciousness Server - Fixed"
@@ -35,8 +34,8 @@ author = 37235305
 mode = "sequential"
 
 [[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "streamlit run app.py --server.port 8501"
+task = "workflow.run"
+args = "AGI Consciousness Server - Fixed"
 
 [[workflows.workflow]]
 name = "Ruth R1 Server"
@@ -44,8 +43,8 @@ author = 37235305
 mode = "sequential"
 
 [[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "streamlit run app.py --server.port 8501"
+task = "workflow.run"
+args = "Ruth R1 Server"
 
 [[ports]]
 localPort = 5000
