@@ -9,7 +9,7 @@ deploymentTarget = "autoscale"
 run = ["streamlit", "run", "app.py", "--server.port", "5000"]
 
 [workflows]
-runButton = "AGI Consciousness Server - Fixed"
+runButton = "Ruth R1 Server"
 
 [[workflows.workflow]]
 name = "Project"
@@ -31,6 +31,15 @@ waitForPort = 5000
 
 [[workflows.workflow]]
 name = "AGI Consciousness Server - Fixed"
+author = 37235305
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "streamlit run app.py --server.port 8501"
+
+[[workflows.workflow]]
+name = "Ruth R1 Server"
 author = 37235305
 mode = "sequential"
 

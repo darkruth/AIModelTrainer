@@ -2101,3 +2101,453 @@ def display_system_diagnostics(system):
 
 if __name__ == "__main__":
     main()
+
+def display_holographic_3d_visualization(consciousness_network):
+    """Muestra visualización holográfica 3D del sistema neural"""
+    
+    st.header("🌌 Mapa Holográfico 3D - Ruth R1")
+    
+    # Importar el visualizador holográfico
+    try:
+        from modules.holographic_3d_visualizer import HolographicNeuralVisualizer
+        
+        # Inicializar visualizador
+        if 'holographic_visualizer' not in st.session_state:
+            st.session_state.holographic_visualizer = HolographicNeuralVisualizer(consciousness_network)
+        
+        visualizer = st.session_state.holographic_visualizer
+        
+        # Panel de control principal
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            view_mode = st.selectbox(
+                "Modo de Vista",
+                ["Completo", "Núcleo Central", "Capas", "Conexiones"],
+                help="Selecciona el tipo de vista holográfica"
+            )
+            
+        with col2:
+            animation_speed = st.slider("Velocidad de Animación", 0.1, 2.0, 1.0, 0.1)
+            
+        with col3:
+            holographic_intensity = st.slider("Intensidad Holográfica", 0.1, 1.0, 0.7, 0.1)
+        
+        # Controles de navegación 3D
+        st.subheader("🕹️ Controles de Navegación 3D")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            rotation_x = st.slider("Rotación X (°)", -180, 180, 0, 5)
+            rotation_y = st.slider("Rotación Y (°)", -180, 180, 0, 5)
+            
+        with col2:
+            rotation_z = st.slider("Rotación Z (°)", -180, 180, 0, 5)
+            zoom_level = st.slider("Zoom", 0.5, 3.0, 1.0, 0.1)
+            
+        with col3:
+            enable_touch = st.checkbox("Habilitar Táctil", value=True)
+            show_info_panels = st.checkbox("Mostrar Paneles de Info", value=True)
+        
+        # Crear visualización holográfica principal
+        st.subheader("🌐 Vista Holográfica Interactiva")
+        
+        # Generar la visualización basada en el modo seleccionado
+        try:
+            if view_mode == "Completo":
+                fig = create_holographic_complete_view(consciousness_network, holographic_intensity)
+            elif view_mode == "Núcleo Central":
+                fig = create_holographic_core_view(consciousness_network, holographic_intensity)
+            elif view_mode == "Capas":
+                fig = create_holographic_layers_view(consciousness_network, holographic_intensity)
+            else:  # Conexiones
+                fig = create_holographic_connections_view(consciousness_network, holographic_intensity)
+            
+            # Aplicar transformaciones de navegación
+            fig.update_layout(
+                scene=dict(
+                    camera=dict(
+                        eye=dict(
+                            x=zoom_level * np.cos(np.radians(rotation_x)),
+                            y=zoom_level * np.sin(np.radians(rotation_y)),
+                            z=zoom_level * np.sin(np.radians(rotation_z))
+                        )
+                    ),
+                    aspectmode='cube',
+                    xaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
+                    yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
+                    zaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
+                    bgcolor='rgba(0,0,0,0.9)'
+                ),
+                template="plotly_dark",
+                height=700
+            )
+            
+            # Mostrar la visualización
+            selected_point = st.plotly_chart(fig, use_container_width=True, key="holographic_chart")
+            
+        except Exception as e:
+            st.error(f"Error generando visualización holográfica: {e}")
+            st.info("Usando visualización básica como respaldo...")
+            
+            # Visualización básica de respaldo
+            fig = create_basic_3d_network_view(consciousness_network)
+            st.plotly_chart(fig, use_container_width=True)
+        
+        # Panel de información de nodos
+        if show_info_panels:
+            st.subheader("📊 Información de Nodos")
+            
+            # Selector de nodo
+            node_names = list(consciousness_network.nodes.keys())
+            if node_names:
+                selected_node = st.selectbox("Seleccionar Nodo", node_names)
+                
+                if selected_node:
+                    display_node_detailed_info(consciousness_network, selected_node)
+        
+        # Métricas de red en tiempo real
+        st.subheader("⚡ Métricas en Tiempo Real")
+        
+        # Obtener estado actual
+        network_state = consciousness_network._get_activation_state()
+        
+        col1, col2, col3, col4 = st.columns(4)
+        
+        with col1:
+            total_activation = sum(network_state.values())
+            st.metric("Activación Total", f"{total_activation:.2f}")
+            
+        with col2:
+            avg_activation = np.mean(list(network_state.values()))
+            st.metric("Activación Promedio", f"{avg_activation:.3f}")
+            
+        with col3:
+            active_nodes = len([a for a in network_state.values() if a > 0.3])
+            st.metric("Nodos Activos", active_nodes)
+            
+        with col4:
+            consciousness_level = consciousness_network.global_consciousness_state
+            st.metric("Nivel de Consciencia", f"{consciousness_level:.3f}")
+        
+        # Auto-actualización
+        if st.checkbox("Auto-actualizar cada 3s"):
+            time.sleep(3)
+            st.rerun()
+            
+    except ImportError as e:
+        st.error(f"Error importando visualizador holográfico: {e}")
+        st.info("Mostrando visualización básica 3D...")
+        
+        # Mostrar visualización 3D básica como respaldo
+        fig = create_basic_3d_network_view(consciousness_network)
+        st.plotly_chart(fig, use_container_width=True)
+
+def create_holographic_complete_view(consciousness_network, intensity=0.7):
+    """Crea vista holográfica completa"""
+    fig = go.Figure()
+    
+    # Obtener datos de la red
+    activation_state = consciousness_network._get_activation_state()
+    
+    # Posiciones 3D para nodos
+    positions = calculate_3d_node_positions(consciousness_network)
+    
+    # Nodos con efecto holográfico
+    node_x, node_y, node_z = [], [], []
+    node_colors, node_sizes, node_texts = [], [], []
+    
+    for node_name, position in positions.items():
+        x, y, z = position
+        activation = activation_state.get(node_name, 0.5)
+        
+        node_x.append(x)
+        node_y.append(y)
+        node_z.append(z)
+        
+        # Colores holográficos basados en activación
+        hue = (activation * 240) % 360  # De azul a rojo
+        color = f"hsl({hue}, 80%, {50 + intensity * 30}%)"
+        node_colors.append(color)
+        
+        node_sizes.append(20 + activation * 30)
+        node_texts.append(f"{node_name}<br>Activación: {activation:.3f}")
+    
+    # Añadir nodos
+    fig.add_trace(go.Scatter3d(
+        x=node_x, y=node_y, z=node_z,
+        mode='markers',
+        marker=dict(
+            size=node_sizes,
+            color=node_colors,
+            opacity=intensity,
+            line=dict(width=2, color='white')
+        ),
+        text=node_texts,
+        hoverinfo='text',
+        name='Nodos Neurales'
+    ))
+    
+    # Conexiones holográficas
+    add_holographic_connections(fig, consciousness_network, positions, intensity)
+    
+    fig.update_layout(
+        title="Vista Holográfica Completa - Ruth R1",
+        scene=dict(
+            bgcolor='rgba(0,0,0,0.95)',
+            xaxis=dict(showgrid=True, gridcolor='rgba(78,205,196,0.3)'),
+            yaxis=dict(showgrid=True, gridcolor='rgba(78,205,196,0.3)'),
+            zaxis=dict(showgrid=True, gridcolor='rgba(78,205,196,0.3)')
+        ),
+        template="plotly_dark"
+    )
+    
+    return fig
+
+def create_holographic_core_view(consciousness_network, intensity=0.7):
+    """Crea vista del núcleo central"""
+    fig = go.Figure()
+    
+    # Enfocar en módulos centrales
+    core_modules = ['GANSLSTMCore', 'IntrospectionEngine', 'PhilosophicalCore']
+    
+    # Similar implementación pero enfocada en el núcleo
+    activation_state = consciousness_network._get_activation_state()
+    positions = calculate_3d_node_positions(consciousness_network)
+    
+    for module in core_modules:
+        if module in positions and module in activation_state:
+            x, y, z = positions[module]
+            activation = activation_state[module]
+            
+            # Núcleo con efecto de pulsación
+            fig.add_trace(go.Scatter3d(
+                x=[x], y=[y], z=[z],
+                mode='markers',
+                marker=dict(
+                    size=40 + activation * 20,
+                    color=f'rgba(255, 215, 0, {intensity})',  # Dorado
+                    symbol='diamond',
+                    line=dict(width=3, color='white')
+                ),
+                name=f'Núcleo: {module}',
+                text=f"{module}<br>Núcleo Central<br>Activación: {activation:.3f}"
+            ))
+    
+    fig.update_layout(
+        title="Vista del Núcleo Central - Ruth R1",
+        scene=dict(bgcolor='rgba(0,0,0,0.95)'),
+        template="plotly_dark"
+    )
+    
+    return fig
+
+def create_holographic_layers_view(consciousness_network, intensity=0.7):
+    """Crea vista por capas"""
+    fig = go.Figure()
+    
+    # Definir capas
+    layers = {
+        'Núcleo': ['GANSLSTMCore', 'IntrospectionEngine', 'PhilosophicalCore'],
+        'Procesamiento': ['InnovationEngine', 'DreamMechanism'],
+        'Análisis': ['EmotionDecomposer', 'ExistentialAnalyzer'],
+        'Aplicación': ['CodeSuggester', 'ToolOptimizer']
+    }
+    
+    colors = ['gold', 'cyan', 'lime', 'magenta']
+    
+    activation_state = consciousness_network._get_activation_state()
+    positions = calculate_3d_node_positions(consciousness_network)
+    
+    for i, (layer_name, modules) in enumerate(layers.items()):
+        layer_x, layer_y, layer_z = [], [], []
+        layer_texts = []
+        
+        for module in modules:
+            if module in positions and module in activation_state:
+                x, y, z = positions[module]
+                activation = activation_state[module]
+                
+                layer_x.append(x)
+                layer_y.append(y)
+                layer_z.append(z + i * 5)  # Separar capas verticalmente
+                layer_texts.append(f"{module}<br>Capa: {layer_name}<br>Activación: {activation:.3f}")
+        
+        if layer_x:
+            fig.add_trace(go.Scatter3d(
+                x=layer_x, y=layer_y, z=layer_z,
+                mode='markers',
+                marker=dict(
+                    size=25,
+                    color=colors[i],
+                    opacity=intensity,
+                    symbol='circle'
+                ),
+                text=layer_texts,
+                name=f'Capa {layer_name}'
+            ))
+    
+    fig.update_layout(
+        title="Vista por Capas Funcionales - Ruth R1",
+        scene=dict(bgcolor='rgba(0,0,0,0.95)'),
+        template="plotly_dark"
+    )
+    
+    return fig
+
+def create_holographic_connections_view(consciousness_network, intensity=0.7):
+    """Crea vista enfocada en conexiones"""
+    fig = go.Figure()
+    
+    activation_state = consciousness_network._get_activation_state()
+    positions = calculate_3d_node_positions(consciousness_network)
+    
+    # Solo conexiones activas
+    for edge in consciousness_network.network_graph.edges():
+        source, target = edge
+        if source in positions and target in positions:
+            source_activation = activation_state.get(source, 0)
+            target_activation = activation_state.get(target, 0)
+            
+            if source_activation > 0.3 and target_activation > 0.3:
+                x0, y0, z0 = positions[source]
+                x1, y1, z1 = positions[target]
+                
+                connection_strength = (source_activation + target_activation) / 2
+                
+                fig.add_trace(go.Scatter3d(
+                    x=[x0, x1], y=[y0, y1], z=[z0, z1],
+                    mode='lines',
+                    line=dict(
+                        color=f'rgba(78, 205, 196, {intensity * connection_strength})',
+                        width=3 + connection_strength * 5
+                    ),
+                    showlegend=False,
+                    hoverinfo='none'
+                ))
+    
+    fig.update_layout(
+        title="Vista de Conexiones Activas - Ruth R1",
+        scene=dict(bgcolor='rgba(0,0,0,0.95)'),
+        template="plotly_dark"
+    )
+    
+    return fig
+
+def create_basic_3d_network_view(consciousness_network):
+    """Crea vista 3D básica como respaldo"""
+    fig = go.Figure()
+    
+    activation_state = consciousness_network._get_activation_state()
+    positions = calculate_3d_node_positions(consciousness_network)
+    
+    # Nodos básicos
+    node_x = [pos[0] for pos in positions.values()]
+    node_y = [pos[1] for pos in positions.values()]
+    node_z = [pos[2] for pos in positions.values()]
+    node_activations = [activation_state.get(name, 0.5) for name in positions.keys()]
+    
+    fig.add_trace(go.Scatter3d(
+        x=node_x, y=node_y, z=node_z,
+        mode='markers',
+        marker=dict(
+            size=20,
+            color=node_activations,
+            colorscale='Viridis',
+            showscale=True
+        ),
+        text=list(positions.keys()),
+        name='Red Neural'
+    ))
+    
+    fig.update_layout(
+        title="Vista 3D Básica - Ruth R1",
+        template="plotly_dark"
+    )
+    
+    return fig
+
+def calculate_3d_node_positions(consciousness_network):
+    """Calcula posiciones 3D para los nodos"""
+    try:
+        pos_2d = nx.spring_layout(consciousness_network.network_graph, k=3, iterations=50)
+    except:
+        # Posiciones por defecto si el grafo está vacío
+        pos_2d = {}
+        nodes = list(consciousness_network.nodes.keys())
+        for i, node in enumerate(nodes):
+            angle = (i / len(nodes)) * 2 * np.pi
+            pos_2d[node] = (np.cos(angle) * 10, np.sin(angle) * 10)
+    
+    # Convertir a 3D
+    positions_3d = {}
+    for node_name, (x, y) in pos_2d.items():
+        # Asignar Z basado en tipo de módulo
+        if 'Core' in node_name:
+            z = 0
+        elif 'Engine' in node_name:
+            z = 5
+        elif 'Analyzer' in node_name:
+            z = 10
+        else:
+            z = 15
+            
+        positions_3d[node_name] = (x, y, z)
+    
+    return positions_3d
+
+def add_holographic_connections(fig, consciousness_network, positions, intensity):
+    """Añade conexiones holográficas"""
+    activation_state = consciousness_network._get_activation_state()
+    
+    for edge in consciousness_network.network_graph.edges():
+        source, target = edge
+        if source in positions and target in positions:
+            x0, y0, z0 = positions[source]
+            x1, y1, z1 = positions[target]
+            
+            source_activation = activation_state.get(source, 0.5)
+            target_activation = activation_state.get(target, 0.5)
+            avg_activation = (source_activation + target_activation) / 2
+            
+            fig.add_trace(go.Scatter3d(
+                x=[x0, x1], y=[y0, y1], z=[z0, z1],
+                mode='lines',
+                line=dict(
+                    color=f'rgba(78, 205, 196, {intensity * avg_activation * 0.7})',
+                    width=2
+                ),
+                showlegend=False,
+                hoverinfo='none'
+            ))
+
+def display_node_detailed_info(consciousness_network, node_name):
+    """Muestra información detallada de un nodo"""
+    if node_name in consciousness_network.nodes:
+        node = consciousness_network.nodes[node_name]
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown(f"**📍 Nodo: {node_name}**")
+            st.metric("Activación", f"{node.activation_state:.3f}")
+            st.metric("Belief Posterior", f"{node.posterior_belief:.3f}")
+            st.metric("Belief Prior", f"{node.prior_belief:.3f}")
+            
+        with col2:
+            st.markdown("**🔗 Conexiones:**")
+            if hasattr(node, 'connections'):
+                for connected_node, weight in list(node.connections.items())[:5]:
+                    st.write(f"• {connected_node.name}: {weight:.3f}")
+            else:
+                st.write("No hay información de conexiones disponible")
+                
+            st.markdown("**📊 Historial de Evidencia:**")
+            if hasattr(node, 'evidence_history') and node.evidence_history:
+                recent_evidence = list(node.evidence_history)[-3:]
+                for i, evidence in enumerate(recent_evidence):
+                    st.write(f"{i+1}. {evidence.get('evidence', 'N/A'):.3f}")
+            else:
+                st.write("No hay historial de evidencia")
+

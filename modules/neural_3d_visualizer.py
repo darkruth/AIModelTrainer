@@ -349,7 +349,25 @@ class Neural3DVisualizer:
             'most_important_modules': most_important_modules,
             'optimization_recommendations': optimization_recommendations,
             'generated_at': datetime.now().isoformat()
-        }ime
+        }
+        
+        return {
+            'timestamp': datetime.now(),
+            'graph_topology': graph_metrics,
+            'centrality_analysis': centrality_metrics,
+            'most_important_modules': most_important_modules,
+            'cluster_analysis': cluster_analysis,
+            'stability_analysis': global_stability,
+            'activation_analysis': activation_analysis,
+            'coherence_metrics': coherence_metrics,
+            'optimization_recommendations': optimization_recommendations,
+            'overall_health_score': (
+                global_stability['average'] * 0.3 +
+                activation_analysis['average_activation'] * 0.3 +
+                (1 - coherence_metrics.get('belief_variance', 0.5)) * 0.2 +
+                min(1.0, graph_metrics['density'] * 2) * 0.2
+            )
+        }
 
 class Neural3DVisualizer:
     """Visualizador 3D avanzado del sistema neural"""
