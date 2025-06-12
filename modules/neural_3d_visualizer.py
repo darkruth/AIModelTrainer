@@ -20,6 +20,336 @@ from typing import Dict, List, Tuple, Any
 import colorsys
 import math
 from datetime import datetime
+import time
+
+class Neural3DVisualizer:
+    """Visualizador 3D del Sistema Neural Ruth R1"""
+    
+    def __init__(self, consciousness_network):
+        self.consciousness_network = consciousness_network
+        self.network_graph = consciousness_network.network_graph
+        self.nodes = consciousness_network.nodes
+        
+        # Posiciones 3D de los nodos
+        self.node_positions_3d = self._calculate_3d_positions()
+        
+    def _calculate_3d_positions(self) -> Dict[str, Tuple[float, float, float]]:
+        """Calcula posiciones 3D para los nodos"""
+        positions = {}
+        
+        # Usar layout de spring en 2D como base
+        try:
+            pos_2d = nx.spring_layout(self.network_graph, k=5, iterations=200)
+        except:
+            # Fallback si el grafo está vacío
+            pos_2d = {}
+            for i, node in enumerate(self.nodes.keys()):
+                angle = (i / len(self.nodes)) * 2 * np.pi
+                pos_2d[node] = (np.cos(angle), np.sin(angle))
+        
+        # Convertir a 3D con capas
+        layer_heights = {
+            'core': 0,
+            'processing': 10,
+            'analysis': 20,
+            'application': 30,
+            'personality': 40
+        }
+        
+        for node_name in self.nodes.keys():
+            if node_name in pos_2d:
+                x, y = pos_2d[node_name]
+                x *= 20  # Escalar
+                y *= 20
+                
+                # Determinar capa
+                if 'Core' in node_name:
+                    z = layer_heights['core']
+                elif 'Engine' in node_name:
+                    z = layer_heights['processing']
+                elif 'Analyzer' in node_name:
+                    z = layer_heights['analysis']
+                elif 'Suggester' in node_name or 'Optimizer' in node_name:
+                    z = layer_heights['application']
+                else:
+                    z = layer_heights['personality']
+                
+                positions[node_name] = (x, y, z)
+            else:
+                # Posición por defecto
+                positions[node_name] = (0, 0, 0)
+        
+        return positions
+    
+    def create_complete_neural_visualization(self) -> go.Figure:
+        """Crea visualización completa de la red neural"""
+        
+        fig = go.Figure()
+        
+        # Obtener estado actual
+        activation_state = self.consciousness_network._get_activation_state()
+        
+        # Nodos
+        node_x, node_y, node_z = [], [], []
+        node_colors = []
+        node_sizes = []
+        node_texts = []
+        
+        for node_name, (x, y, z) in self.node_positions_3d.items():
+            if node_name in activation_state:
+                node_x.append(x)
+                node_y.append(y)
+                node_z.append(z)
+                
+                activation = activation_state[node_name]
+                node_colors.append(activation)
+                node_sizes.append(10 + activation * 20)
+                node_texts.append(node_name.replace('Engine', '').replace('Core', ''))
+        
+        # Añadir nodos
+        fig.add_trace(go.Scatter3d(
+            x=node_x, y=node_y, z=node_z,
+            mode='markers+text',
+            marker=dict(
+                size=node_sizes,
+                color=node_colors,
+                colorscale='Viridis',
+                showscale=True,
+                colorbar=dict(title="Activación")
+            ),
+            text=node_texts,
+            textposition="middle center",
+            name='Nodos Neurales'
+        ))
+        
+        # Conexiones
+        edge_x, edge_y, edge_z = [], [], []
+        
+        for edge in self.network_graph.edges():
+            source, target = edge
+            if source in self.node_positions_3d and target in self.node_positions_3d:
+                x0, y0, z0 = self.node_positions_3d[source]
+                x1, y1, z1 = self.node_positions_3d[target]
+                
+                edge_x.extend([x0, x1, None])
+                edge_y.extend([y0, y1, None])
+                edge_z.extend([z0, z1, None])
+        
+        # Añadir conexiones
+        fig.add_trace(go.Scatter3d(
+            x=edge_x, y=edge_y, z=edge_z,
+            mode='lines',
+            line=dict(color='rgba(125, 125, 125, 0.5)', width=2),
+            hoverinfo='none',
+            name='Conexiones'
+        ))
+        
+        # Configuración
+        fig.update_layout(
+            title="Red Neural Ruth R1 - Vista 3D Completa",
+            scene=dict(
+                xaxis_title="X",
+                yaxis_title="Y",
+                zaxis_title="Z (Capa Neural)"
+            ),
+            template="plotly_dark",
+            height=600
+        )
+        
+        return fig
+    
+    def create_neural_architecture_diagram(self) -> go.Figure:
+        """Crea diagrama de arquitectura neural"""
+        
+        fig = go.Figure()
+        
+        # Crear capas diferenciadas por colores
+        layer_colors = {
+            'core': '#FF6B6B',
+            'processing': '#4ECDC4',
+            'analysis': '#45B7D1',
+            'application': '#96CEB4',
+            'personality': '#FECA57'
+        }
+        
+        for layer_name, color in layer_colors.items():
+            layer_nodes = []
+            layer_x, layer_y, layer_z = [], [], []
+            
+            for node_name, (x, y, z) in self.node_positions_3d.items():
+                if (layer_name == 'core' and 'Core' in node_name) or \
+                   (layer_name == 'processing' and 'Engine' in node_name) or \
+                   (layer_name == 'analysis' and 'Analyzer' in node_name) or \
+                   (layer_name == 'application' and ('Suggester' in node_name or 'Optimizer' in node_name)) or \
+                   (layer_name == 'personality' and layer_name not in ['core', 'processing', 'analysis', 'application']):
+                    
+                    layer_x.append(x)
+                    layer_y.append(y)
+                    layer_z.append(z)
+                    layer_nodes.append(node_name)
+            
+            if layer_x:
+                fig.add_trace(go.Scatter3d(
+                    x=layer_x, y=layer_y, z=layer_z,
+                    mode='markers',
+                    marker=dict(
+                        size=15,
+                        color=color,
+                        opacity=0.8
+                    ),
+                    name=f'Capa {layer_name.title()}',
+                    text=layer_nodes
+                ))
+        
+        fig.update_layout(
+            title="Arquitectura Neural por Capas",
+            scene=dict(
+                xaxis_title="X",
+                yaxis_title="Y", 
+                zaxis_title="Nivel de Capa"
+            ),
+            template="plotly_dark",
+            height=600
+        )
+        
+        return fig
+    
+    def create_dynamic_flow_visualization(self) -> go.Figure:
+        """Crea visualización de flujo dinámico"""
+        
+        fig = go.Figure()
+        
+        activation_state = self.consciousness_network._get_activation_state()
+        
+        # Crear flujos entre nodos activos
+        active_nodes = {k: v for k, v in activation_state.items() if v > 0.3}
+        
+        for i, (source, source_activation) in enumerate(active_nodes.items()):
+            for j, (target, target_activation) in enumerate(active_nodes.items()):
+                if i != j and source in self.node_positions_3d and target in self.node_positions_3d:
+                    
+                    # Calcular intensidad del flujo
+                    flow_intensity = min(source_activation, target_activation)
+                    
+                    if flow_intensity > 0.5:
+                        x0, y0, z0 = self.node_positions_3d[source]
+                        x1, y1, z1 = self.node_positions_3d[target]
+                        
+                        # Crear línea de flujo con gradiente
+                        fig.add_trace(go.Scatter3d(
+                            x=[x0, x1], y=[y0, y1], z=[z0, z1],
+                            mode='lines',
+                            line=dict(
+                                color=f'rgba(255, {int(255*flow_intensity)}, 0, {flow_intensity})',
+                                width=3
+                            ),
+                            name=f'Flujo {source[:10]}->{target[:10]}',
+                            hoverinfo='name'
+                        ))
+        
+        # Añadir nodos base
+        node_x = [pos[0] for pos in self.node_positions_3d.values()]
+        node_y = [pos[1] for pos in self.node_positions_3d.values()]
+        node_z = [pos[2] for pos in self.node_positions_3d.values()]
+        node_activations = [activation_state.get(name, 0) for name in self.node_positions_3d.keys()]
+        
+        fig.add_trace(go.Scatter3d(
+            x=node_x, y=node_y, z=node_z,
+            mode='markers',
+            marker=dict(
+                size=10,
+                color=node_activations,
+                colorscale='Hot',
+                showscale=True
+            ),
+            name='Nodos'
+        ))
+        
+        fig.update_layout(
+            title="Flujo Dinámico de Activación Neural",
+            template="plotly_dark",
+            height=600,
+            showlegend=False
+        )
+        
+        return fig
+    
+    def generate_comprehensive_analysis_report(self) -> Dict[str, Any]:
+        """Genera reporte completo de análisis"""
+        
+        activation_state = self.consciousness_network._get_activation_state()
+        
+        # Análisis de estabilidad
+        stability_analysis = {
+            'stable_modules': [name for name, activation in activation_state.items() if 0.3 <= activation <= 0.7],
+            'unstable_modules': [name for name, activation in activation_state.items() if activation < 0.3 or activation > 0.9],
+            'average': np.mean(list(activation_state.values()))
+        }
+        
+        # Análisis de activación
+        activation_analysis = {
+            'total_modules': len(activation_state),
+            'active_modules': len([a for a in activation_state.values() if a > 0.3]),
+            'average_activation': np.mean(list(activation_state.values())),
+            'max_activation': max(activation_state.values()) if activation_state else 0,
+            'min_activation': min(activation_state.values()) if activation_state else 0
+        }
+        
+        # Análisis de centralidad
+        try:
+            centrality_analysis = {
+                'betweenness': nx.betweenness_centrality(self.network_graph),
+                'closeness': nx.closeness_centrality(self.network_graph),
+                'pagerank': nx.pagerank(self.network_graph)
+            }
+        except:
+            centrality_analysis = {'error': 'No se pudo calcular centralidad'}
+        
+        # Topología de red
+        graph_topology = {
+            'num_nodes': self.network_graph.number_of_nodes(),
+            'num_edges': self.network_graph.number_of_edges(),
+            'density': nx.density(self.network_graph) if self.network_graph.number_of_nodes() > 0 else 0,
+            'is_connected': nx.is_connected(self.network_graph) if self.network_graph.number_of_nodes() > 0 else False
+        }
+        
+        # Módulos más importantes
+        most_important_modules = {
+            'by_activation': max(activation_state, key=activation_state.get) if activation_state else 'N/A',
+            'by_betweenness': max(centrality_analysis.get('betweenness', {}), key=centrality_analysis.get('betweenness', {}).get) if 'betweenness' in centrality_analysis else 'N/A',
+            'by_pagerank': max(centrality_analysis.get('pagerank', {}), key=centrality_analysis.get('pagerank', {}).get) if 'pagerank' in centrality_analysis else 'N/A',
+            'by_stability': 'PhilosophicalCore'  # Asumido como más estable
+        }
+        
+        # Puntuación de salud general
+        overall_health_score = (
+            activation_analysis['average_activation'] * 0.4 +
+            stability_analysis['average'] * 0.3 +
+            (len(stability_analysis['stable_modules']) / max(len(activation_state), 1)) * 0.3
+        )
+        
+        # Recomendaciones de optimización
+        optimization_recommendations = []
+        
+        if activation_analysis['average_activation'] < 0.3:
+            optimization_recommendations.append("Incrementar activación general del sistema")
+        
+        if len(stability_analysis['unstable_modules']) > len(stability_analysis['stable_modules']):
+            optimization_recommendations.append("Estabilizar módulos con alta variabilidad")
+        
+        if graph_topology['density'] < 0.3:
+            optimization_recommendations.append("Aumentar conectividad entre módulos")
+        
+        return {
+            'overall_health_score': overall_health_score,
+            'stability_analysis': stability_analysis,
+            'activation_analysis': activation_analysis,
+            'centrality_analysis': centrality_analysis,
+            'graph_topology': graph_topology,
+            'most_important_modules': most_important_modules,
+            'optimization_recommendations': optimization_recommendations,
+            'generated_at': datetime.now().isoformat()
+        }ime
 
 class Neural3DVisualizer:
     """Visualizador 3D avanzado del sistema neural"""
