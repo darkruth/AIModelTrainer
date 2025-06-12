@@ -27,6 +27,7 @@ try:
         IntrospectiveDSLObserver, DynamicPolicyRegulator, RuntimeWeightGradientAdvisor
     )
     from modules.neural_3d_visualizer import Neural3DVisualizer
+    from modules.neural_flow_visualizer import NeuralFlowVisualizer
     from models.supermodelo_meta_enrutador import (
         create_ruth_r1_system, 
         process_consciousness_input,
@@ -254,11 +255,22 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
     
+    # Auto-despertar del sistema si no está activo
+    despertar_status = get_current_awakening_status()
+    if despertar_status['current_phase'] == 'dormant' and not despertar_status['is_awakening']:
+        with st.spinner("🌅 Iniciando despertar automático del sistema Ruth R1..."):
+            resultado_despertar = initiate_system_awakening()
+            if resultado_despertar['status'] == 'awakening_initiated':
+                st.success("¡Sistema Ruth R1 iniciando despertar!")
+                time.sleep(3)
+                st.rerun()
+
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
         "🌅 Despertar del Sistema",
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
+        "⚡ Flujos Neuronales LIVE",
         "🌐 Visualización 3D Neural",
         "📊 Análisis Bayesiano",
         "🎭 Estados Emocionales",
@@ -278,25 +290,149 @@ def main():
         display_neural_monitoring(consciousness_network, system)
     
     with tab4:
-        display_3d_neural_visualization(consciousness_network)
+        display_live_neural_flows(consciousness_network)
     
     with tab5:
-        display_bayesian_analysis(consciousness_network)
+        display_3d_neural_visualization(consciousness_network)
     
     with tab6:
-        display_emotional_states(consciousness_network)
+        display_bayesian_analysis(consciousness_network)
     
     with tab7:
-        display_database_management()
+        display_emotional_states(consciousness_network)
     
     with tab8:
-        display_razonbill_interface(consciousness_network)
+        display_database_management()
     
     with tab9:
-        display_meta_enrutador_interface(consciousness_network)
+        display_razonbill_interface(consciousness_network)
     
     with tab10:
+        display_meta_enrutador_interface(consciousness_network)
+    
+    with tab11:
         display_system_diagnostics(system)
+
+def display_live_neural_flows(consciousness_network):
+    """Muestra flujos neuronales en tiempo real"""
+    
+    st.header("⚡ Flujos Neuronales en Tiempo Real - Ruth R1")
+    
+    # Importar visualizador
+    try:
+        from modules.neural_flow_visualizer import NeuralFlowVisualizer
+        
+        # Inicializar visualizador en estado de sesión
+        if 'neural_flow_visualizer' not in st.session_state:
+            st.session_state.neural_flow_visualizer = NeuralFlowVisualizer(consciousness_network)
+        
+        visualizer = st.session_state.neural_flow_visualizer
+        
+        # Panel de control
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if not visualizer.is_running:
+                if st.button("🚀 Iniciar Monitoreo Live", type="primary", use_container_width=True):
+                    visualizer.start_real_time_monitoring()
+                    st.success("¡Monitoreo en tiempo real iniciado!")
+                    time.sleep(1)
+                    st.rerun()
+            else:
+                if st.button("⏹️ Detener Monitoreo", use_container_width=True):
+                    visualizer.stop_real_time_monitoring()
+                    st.info("Monitoreo detenido")
+                    time.sleep(1)
+                    st.rerun()
+        
+        with col2:
+            auto_refresh = st.checkbox("Auto-refrescar cada 2s", value=True)
+            
+        with col3:
+            if st.button("🔄 Actualizar Ahora", use_container_width=True):
+                st.rerun()
+        
+        # Estado del sistema
+        if visualizer.is_running:
+            st.success("🟢 Monitoreo Activo - Capturando flujos neuronales")
+        else:
+            st.warning("🟡 Monitoreo Inactivo")
+        
+        # Métricas en tiempo real
+        if visualizer.flow_data:
+            stats = visualizer.get_flow_statistics()
+            
+            col1, col2, col3, col4 = st.columns(4)
+            
+            with col1:
+                st.metric("Módulos Activos", stats['total_modules'])
+            
+            with col2:
+                st.metric("Actividad General", f"{stats['overall_activity']:.3f}")
+            
+            with col3:
+                st.metric("Más Activo", stats['most_active_module'][:15] + "..." if stats['most_active_module'] and len(stats['most_active_module']) > 15 else stats['most_active_module'])
+            
+            with col4:
+                st.metric("Datos Capturados", stats['data_points_collected'])
+        
+        # Visualizaciones principales
+        col1, col2 = st.columns([2, 1])
+        
+        with col1:
+            st.subheader("🌊 Flujo Neural Principal")
+            
+            # Visualización principal de flujos
+            flow_fig = visualizer.create_real_time_flow_visualization()
+            st.plotly_chart(flow_fig, use_container_width=True)
+        
+        with col2:
+            st.subheader("🔥 Mapa de Coherencia")
+            
+            # Mapa de coherencia
+            coherence_fig = visualizer.create_coherence_heatmap()
+            st.plotly_chart(coherence_fig, use_container_width=True)
+        
+        # Timeline de activaciones
+        st.subheader("📈 Timeline de Activaciones")
+        timeline_fig = visualizer.create_activation_timeline()
+        st.plotly_chart(timeline_fig, use_container_width=True)
+        
+        # Panel de detalles
+        if visualizer.flow_data and st.checkbox("Mostrar Detalles Técnicos"):
+            st.subheader("🔬 Detalles Técnicos")
+            
+            last_data = visualizer.flow_data[-1]
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.write("**Activaciones Actuales:**")
+                activations_df = pd.DataFrame([
+                    {'Módulo': module, 'Activación': f"{activation:.3f}"}
+                    for module, activation in sorted(last_data['activations'].items(), 
+                                                   key=lambda x: x[1], reverse=True)
+                ])
+                st.dataframe(activations_df.head(10), use_container_width=True)
+            
+            with col2:
+                st.write("**Fortalezas de Conexión:**")
+                if visualizer.connection_strengths:
+                    connections_df = pd.DataFrame([
+                        {'Conexión': conn, 'Fortaleza': f"{strength:.3f}"}
+                        for conn, strength in sorted(visualizer.connection_strengths.items(), 
+                                                   key=lambda x: x[1], reverse=True)
+                    ])
+                    st.dataframe(connections_df.head(10), use_container_width=True)
+        
+        # Auto-refresh
+        if auto_refresh and visualizer.is_running:
+            time.sleep(2)
+            st.rerun()
+        
+    except Exception as e:
+        st.error(f"Error inicializando visualizador de flujos: {e}")
+        st.info("Verifica que todos los módulos estén correctamente importados")
 
 def display_system_awakening_interface():
     """Interfaz para el despertar completo del sistema Ruth R1"""
