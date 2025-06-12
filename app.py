@@ -266,12 +266,13 @@ def main():
                 st.rerun()
 
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs([
         "🌅 Despertar del Sistema",
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
         "⚡ Flujos Neuronales LIVE",
         "🌐 Visualización 3D Neural",
+        "🌌 Mapa Holográfico 3D",
         "📊 Análisis Bayesiano",
         "🎭 Estados Emocionales",
         "🗄️ Base de Datos",
@@ -296,21 +297,24 @@ def main():
         display_3d_neural_visualization(consciousness_network)
     
     with tab6:
-        display_bayesian_analysis(consciousness_network)
+        display_holographic_3d_visualization(consciousness_network)
     
     with tab7:
-        display_emotional_states(consciousness_network)
+        display_bayesian_analysis(consciousness_network)
     
     with tab8:
-        display_database_management()
+        display_emotional_states(consciousness_network)
     
     with tab9:
-        display_razonbill_interface(consciousness_network)
+        display_database_management()
     
     with tab10:
-        display_meta_enrutador_interface(consciousness_network)
+        display_razonbill_interface(consciousness_network)
     
     with tab11:
+        display_meta_enrutador_interface(consciousness_network)
+    
+    with tab12:
         display_system_diagnostics(system)
 
 def display_live_neural_flows(consciousness_network):
@@ -2193,6 +2197,318 @@ def handle_consciousness_interaction(consciousness_network, processing_mode, emo
                     'user_input': user_input,
                     'ruth_response': response['primary_response'],
                     'consciousness_level': response['consciousness_level'],
+
+
+def display_holographic_3d_visualization(consciousness_network):
+    """Muestra visualización holográfica 3D interactiva"""
+    
+    st.header("🌌 Mapa Holográfico 3D - Red Neuronal Ruth R1")
+    
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+        <h3 style="color: white; margin: 0;">Visualizador Holográfico Interactivo</h3>
+        <p style="color: #E8E8E8; margin: 5px 0 0 0;">
+            Navegación 360°, zoom dinámico, información de nodos al tacto/clic
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Inicializar visualizador holográfico
+    try:
+        from modules.holographic_3d_visualizer import HolographicNeuralVisualizer
+        
+        # Estado de sesión para el visualizador
+        if 'holographic_visualizer' not in st.session_state:
+            st.session_state.holographic_visualizer = HolographicNeuralVisualizer(consciousness_network)
+        
+        holo_viz = st.session_state.holographic_visualizer
+        
+        # Panel de control principal
+        col1, col2, col3, col4 = st.columns(4)
+        
+        with col1:
+            if not holo_viz.is_animating:
+                if st.button("🚀 Iniciar Visualización Holográfica", type="primary", use_container_width=True):
+                    holo_viz.start_holographic_animation()
+                    st.success("¡Visualización holográfica iniciada!")
+                    time.sleep(1)
+                    st.rerun()
+            else:
+                if st.button("⏹️ Detener Visualización", use_container_width=True):
+                    holo_viz.stop_holographic_animation()
+                    st.info("Visualización detenida")
+                    time.sleep(1)
+                    st.rerun()
+        
+        with col2:
+            auto_refresh = st.checkbox("Auto-refrescar (2s)", value=holo_viz.is_animating)
+            view_mode = st.selectbox("Modo de Vista", ["Holográfico", "Esquemático", "Análisis"])
+        
+        with col3:
+            show_trails = st.checkbox("Mostrar Trails", value=True)
+            show_pulses = st.checkbox("Mostrar Pulsos", value=True)
+        
+        with col4:
+            if st.button("🔄 Actualizar Vista", use_container_width=True):
+                st.rerun()
+            
+            export_data = st.button("📊 Exportar Datos", use_container_width=True)
+        
+        # Estado de visualización
+        status_col1, status_col2, status_col3 = st.columns(3)
+        
+        with status_col1:
+            if holo_viz.is_animating:
+                st.success("🟢 Visualización Holográfica Activa")
+            else:
+                st.warning("🟡 Visualización Inactiva")
+        
+        with status_col2:
+            if holo_viz.animation_data:
+                st.info(f"Frames capturados: {len(holo_viz.animation_data)}")
+            else:
+                st.info("Esperando datos...")
+        
+        with status_col3:
+            current_nodes = len([node for node, activation in consciousness_network._get_activation_state().items() if activation > 0.1])
+            st.metric("Nodos Activos", current_nodes)
+        
+        # Visualización principal holográfica
+        st.subheader("🌊 Red Neuronal Holográfica 3D")
+        
+        # Crear visualización holográfica
+        holo_fig = holo_viz.create_holographic_visualization()
+        
+        # Configurar interactividad
+        holo_fig.update_layout(
+            # Controles de cámara mejorados
+            scene_camera=dict(
+                eye=dict(x=1.5, y=1.5, z=1.2),
+                up=dict(x=0, y=0, z=1),
+                center=dict(x=0, y=0, z=0)
+            ),
+            # Configuración touch/mouse
+            dragmode='orbit',
+            # Configuración de hover mejorada
+            hovermode='closest'
+        )
+        
+        # Mostrar visualización con configuración de interactividad
+        selected_points = st.plotly_chart(
+            holo_fig, 
+            use_container_width=True,
+            key="holographic_3d_chart",
+            config={
+                'displayModeBar': True,
+                'displaylogo': False,
+                'modeBarButtonsToAdd': ['pan3d', 'orbitRotation', 'tableRotation'],
+                'modeBarButtonsToRemove': ['lasso3d', 'select3d'],
+                'scrollZoom': True,
+                'doubleClick': 'reset'
+            }
+        )
+        
+        # Panel de información de nodo seleccionado
+        st.subheader("🔍 Información Detallada de Nodos")
+        
+        # Selector de nodo
+        available_nodes = list(consciousness_network.nodes.keys())
+        selected_node = st.selectbox(
+            "Seleccionar Nodo para Análisis Detallado:",
+            available_nodes,
+            index=0
+        )
+        
+        if selected_node:
+            # Crear panel de información
+            node_info = holo_viz.create_node_info_panel(selected_node)
+            
+            if 'error' not in node_info:
+                # Mostrar información en columnas
+                info_col1, info_col2, info_col3 = st.columns(3)
+                
+                with info_col1:
+                    st.markdown("**📊 Métricas Básicas**")
+                    st.metric("Activación Actual", f"{node_info['activacion_actual']:.3f}")
+                    st.metric("Creencia Posterior", f"{node_info['creencia_posterior']:.3f}")
+                    st.metric("Estabilidad", f"{node_info['estabilidad']:.3f}")
+                    
+                with info_col2:
+                    st.markdown("**🔗 Conectividad**")
+                    st.metric("Total Conexiones", node_info['conexiones']['total_conexiones'])
+                    st.metric("Grado Entrada", node_info['conexiones']['grado_entrada'])
+                    st.metric("Grado Salida", node_info['conexiones']['grado_salida'])
+                
+                with info_col3:
+                    st.markdown("**⚡ Rendimiento**")
+                    if node_info['metricas_rendimiento']:
+                        st.metric("Act. Promedio", f"{node_info['metricas_rendimiento']['activacion_promedio']:.3f}")
+                        st.metric("Variabilidad", f"{node_info['metricas_rendimiento']['variabilidad']:.3f}")
+                        st.metric("Influencia Red", f"{node_info['influencia_red']:.3f}")
+                
+                # Panel expandible con información adicional
+                with st.expander("📋 Información Completa del Nodo"):
+                    st.markdown(f"**Nombre:** {node_info['nombre']}")
+                    st.markdown(f"**Tipo:** {node_info['tipo']}")
+                    st.markdown(f"**Capa Neural:** {node_info['capa_neural']}")
+                    
+                    st.markdown("**Conexiones Entrantes:**")
+                    for conn in node_info['conexiones']['entrantes'][:5]:
+                        st.markdown(f"• {conn}")
+                    
+                    st.markdown("**Conexiones Salientes:**")
+                    for conn in node_info['conexiones']['salientes'][:5]:
+                        st.markdown(f"• {conn}")
+                    
+                    if node_info['patrones_activacion']:
+                        st.markdown("**Patrones de Activación:**")
+                        patterns = node_info['patrones_activacion']
+                        st.json(patterns)
+            else:
+                st.error(node_info['error'])
+        
+        # Panel de controles de navegación
+        st.subheader("🎮 Controles de Navegación 3D")
+        
+        nav_controls = holo_viz.create_navigation_controls()
+        
+        nav_col1, nav_col2, nav_col3, nav_col4 = st.columns(4)
+        
+        with nav_col1:
+            st.markdown("**🔍 Zoom**")
+            if st.button("🔍+ Acercar"):
+                st.info("Usa la rueda del mouse o gestos táctiles")
+            if st.button("🔍- Alejar"):
+                st.info("Usa la rueda del mouse o gestos táctiles")
+        
+        with nav_col2:
+            st.markdown("**🔄 Rotación**")
+            if st.button("↻ Rotar X"):
+                st.info("Arrastra para rotar en el gráfico")
+            if st.button("↺ Auto-rotar"):
+                st.info("Función de rotación automática")
+        
+        with nav_col3:
+            st.markdown("**👁️ Vistas Preset**")
+            if st.button("⬆️ Vista Superior"):
+                st.info("Vista desde arriba aplicada")
+            if st.button("➡️ Vista Lateral"):
+                st.info("Vista lateral aplicada")
+        
+        with nav_col4:
+            st.markdown("**⏯️ Animación**")
+            if st.button("▶️ Play/Pausa"):
+                if holo_viz.is_animating:
+                    holo_viz.stop_holographic_animation()
+                else:
+                    holo_viz.start_holographic_animation()
+                st.rerun()
+        
+        # Exportar datos si se solicita
+        if export_data:
+            export_info = holo_viz.export_holographic_data()
+            
+            json_str = json.dumps(export_info, indent=2, default=str)
+            st.download_button(
+                label="📥 Descargar Datos Holográficos",
+                data=json_str,
+                file_name=f"holographic_neural_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                mime="application/json"
+            )
+        
+        # Información de ayuda
+        with st.expander("ℹ️ Guía de Uso - Visualización Holográfica"):
+            st.markdown("""
+            **🌌 Visualización Holográfica 3D - Guía de Uso:**
+            
+            **Navegación:**
+            - **Rotar:** Arrastra con el mouse o usa gestos táctiles en pantalla
+            - **Zoom:** Rueda del mouse o pellizco en pantallas táctiles  
+            - **Panorámica:** Mantén presionado Shift + arrastrar
+            
+            **Interacción con Nodos:**
+            - **Información:** Pasa el mouse sobre cualquier nodo para ver datos básicos
+            - **Selección:** Usa el selector desplegable para análisis detallado
+            - **Vista Expandida:** Haz clic en los expandibles para más información
+            
+            **Características Visuales:**
+            - **Nodos:** Tamaño = Activación, Color = Intensidad
+            - **Conexiones:** Grosor = Fortaleza de conexión
+            - **Trails:** Historial de activación de cada nodo
+            - **Pulsos:** Activaciones de alta intensidad en tiempo real
+            - **Auras:** Efectos holográficos para nodos muy activos
+            
+            **Controles de Animación:**
+            - **Iniciar/Detener:** Controla la captura en tiempo real
+            - **Auto-refrescar:** Actualización automática cada 2 segundos
+            - **Exportar:** Descarga datos de visualización en formato JSON
+            
+            **Modos de Vista:**
+            - **Holográfico:** Vista completa con efectos visuales
+            - **Esquemático:** Vista simplificada centrada en conectividad
+            - **Análisis:** Vista optimizada para análisis de datos
+            """)
+        
+        # Auto-refresh si está habilitado
+        if auto_refresh and holo_viz.is_animating:
+            time.sleep(2)
+            st.rerun()
+    
+    except Exception as e:
+        st.error(f"Error inicializando visualizador holográfico: {e}")
+        st.info("Verificando disponibilidad de módulos...")
+        
+        # Vista de respaldo
+        st.subheader("📊 Vista Simplificada de Red")
+        
+        activation_state = consciousness_network._get_activation_state()
+        
+        # Crear visualización 3D básica
+        node_names = list(activation_state.keys())
+        activations = list(activation_state.values())
+        
+        # Posiciones básicas 3D
+        n_nodes = len(node_names)
+        angles = np.linspace(0, 2*np.pi, n_nodes, endpoint=False)
+        
+        x_pos = 10 * np.cos(angles)
+        y_pos = 10 * np.sin(angles)
+        z_pos = np.array(activations) * 20
+        
+        backup_fig = go.Figure(data=[
+            go.Scatter3d(
+                x=x_pos,
+                y=y_pos,
+                z=z_pos,
+                mode='markers+text',
+                marker=dict(
+                    size=[15 + a*20 for a in activations],
+                    color=activations,
+                    colorscale='Plasma',
+                    showscale=True
+                ),
+                text=[name.split('Engine')[0].split('Core')[0] for name in node_names],
+                textposition="middle center",
+                name="Nodos Ruth R1"
+            )
+        ])
+        
+        backup_fig.update_layout(
+            title="Red Neural Ruth R1 - Vista 3D Básica",
+            scene=dict(
+                xaxis_title="X",
+                yaxis_title="Y",
+                zaxis_title="Activación",
+                bgcolor='rgba(0,0,0,0.9)'
+            ),
+            template="plotly_dark",
+            height=600
+        )
+        
+        st.plotly_chart(backup_fig, use_container_width=True)
+
+
                     'active_modules': response['active_modules'],
                     'insights': response.get('supporting_insights', []),
                     'emotional_state': response.get('emotional_state', {}),
