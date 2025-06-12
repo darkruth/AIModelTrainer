@@ -37,6 +37,15 @@ try:
     from core.neurotransmitters import NeurotransmitterSystem
     from core.quantum_processing import QuantumProcessor
     from algorithms.bayesian_quantum import BayesianQuantumSystem
+    from core.despertar_awakening import (
+        initiate_system_awakening, 
+        get_awakening_system, 
+        get_current_awakening_status,
+        AwakeningPhase
+    )
+    from core.ganst_core import get_ganst_core, get_system_statistics
+    from core.moduladores import get_modulation_manager
+    from core.memorias_corto_plazo import get_short_term_memory
     from database.models import DatabaseManager, db_manager
     from utils.config import Config
     from utils.logger import StructuredLogger
@@ -246,7 +255,8 @@ def main():
                 """, unsafe_allow_html=True)
     
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+        "🌅 Despertar del Sistema",
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
         "🌐 Visualización 3D Neural",
@@ -259,30 +269,33 @@ def main():
     ])
     
     with tab1:
-        handle_consciousness_interaction(consciousness_network, processing_mode, emotional_sensitivity, consciousness_depth)
+        display_system_awakening_interface()
     
     with tab2:
-        display_neural_monitoring(consciousness_network, system)
+        handle_consciousness_interaction(consciousness_network, processing_mode, emotional_sensitivity, consciousness_depth)
     
     with tab3:
-        display_3d_neural_visualization(consciousness_network)
+        display_neural_monitoring(consciousness_network, system)
     
     with tab4:
-        display_bayesian_analysis(consciousness_network)
+        display_3d_neural_visualization(consciousness_network)
     
     with tab5:
-        display_emotional_states(consciousness_network)
+        display_bayesian_analysis(consciousness_network)
     
     with tab6:
-        display_database_management()
+        display_emotional_states(consciousness_network)
     
     with tab7:
-        display_razonbill_interface(consciousness_network)
+        display_database_management()
     
     with tab8:
-        display_meta_enrutador_interface(consciousness_network)
+        display_razonbill_interface(consciousness_network)
     
     with tab9:
+        display_meta_enrutador_interface(consciousness_network)
+    
+    with tab10:
         display_system_diagnostics(system)
 
 def display_database_management():
