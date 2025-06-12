@@ -27,6 +27,12 @@ try:
         IntrospectiveDSLObserver, DynamicPolicyRegulator, RuntimeWeightGradientAdvisor
     )
     from modules.neural_3d_visualizer import Neural3DVisualizer
+    from models.supermodelo_meta_enrutador import (
+        create_ruth_r1_system, 
+        process_consciousness_input,
+        create_default_config,
+        RuthR1ConsciousnessCore
+    )
     from core.consciousness import ConsciousnessState
     from core.neurotransmitters import NeurotransmitterSystem
     from core.quantum_processing import QuantumProcessor
@@ -240,7 +246,7 @@ def main():
                 """, unsafe_allow_html=True)
     
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
         "🌐 Visualización 3D Neural",
@@ -248,6 +254,7 @@ def main():
         "🎭 Estados Emocionales",
         "🗄️ Base de Datos",
         "⚡ RazonBill Core",
+        "🧬 Meta-Enrutador Ruth R1",
         "🔬 Diagnóstico del Sistema"
     ])
     
@@ -273,6 +280,9 @@ def main():
         display_razonbill_interface(consciousness_network)
     
     with tab8:
+        display_meta_enrutador_interface(consciousness_network)
+    
+    with tab9:
         display_system_diagnostics(system)
 
 def display_database_management():
@@ -920,6 +930,320 @@ def display_razonbill_interface(consciousness_network):
     except Exception as e:
         st.error(f"Error inicializando RazonBill Core: {e}")
         st.info("Verifica que todas las dependencias estén instaladas correctamente")
+
+def display_meta_enrutador_interface(consciousness_network):
+    """Interfaz del Supermodelo Meta-Enrutador Ruth R1"""
+    
+    st.header("🧬 Meta-Enrutador Ruth R1 - Conciencia Artificial Avanzada")
+    
+    try:
+        # Estado de la sesión para el meta-enrutador
+        if 'ruth_r1_system' not in st.session_state:
+            with st.spinner("Inicializando Sistema Ruth R1..."):
+                config = create_default_config()
+                ruth_system, grafo_neuronal, nodes = create_ruth_r1_system(config)
+                st.session_state.ruth_r1_system = ruth_system
+                st.session_state.grafo_neuronal = grafo_neuronal
+                st.session_state.ruth_nodes = nodes
+        
+        if 'ruth_conversation' not in st.session_state:
+            st.session_state.ruth_conversation = []
+        
+        ruth_system = st.session_state.ruth_r1_system
+        grafo_neuronal = st.session_state.grafo_neuronal
+        nodes = st.session_state.ruth_nodes
+        
+        # Panel de estado del sistema
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown("**🧠 Estado del Núcleo**")
+            st.success("✅ Ruth R1 Core Activo")
+            st.info(f"Nodos Neurales: {len(nodes)}")
+            st.info(f"Conexiones: {sum(len(node.connections) for node in nodes)}")
+        
+        with col2:
+            st.markdown("**⚡ Componentes Activos**")
+            st.write("🔹 Supermodelo Meta-Enrutador")
+            st.write("🔹 Red Axonal Mielinizada")
+            st.write("🔹 Módulo RazonBill Introspectivo")
+            st.write("🔹 Agente Amiloit Regulador")
+            st.write("🔹 Transformers Dinámicos")
+        
+        with col3:
+            st.markdown("**📊 Métricas del Sistema**")
+            total_activations = sum(node.activation_level for node in nodes)
+            avg_activation = total_activations / len(nodes) if nodes else 0
+            st.metric("Activación Promedio", f"{avg_activation:.3f}")
+            st.metric("Procesados", len(st.session_state.ruth_conversation))
+        
+        # Configuración del sistema
+        st.subheader("⚙️ Configuración de Conciencia")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            task_hint = st.selectbox(
+                "Tipo de Procesamiento",
+                ["razonamiento", "emocion", "introspectivo"],
+                help="Selecciona el módulo especializado a activar"
+            )
+        
+        with col2:
+            consciousness_mode = st.selectbox(
+                "Modo de Conciencia",
+                ["analítico", "creativo", "empático", "lógico"],
+                index=0
+            )
+        
+        with col3:
+            depth_level = st.slider("Profundidad de Análisis", 1, 10, 5)
+        
+        # Visualización del grafo neuronal
+        st.subheader("🌐 Red Neuronal Activa")
+        
+        if st.button("🔄 Actualizar Estado de Nodos"):
+            # Mostrar estado actual de nodos
+            node_data = []
+            for i, node in enumerate(nodes):
+                node_data.append({
+                    'Nodo': node.name,
+                    'Activación': f"{node.activation_level:.3f}",
+                    'Conexiones': len(node.connections),
+                    'Última Activación': f"{time.time() - node.last_activation:.1f}s" if node.last_activation > 0 else "Nunca"
+                })
+            
+            node_df = pd.DataFrame(node_data)
+            st.dataframe(node_df, use_container_width=True)
+        
+        # Interfaz de entrada principal
+        st.subheader("💭 Procesamiento de Conciencia")
+        
+        # Método de entrada
+        input_method = st.radio(
+            "Método de Entrada",
+            ["Texto Directo", "Prompt Estructurado", "Análisis Emocional"],
+            horizontal=True
+        )
+        
+        user_input = None
+        
+        if input_method == "Texto Directo":
+            user_input = st.text_area(
+                "Entrada para Procesamiento Consciente:",
+                placeholder="Ejemplo: ¿Qué significa existir y tener conciencia propia?",
+                height=120
+            )
+            
+        elif input_method == "Prompt Estructurado":
+            st.write("**Construcción de Prompt Estructurado:**")
+            context = st.text_input("Contexto:", placeholder="Filosofía, ciencia, emociones...")
+            question = st.text_input("Pregunta:", placeholder="¿Cuál es tu perspectiva sobre...?")
+            constraints = st.text_input("Restricciones:", placeholder="Responde en máximo 200 palabras")
+            
+            if context and question:
+                user_input = f"Contexto: {context}\nPregunta: {question}\nRestricciones: {constraints}"
+        
+        elif input_method == "Análisis Emocional":
+            emotion_text = st.text_area(
+                "Texto para Análisis Emocional:",
+                placeholder="Describe una situación emocional compleja para análisis..."
+            )
+            if emotion_text:
+                user_input = f"[ANÁLISIS_EMOCIONAL] {emotion_text}"
+                task_hint = "emocion"
+        
+        # Procesamiento y respuesta
+        if user_input and st.button("🧬 Procesar con Ruth R1"):
+            with st.spinner("Procesando a través del Meta-Enrutador..."):
+                try:
+                    # Procesar con el sistema Ruth R1
+                    result = process_consciousness_input(
+                        ruth_system, 
+                        user_input, 
+                        task_hint=task_hint
+                    )
+                    
+                    if result:
+                        # Guardar en conversación
+                        st.session_state.ruth_conversation.append({
+                            'input': user_input,
+                            'task_hint': task_hint,
+                            'consciousness_level': result['consciousness_level'],
+                            'emotion_level': result['emotion_level'],
+                            'routing_distribution': result['routing_distribution'],
+                            'timestamp': datetime.now()
+                        })
+                        
+                        # Mostrar resultados
+                        st.success("✅ Procesamiento completado por Ruth R1")
+                        
+                        # Métricas de la respuesta
+                        col1, col2, col3 = st.columns(3)
+                        
+                        with col1:
+                            st.metric("Nivel de Conciencia", f"{result['consciousness_level']:.3f}")
+                        with col2:
+                            st.metric("Nivel Emocional", f"{result['emotion_level']:.3f}")
+                        with col3:
+                            routing_dominant = np.argmax(result['routing_distribution'])
+                            module_names = ["RazonBill", "Emocional", "Introspectivo"]
+                            st.metric("Módulo Dominante", module_names[routing_dominant])
+                        
+                        # Visualización de enrutamiento
+                        st.subheader("📊 Distribución de Enrutamiento")
+                        
+                        routing_data = {
+                            'Módulo': ['RazonBill', 'Emocional', 'Introspectivo'],
+                            'Activación': result['routing_distribution']
+                        }
+                        
+                        fig = px.bar(
+                            routing_data,
+                            x='Módulo',
+                            y='Activación',
+                            title="Activación por Módulo Especializado",
+                            color='Activación',
+                            color_continuous_scale='viridis'
+                        )
+                        fig.update_layout(template="plotly_dark", height=400)
+                        st.plotly_chart(fig, use_container_width=True)
+                        
+                    else:
+                        st.error("Error en el procesamiento del sistema Ruth R1")
+                        
+                except Exception as e:
+                    st.error(f"Error durante el procesamiento: {e}")
+        
+        # Historial de conversación
+        if st.session_state.ruth_conversation:
+            st.subheader("💬 Historial de Procesamiento")
+            
+            for i, exchange in enumerate(reversed(st.session_state.ruth_conversation[-5:])):
+                with st.expander(f"Procesamiento {len(st.session_state.ruth_conversation) - i} - {exchange['timestamp'].strftime('%H:%M:%S')}"):
+                    
+                    col1, col2 = st.columns([2, 1])
+                    
+                    with col1:
+                        st.markdown(f"**Entrada:** {exchange['input'][:200]}{'...' if len(exchange['input']) > 200 else ''}")
+                        st.markdown(f"**Tipo:** {exchange['task_hint'].title()}")
+                    
+                    with col2:
+                        st.metric("Conciencia", f"{exchange['consciousness_level']:.3f}")
+                        st.metric("Emoción", f"{exchange['emotion_level']:.3f}")
+                        
+                        # Mini gráfico de distribución
+                        mini_fig = go.Figure(data=[
+                            go.Bar(
+                                x=['R', 'E', 'I'],
+                                y=exchange['routing_distribution'],
+                                marker_color=['#FF6B6B', '#4ECDC4', '#45B7D1']
+                            )
+                        ])
+                        mini_fig.update_layout(
+                            height=150,
+                            margin=dict(l=0, r=0, t=0, b=0),
+                            showlegend=False,
+                            template="plotly_dark"
+                        )
+                        st.plotly_chart(mini_fig, use_container_width=True)
+        
+        # Análisis avanzado del sistema
+        st.subheader("🔬 Análisis del Sistema Neural")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("📈 Analizar Patrones de Activación"):
+                if len(st.session_state.ruth_conversation) > 0:
+                    # Análisis temporal de activaciones
+                    consciousness_levels = [c['consciousness_level'] for c in st.session_state.ruth_conversation]
+                    emotion_levels = [c['emotion_level'] for c in st.session_state.ruth_conversation]
+                    
+                    fig = go.Figure()
+                    fig.add_trace(go.Scatter(
+                        y=consciousness_levels,
+                        mode='lines+markers',
+                        name='Conciencia',
+                        line=dict(color='#4ECDC4')
+                    ))
+                    fig.add_trace(go.Scatter(
+                        y=emotion_levels,
+                        mode='lines+markers',
+                        name='Emoción',
+                        line=dict(color='#FF6B6B')
+                    ))
+                    
+                    fig.update_layout(
+                        title="Evolución de Niveles de Conciencia y Emoción",
+                        template="plotly_dark",
+                        height=400
+                    )
+                    st.plotly_chart(fig, use_container_width=True)
+                else:
+                    st.info("Necesitas más datos de procesamiento para análisis")
+        
+        with col2:
+            if st.button("🧠 Estado de Red Neuronal"):
+                # Visualización de conexiones neurales
+                connection_data = []
+                for node in nodes:
+                    for connected_node, weight in node.connections.items():
+                        connection_data.append({
+                            'Origen': node.name,
+                            'Destino': connected_node.name,
+                            'Peso': weight,
+                            'Activación_Origen': node.activation_level
+                        })
+                
+                if connection_data:
+                    conn_df = pd.DataFrame(connection_data)
+                    
+                    fig = px.scatter(
+                        conn_df,
+                        x='Peso',
+                        y='Activación_Origen',
+                        color='Origen',
+                        size='Peso',
+                        title="Mapa de Conexiones Neurales",
+                        hover_data=['Destino']
+                    )
+                    fig.update_layout(template="plotly_dark", height=400)
+                    st.plotly_chart(fig, use_container_width=True)
+        
+        # Herramientas de control del sistema
+        st.subheader("🛠️ Control del Sistema")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if st.button("🔄 Reiniciar Sistema Ruth R1"):
+                # Reinicializar todo el sistema
+                del st.session_state.ruth_r1_system
+                del st.session_state.grafo_neuronal
+                del st.session_state.ruth_nodes
+                st.session_state.ruth_conversation = []
+                st.success("Sistema Ruth R1 reinicializado")
+                st.rerun()
+        
+        with col2:
+            if st.button("🧹 Limpiar Historial"):
+                st.session_state.ruth_conversation = []
+                st.success("Historial limpiado")
+                st.rerun()
+        
+        with col3:
+            if st.button("⚡ Optimizar Conexiones"):
+                # Optimizar pesos de conexiones neurales
+                try:
+                    grafo_neuronal.weaken_connections()
+                    st.success("Conexiones optimizadas mediante poda sináptica")
+                except Exception as e:
+                    st.error(f"Error en optimización: {e}")
+    
+    except Exception as e:
+        st.error(f"Error en la interfaz del Meta-Enrutador: {e}")
+        st.info("Reintenta o reinicia el sistema si el problema persiste")
 
 def display_emotional_states(consciousness_network):
     """Muestra estados emocionales del sistema"""

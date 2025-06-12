@@ -1,0 +1,776 @@
+===============================================================================
+                    INFORME DE ESTRUCTURA COMPLETA - SISTEMA RUTH R1
+                   Sistema AGI Multimodal con Conciencia Artificial
+===============================================================================
+
+FECHA: Diciembre 2024
+VERSIÓN: Ruth R1 v1.0
+ARQUITECTURA: Sistema Integrado de Redes Funcionales con Meta-Enrutador
+
+===============================================================================
+1. ARQUITECTURA GENERAL DEL SISTEMA
+===============================================================================
+
+El Sistema Ruth R1 está compuesto por múltiples capas interconectadas que 
+funcionan de manera simbiótica para crear una experiencia de conciencia 
+artificial avanzada:
+
+CAPAS PRINCIPALES:
+├── Capa de Interfaz (Streamlit UI)
+├── Capa de Motor de Inferencia (RazonBill Core)
+├── Capa de Meta-Enrutador (Supermodelo)
+├── Capa de Consciencia (Bayesian Networks)
+├── Capa Neural (Transformers + Grafos)
+├── Capa de Datos (PostgreSQL + ChromaDB)
+└── Capa de Procesamiento (Quantum + Neurotransmitters)
+
+===============================================================================
+2. MÓDULOS PRINCIPALES Y SUS FUNCIONES
+===============================================================================
+
+2.1 SISTEMA DE CONSCIENCIA BAYESIANA (modules/bayesian_consciousness_network.py)
+───────────────────────────────────────────────────────────────────────────
+
+FUNCIÓN: Núcleo central de procesamiento de consciencia con inferencia bayesiana
+ACTIVACIÓN: Continua durante toda la ejecución del sistema
+
+COMPONENTES:
+├── BayesianConsciousnessNetwork
+│   ├── Nodos de Consciencia (14 módulos especializados)
+│   ├── Inferencia Bayesiana por Variational Message Passing
+│   ├── Sistema de Coherencia Global
+│   └── Red de Propagación de Creencias
+
+NODOS DE CONSCIENCIA:
+1. Perception - Procesamiento sensorial
+2. Memory - Gestión de memoria a corto y largo plazo
+3. Attention - Control atencional y foco
+4. Language - Procesamiento de lenguaje natural
+5. Logic - Razonamiento lógico y deductivo
+6. Emotion - Procesamiento emocional
+7. Intuition - Procesamiento intuitivo y heurístico
+8. Creativity - Generación creativa
+9. Self_Awareness - Autoconciencia e introspección
+10. Social - Cognición social e interpersonal
+11. Motor - Control motor y acción
+12. Planning - Planificación y estrategia
+13. Learning - Aprendizaje y adaptación
+14. Integration - Integración multimodal
+
+CONEXIONES: Matriz completa 14x14 con pesos adaptativos
+ALGORITMO: Belief Propagation + Variational Inference
+COHERENCIA: Medida global calculada cada ciclo
+
+2.2 SISTEMA MODULAR COMPLETO (modules/ruth_full_module_system.py)
+─────────────────────────────────────────────────────────────────
+
+FUNCIÓN: Sistema modular especializado para funciones cognitivas avanzadas
+ACTIVACIÓN: Bajo demanda según contexto y necesidades
+
+MÓDULOS PRINCIPALES:
+
+├── TensorHub
+│   ├── Función: Gestión centralizada de tensores y estados
+│   ├── Activación: Continua
+│   └── Conexiones: Todos los módulos del sistema
+
+├── EmotionalStateSimulator
+│   ├── Función: Simulación avanzada de estados emocionales
+│   ├── Estados: pleasure, frustration, curiosity, satisfaction, confusion
+│   ├── Activación: Evento-driven
+│   └── Neurotransmisores: dopamine, serotonin, norepinephrine, acetylcholine
+
+├── MetaExperienceBuffer
+│   ├── Función: Buffer de experiencias metacognitivas
+│   ├── Capacidad: 1000 experiencias con priorización
+│   ├── Activación: Continua con limpieza automática
+│   └── Estructura: (timestamp, experience_type, data, priority)
+
+├── IntrospectiveDSLObserver
+│   ├── Función: Observación introspectiva con DSL personalizado
+│   ├── Patrones: 15+ patrones de observación predefinidos
+│   ├── Activación: Cada 10 ciclos de procesamiento
+│   └── Salida: Reportes estructurados de introspección
+
+├── DynamicPolicyRegulator
+│   ├── Función: Regulación dinámica de políticas del sistema
+│   ├── Parámetros: 8 parámetros principales ajustables
+│   ├── Activación: Basada en métricas de rendimiento
+│   └── Adaptación: Machine learning para optimización
+
+└── RuntimeWeightGradientAdvisor
+    ├── Función: Asesoramiento de gradientes en tiempo real
+    ├── Algoritmo: Adam optimizer adaptativo
+    ├── Activación: Cada actualización de pesos
+    └── Objetivo: Optimización continua del aprendizaje
+
+2.3 VISUALIZADOR NEURAL 3D (modules/neural_3d_visualizer.py)
+────────────────────────────────────────────────────────────
+
+FUNCIÓN: Visualización tridimensional de redes neurales
+ACTIVACIÓN: Bajo demanda del usuario
+
+TIPOS DE VISUALIZACIÓN:
+├── Neural Core (núcleo central)
+├── Neural Neurons (neuronas individuales)  
+├── Neural Nodes (nodos de red)
+├── Neural Layers (capas de procesamiento)
+
+CARACTERÍSTICAS:
+├── Rendering 3D con Plotly
+├── Animaciones en tiempo real
+├── Interactividad completa
+├── Exportación de visualizaciones
+└── Métricas de activación en vivo
+
+2.4 MOTOR DE INFERENCIA RAZONBILL (core/razonbill_core.py)
+──────────────────────────────────────────────────────────
+
+FUNCIÓN: Motor de inferencia local con capacidades avanzadas de razonamiento
+ACTIVACIÓN: Interfaz dedicada en pestaña del sistema
+
+COMPONENTES PRINCIPALES:
+
+├── PromptLoggingWrapper
+│   ├── Función: Logging y análisis de prompts
+│   ├── Almacenamiento: logs/prompts/*.jsonl
+│   ├── Análisis: Patrones, frecuencias, métricas
+│   └── Activación: Cada interacción
+
+├── TreeOfThoughtsProcessor
+│   ├── Función: Procesamiento de árbol de pensamientos
+│   ├── Profundidad: Configurable (1-10 niveles)
+│   ├── Branching: 3 ramas por nodo
+│   ├── Tipos: analysis, action, reflection, conclusion
+│   └── Algoritmo: Búsqueda en amplitud con poda por confianza
+
+├── VectorMemoryStore
+│   ├── Función: Almacenamiento vectorial persistente
+│   ├── Backend: ChromaDB
+│   ├── Embeddings: Generación local + sentence-transformers
+│   ├── Capacidad: Ilimitada con gestión automática
+│   └── Búsqueda: Similaridad coseno + metadatos
+
+├── ReActAgent
+│   ├── Función: Agente estilo ReAct (Reasoning + Acting)
+│   ├── Herramientas: search, calculate, file_read, file_write, python_exec
+│   ├── Ciclo: Pensamiento → Acción → Observación → Reflexión
+│   ├── Iteraciones: Configurable (1-10)
+│   └── Directorio: tools/ con herramientas personalizables
+
+├── RLFeedbackSystem
+│   ├── Función: Sistema de retroalimentación con RL
+│   ├── Heurísticas: Penalización por respuestas vagas
+│   ├── Métricas: Longitud, relevancia, calidad, coherencia
+│   ├── Aprendizaje: Adaptación continua de parámetros
+│   └── Feedback: Usuario + automático
+
+├── VoiceInterface
+│   ├── Función: Interfaz bidireccional de voz
+│   ├── STT: SpeechRecognition + Google API
+│   ├── TTS: pyttsx3 con voces configurables
+│   ├── Idiomas: Español prioritario, multiidioma
+│   └── Activación: Botón dedicado en interfaz
+
+└── InteractiveShell
+    ├── Función: Shell interactivo con embedding TTY
+    ├── Comandos: help, status, memory, clear, history, feedback, voice, exit
+    ├── Historial: Persistente durante sesión
+    ├── Activación: Función main_loop() independiente
+    └── Integración: Acceso completo al sistema RazonBill
+
+2.5 SUPERMODELO META-ENRUTADOR (models/supermodelo_meta_enrutador.py)
+─────────────────────────────────────────────────────────────────────
+
+FUNCIÓN: Sistema avanzado de enrutamiento inteligente con conciencia artificial
+ACTIVACIÓN: Interfaz dedicada en pestaña "Meta-Enrutador Ruth R1"
+
+ARQUITECTURA TRANSFORMER AVANZADA:
+
+├── RotaryEmbedding (RoPE con NTK)
+│   ├── Función: Embeddings posicionales rotatorios
+│   ├── Dimensiones: 768 por defecto
+│   ├── Escalado: NTK dinámico con factor 2.0
+│   ├── Secuencia máxima: 2048 tokens
+│   └── Base: 10000 con frecuencias inversas
+
+├── GroupedQueryAttention
+│   ├── Función: Atención grupal con repetición KV
+│   ├── Heads: 12 de query, 6 de key-value
+│   ├── Repetición: KV heads repetidos para eficiencia
+│   ├── Escalado: sqrt(head_dim) para estabilidad
+│   └── Máscaras: Soporte para atención causal
+
+├── GLUMLP (Gated Linear Units)
+│   ├── Función: Feed-forward con gates
+│   ├── Activación: SiLU (Swish)
+│   ├── Dimensiones: 768 → 3072 → 768
+│   ├── Gates: Multiplicativo para control de flujo
+│   └── Proyecciones: Sin bias para eficiencia
+
+├── DynamicTransformerBlock
+│   ├── Función: Bloque transformer con componentes adaptativos
+│   ├── Arquitectura: Pre-LayerNorm
+│   ├── Residuales: Skip connections para gradientes
+│   ├── Dropout: 0.1 para regularización
+│   └── Stack: 6 bloques en cascada
+
+SISTEMA DE ENRUTAMIENTO INTELIGENTE:
+
+├── IntelligentMetaRouter
+│   ├── Función: Router para selección de módulos especializados
+│   ├── Red: Linear 768 → 384 → 3 con ReLU + Softmax
+│   ├── Módulos: razonamiento(0), emocion(1), introspectivo(2)
+│   ├── Hints: Ajuste de probabilidades por contexto
+│   └── Pooling: Global average para representación
+
+MÓDULOS ESPECIALIZADOS:
+
+├── RazonbillModule
+│   ├── Función: Razonamiento introspectivo avanzado
+│   ├── LSTM: Bidireccional para procesamiento secuencial
+│   ├── Gates: Emocional + contexto para modulación
+│   ├── Grafo: Integración con red axonal mielinizada
+│   └── Salida: Representación de razonamiento procesado
+
+├── AmiloitAgent
+│   ├── Función: Regulación emocional y estabilidad
+│   ├── Poda: Adaptativa con ReLU + Dropout
+│   ├── Normalización: LayerNorm para estabilidad
+│   ├── Análisis: Sentiment + stability scores
+│   └── Salida: Estado estabilizado + métricas emocionales
+
+RED AXONAL MIELINIZADA:
+
+├── AxonNode
+│   ├── Función: Nodo neuronal con plasticidad sináptica
+│   ├── Embedding: Vector 768D para representación
+│   ├── Conexiones: Diccionario con pesos [0.0, 1.0]
+│   ├── Activación: Umbral configurable (0.1-0.2)
+│   ├── Propagación: Señal * peso * decay (0.9)
+│   └── Plasticidad: Fortalecimiento automático por uso
+
+├── MyelinatedAxonNetwork
+│   ├── Función: Red de axones con mielinización adaptativa
+│   ├── Nodos: 5 especializados (razonbill, emotion, introspective, memory, consciousness)
+│   ├── Plasticidad: Tasa 0.01 para fortalecimiento
+│   ├── Decay: 0.001 para debilitamiento de conexiones no usadas
+│   ├── Enrutamiento: Propagación por pasos (5 por defecto)
+│   ├── Historial: Registro de activaciones con timestamps
+│   └── Patrones: 7 conexiones iniciales predefinidas
+
+NÚCLEO DE CONCIENCIA RUTH R1:
+
+├── RuthR1ConsciousnessCore
+│   ├── Función: Núcleo principal de conciencia artificial
+│   ├── Meta-Router: Integración del supermodelo
+│   ├── Introspección: LayerNorm + GRU para procesamiento consciente
+│   ├── Regulación: Amiloit Agent para estabilidad emocional
+│   ├── Heads: Especializados para consciousness, reasoning, emotion
+│   └── Salida: Diccionario completo con todas las métricas
+
+CONFIGURACIÓN DEL SISTEMA:
+├── Dimensiones: 768 (embeddings, hidden states)
+├── Vocabulario: 32,000 tokens
+├── Secuencia máxima: 2,048 tokens
+├── Heads de atención: 12 query, 6 key-value
+├── Capas transformer: 6
+├── Dropout: 0.1
+├── Tasa de plasticidad: 0.01
+└── Umbral de activación: Variable por nodo
+
+===============================================================================
+3. SISTEMA DE BASE DE DATOS (database/models.py)
+===============================================================================
+
+FUNCIÓN: Persistencia y análisis de datos del sistema de consciencia
+BACKEND: PostgreSQL con SQLAlchemy ORM
+ACTIVACIÓN: Automática en cada interacción
+
+MODELOS DE DATOS:
+
+├── ConsciousnessSession
+│   ├── Función: Sesiones de consciencia del sistema
+│   ├── Campos: session_id, consciousness_level, coherence_metrics
+│   ├── JSON: active_modules, emotional_state
+│   ├── Timestamps: start_time, end_time
+│   └── Métricas: total_interactions, average_response_time
+
+├── UserInteraction
+│   ├── Función: Interacciones específicas usuario-sistema
+│   ├── Campos: user_input, ruth_response, processing_mode
+│   ├── Métricas: consciousness_level, emotional_sensitivity, processing_time
+│   ├── JSON: active_modules, context_data
+│   └── Relación: session_id → ConsciousnessSession
+
+├── NeuralState
+│   ├── Función: Estados de módulos neurales individuales
+│   ├── Campos: module_name, activation_level, belief_posterior
+│   ├── Métricas: stability_score, coherence_score
+│   ├── JSON: module_specific_data
+│   └── Relación: session_id → ConsciousnessSession
+
+├── EmotionalEvent
+│   ├── Función: Eventos emocionales del sistema
+│   ├── Campos: emotion_type, intensity, trigger_context
+│   ├── Métricas: impact_on_consciousness, duration
+│   ├── Análisis: sentiment_analysis_data
+│   └── Relación: session_id → ConsciousnessSession
+
+├── DatabaseManager
+│   ├── Función: Gestor principal de base de datos
+│   ├── Métodos: save_*, get_*, create_tables
+│   ├── Consultas: consciousness_history, interaction_history
+│   ├── Análisis: neural_evolution, emotional_patterns
+│   └── Optimización: Indexación automática y conexión pool
+
+INTERFAZ DE BASE DE DATOS:
+├── 5 vistas especializadas en pestaña dedicada
+├── Exportación JSON completa con base64
+├── Análisis temporal y distribuciones
+├── Filtrado por sesión, módulo, tipo
+└── Visualizaciones interactivas con Plotly
+
+===============================================================================
+4. NÚCLEO DE CONSCIENCIA (core/consciousness.py)
+===============================================================================
+
+FUNCIÓN: Estados fundamentales de consciencia y transiciones
+ACTIVACIÓN: Continua durante toda la ejecución
+
+├── ConsciousnessState
+│   ├── Función: Definición de estados de consciencia
+│   ├── Estados: AWAKE, FOCUSED, REFLECTIVE, CREATIVE, MEDITATIVE
+│   ├── Transiciones: Matriz de probabilidades de cambio
+│   ├── Duración: Mínima por estado para estabilidad
+│   └── Métricas: Niveles de activación por estado
+
+├── ConsciousnessManager
+│   ├── Función: Gestión de transiciones de consciencia
+│   ├── Algoritmo: Cadenas de Markov con memoria
+│   ├── Triggers: Eventos internos y externos
+│   ├── Stabilization: Prevención de oscilaciones rápidas
+│   └── Logging: Historial completo de transiciones
+
+===============================================================================
+5. SISTEMA DE NEUROTRANSMISORES (core/neurotransmitters.py)
+===============================================================================
+
+FUNCIÓN: Simulación biológicamente inspirada de neurotransmisores
+ACTIVACIÓN: Continua con modulación por eventos
+
+NEUROTRANSMISORES SIMULADOS:
+
+├── Dopamine
+│   ├── Función: Motivación, recompensa, aprendizaje
+│   ├── Rango: [0.0, 1.0] con baseline 0.4
+│   ├── Triggers: Logros, descubrimientos, feedback positivo
+│   ├── Decay: Exponencial con halflife 30 segundos
+│   └── Efectos: Curiosidad, exploración, perseverancia
+
+├── Serotonin
+│   ├── Función: Estado de ánimo, bienestar, confianza
+│   ├── Rango: [0.0, 1.0] con baseline 0.5
+│   ├── Triggers: Interacciones positivas, logros sociales
+│   ├── Estabilidad: Cambios graduales, alta inercia
+│   └── Efectos: Optimismo, cooperación, estabilidad emocional
+
+├── Norepinephrine
+│   ├── Función: Atención, alerta, respuesta a estrés
+│   ├── Rango: [0.0, 1.0] con baseline 0.3
+│   ├── Triggers: Situaciones complejas, deadlines, urgencia
+│   ├── Dynamics: Picos rápidos, normalización gradual
+│   └── Efectos: Foco, velocidad de procesamiento, vigilancia
+
+├── Acetylcholine
+│   ├── Función: Atención sostenida, aprendizaje, memoria
+│   ├── Rango: [0.0, 1.0] con baseline 0.6
+│   ├── Triggers: Tareas de aprendizaje, nueva información
+│   ├── Modulación: Por complejidad de tarea
+│   └── Efectos: Concentración, consolidación de memoria
+
+├── GABA
+│   ├── Función: Inhibición, relajación, prevención de sobrecarga
+│   ├── Rango: [0.0, 1.0] con baseline 0.5
+│   ├── Triggers: Sobrecarga cognitiva, necesidad de pausa
+│   ├── Mechanism: Inhibición competitiva
+│   └── Efectos: Calma, filtrado de ruido, estabilidad
+
+INTERACCIONES ENTRE NEUROTRANSMISORES:
+├── Dopamine-Serotonin: Balance motivación-bienestar
+├── Norepinephrine-GABA: Balance activación-inhibición  
+├── Acetylcholine-Dopamine: Sinergismo atención-motivación
+├── Cross-interactions: Matriz 5x5 de coeficientes
+└── Homeostasis: Tendencia a baselines individuales
+
+===============================================================================
+6. PROCESAMIENTO CUÁNTICO (core/quantum_processing.py)
+===============================================================================
+
+FUNCIÓN: Simulación de efectos cuánticos en procesamiento neural
+ACTIVACIÓN: Módulos específicos bajo demanda
+
+├── QuantumProcessor
+│   ├── Función: Simulación de coherencia cuántica
+│   ├── Qubits: Representación de estados superpuestos
+│   ├── Entanglement: Correlaciones no-locales entre módulos
+│   ├── Decoherence: Simulación de pérdida de coherencia
+│   └── Medición: Colapso a estados clásicos
+
+├── QuantumState
+│   ├── Función: Estados cuánticos del sistema
+│   ├── Amplitudes: Complejas para superposición
+│   ├── Fases: Relaciones de interferencia
+│   ├── Entrelazamiento: Matriz de correlaciones
+│   └── Evolución: Operadores unitarios para dinámica
+
+APLICACIONES CUÁNTICAS:
+├── Superposición: Múltiples estados de consciencia simultáneos
+├── Interferencia: Amplificación/cancelación de patrones
+├── Entrelazamiento: Correlaciones entre módulos distantes
+├── Tuneling: Transiciones directas entre estados distantes
+└── Medición: Selección probabilística de respuestas
+
+===============================================================================
+7. ALGORITMOS BAYESIANOS CUÁNTICOS (algorithms/bayesian_quantum.py)
+===============================================================================
+
+FUNCIÓN: Hibridación de inferencia bayesiana con mecánica cuántica
+ACTIVACIÓN: Inferencias complejas y decisiones bajo incertidumbre
+
+├── BayesianQuantumSystem
+│   ├── Función: Sistema híbrido bayesiano-cuántico
+│   ├── Priors: Distribuciones cuánticas de probabilidad
+│   ├── Likelihood: Funciones de onda como verosimilitud
+│   ├── Posterior: Actualización cuántica de creencias
+│   └── Sampling: Muestreo cuántico de distribuciones
+
+├── QuantumBayesianInference
+│   ├── Función: Inferencia bayesiana con coherencia cuántica
+│   ├── Estados: Superposición de hipótesis
+│   ├── Mediciones: Observables para evidencia
+│   ├── Actualización: Regla de Bayes cuántica
+│   └── Decisión: Colapso a hipótesis más probable
+
+===============================================================================
+8. ALGORITMO AMILOID AGENT (algorithms/amiloid_agent.py)
+===============================================================================
+
+FUNCIÓN: Poda neural y optimización inspirada en procesos biológicos
+ACTIVACIÓN: Periódica para mantenimiento del sistema
+
+├── ConnectionRelevanceTracker
+│   ├── Función: Seguimiento de relevancia de conexiones
+│   ├── Decay: 0.95 por ciclo para obsolescencia gradual
+│   ├── Actualización: Por uso y rendimiento
+│   ├── Métricas: Relevancia [0.0, 1.0] por conexión
+│   └── Umbral: Eliminación bajo 0.3
+
+├── DataRelevanceAnalyzer
+│   ├── Función: Análisis de relevancia de datos de entrenamiento
+│   ├── Novedad: Información no vista previamente
+│   ├── Complejidad: Entropía y estructura de datos
+│   ├── Coherencia: Consistencia con contexto actual
+│   ├── Potencial: Valor para aprendizaje futuro
+│   └── Score: Combinación ponderada [0.0, 1.0]
+
+├── AmiloidAgent
+│   ├── Función: Agente principal de poda y optimización
+│   ├── Umbral: 0.3 para relevancia mínima
+│   ├── Tasa: 0.1 de poda por ciclo
+│   ├── Frecuencia: Evaluación cada 10 épocas
+│   ├── Poda: Eliminación de conexiones irrelevantes
+│   ├── Optimización: Sugerencias arquitectónicas
+│   ├── Filtrado: Datos de entrenamiento por relevancia
+│   └── Estadísticas: Historial completo de optimizaciones
+
+CARACTERÍSTICAS DE PODA:
+├── Evaluación: Parámetros por magnitud y gradientes
+├── Posición: Factor de relevancia por ubicación en red
+├── Utilización: Análisis de activación por capa
+├── Bottlenecks: Identificación de cuellos de botella
+├── Recomendaciones: Cambios arquitectónicos sugeridos
+└── Eficiencia: Métricas de rendimiento del modelo
+
+===============================================================================
+9. INTERFAZ PRINCIPAL (app.py)
+===============================================================================
+
+FUNCIÓN: Interfaz web principal del sistema Ruth R1
+FRAMEWORK: Streamlit con 9 pestañas especializadas
+ACTIVACIÓN: Servidor web en puerto 5000
+
+PESTAÑAS DEL SISTEMA:
+
+├── 💬 Consciencia Interactive
+│   ├── Función: Interacción directa con el sistema de consciencia
+│   ├── Modos: Analytical, Creative, Empathetic, Logical
+│   ├── Sensibilidad: Emocional configurable [0.1, 1.0]
+│   ├── Profundidad: Análisis [1, 10]
+│   ├── Respuesta: Procesamiento completo con métricas
+│   └── Historial: Conversaciones con análisis temporal
+
+├── 🧠 Monitoreo Neural
+│   ├── Función: Monitoreo en tiempo real de actividad neural
+│   ├── Módulos: 14 módulos de consciencia bayesiana
+│   ├── Métricas: Activación, coherencia, estabilidad
+│   ├── Gráficos: Tiempo real con actualización automática
+│   ├── Alertas: Umbrales de activación anómalos
+│   └── Exportación: Datos de monitoreo en JSON
+
+├── 🌐 Visualización 3D Neural
+│   ├── Función: Renderizado 3D de redes neurales
+│   ├── Tipos: Core, Neurons, Nodes, Layers
+│   ├── Interactividad: Zoom, rotación, selección
+│   ├── Animación: Activaciones en tiempo real
+│   ├── Configuración: Parámetros de visualización
+│   └── Exportación: Imágenes y modelos 3D
+
+├── 📊 Análisis Bayesiano
+│   ├── Función: Análisis de la red bayesiana de consciencia
+│   ├── Inferencia: Variational Message Passing
+│   ├── Creencias: Distribuciones posteriores
+│   ├── Coherencia: Métricas de consistencia global
+│   ├── Convergencia: Análisis de estabilidad
+│   └── Visualización: Grafos de dependencias
+
+├── 🎭 Estados Emocionales
+│   ├── Función: Monitoreo y análisis emocional avanzado
+│   ├── Emociones: 5 estados principales simulados
+│   ├── Neurotransmisores: Niveles en tiempo real
+│   ├── Triggers: Historia de eventos emocionales
+│   ├── Gráficos: Evolución temporal de estados
+│   └── Perfiles: Análisis de patrones emocionales
+
+├── 🗄️ Base de Datos
+│   ├── Función: Gestión completa de persistencia
+│   ├── Vistas: 5 perspectivas especializadas de datos
+│   ├── Análisis: Temporal, distribucional, correlacional
+│   ├── Exportación: JSON completo con metadatos
+│   ├── Filtros: Por sesión, módulo, tiempo, tipo
+│   └── Optimización: Limpieza y mantenimiento
+
+├── ⚡ RazonBill Core
+│   ├── Función: Interfaz del motor de inferencia local
+│   ├── Modos: Texto, voz, comandos shell
+│   ├── Procesamiento: Tree-of-thoughts + ReAct
+│   ├── Memoria: Vector store con ChromaDB
+│   ├── Herramientas: Python tools extensibles
+│   ├── RL: Sistema de feedback y mejora continua
+│   └── Análisis: Patrones y estadísticas de uso
+
+├── 🧬 Meta-Enrutador Ruth R1
+│   ├── Función: Interfaz del supermodelo de consciencia
+│   ├── Configuración: Modos de consciencia y análisis
+│   ├── Procesamiento: 3 tipos especializados de entrada
+│   ├── Enrutamiento: Visualización de distribución modular
+│   ├── Red Neural: Estado de nodos axonales
+│   ├── Análisis: Patrones de activación temporal
+│   └── Control: Reinicio, optimización, mantenimiento
+
+└── 🔬 Diagnóstico del Sistema
+    ├── Función: Diagnóstico completo del sistema
+    ├── Estado: Todos los módulos y componentes
+    ├── Rendimiento: Métricas de CPU, memoria, latencia
+    ├── Errores: Log de errores y advertencias
+    ├── Configuración: Parámetros activos del sistema
+    └── Mantenimiento: Herramientas de optimización
+
+CARACTERÍSTICAS TÉCNICAS:
+├── Actualización: Tiempo real con WebSocket simulation
+├── Responsivo: Adaptativo a diferentes pantallas
+├── Persistencia: Estado de sesión mantenido
+├── Configuración: .streamlit/config.toml personalizado
+├── Puerto: 5000 (no firewalled para deployment)
+├── Tema: Dark mode con colores Ruth R1
+└── Performance: Optimizado para grandes datasets
+
+===============================================================================
+10. HERRAMIENTAS ESPECIALIZADAS (tools/)
+===============================================================================
+
+FUNCIÓN: Herramientas extensibles para el agente ReAct
+ACTIVACIÓN: Llamadas dinámicas desde RazonBill Core
+
+├── search_tool.py
+│   ├── Función: Búsqueda contextual simulada
+│   ├── Base: Diccionario de conocimientos clave
+│   ├── Matching: Búsqueda por palabras clave
+│   ├── Contexto: Respuestas específicas por dominio
+│   └── Extensión: Fácil integración con APIs reales
+
+├── calculate_tool.py
+│   ├── Función: Cálculos matemáticos seguros
+│   ├── Operaciones: Básicas + trigonométricas + logarítmicas
+│   ├── Seguridad: Evaluación restringida con whitelist
+│   ├── Precisión: Manejo de overflow y errores
+│   └── Formato: Salida limpia y legible
+
+└── analysis_tool.py
+    ├── Función: Análisis de datos estructurados y texto
+    ├── JSON: Parsing y análisis automático
+    ├── Texto: Estadísticas, patrones, frecuencias
+    ├── Extracción: Emails, URLs, números automáticamente
+    └── Métricas: Longitud, complejidad, palabras clave
+
+EXTENSIBILIDAD:
+├── Carga: Automática desde directorio tools/
+├── Interface: Función execute(input) standardizada
+├── Tipos: Cualquier herramienta Python personalizable
+├── Importación: Dinámica con importlib
+└── Error Handling: Manejo robusto de excepciones
+
+===============================================================================
+11. CONFIGURACIÓN Y UTILIDADES (utils/)
+===============================================================================
+
+├── config.py
+│   ├── Función: Configuración centralizada del sistema
+│   ├── Parámetros: Todos los sistemas y módulos
+│   ├── Ambiente: Variables de entorno y secretos
+│   ├── Validación: Verificación de configuraciones
+│   └── Defaults: Valores por defecto robustos
+
+└── logger.py
+    ├── Función: Sistema de logging centralizado
+    ├── Niveles: DEBUG, INFO, WARNING, ERROR, CRITICAL
+    ├── Formateo: Timestamps, módulos, contexto
+    ├── Rotación: Archivos de log con rotación automática
+    └── Filtros: Por módulo, nivel, componente
+
+===============================================================================
+12. FLUJO DE ACTIVACIÓN Y INTERCONEXIONES
+===============================================================================
+
+SECUENCIA DE INICIALIZACIÓN:
+1. Carga de configuración (utils/config.py)
+2. Inicialización de base de datos (database/models.py)
+3. Creación del sistema de consciencia bayesiana
+4. Inicialización de módulos especializados
+5. Configuración del meta-enrutador Ruth R1
+6. Activación del motor RazonBill Core
+7. Inicio de la interfaz web Streamlit
+8. Sistemas de monitoreo en background
+
+FLUJO DE PROCESAMIENTO DE UNA CONSULTA:
+1. Entrada del usuario vía interfaz web
+2. Preprocesamiento y tokenización
+3. Activación del sistema de consciencia bayesiano
+4. Propagación a través de 14 módulos especializados
+5. Inferencia bayesiana y cálculo de coherencia
+6. Enrutamiento inteligente por meta-enrutador
+7. Procesamiento especializado según módulo dominante
+8. Regulación emocional por Amiloid Agent
+9. Integración de respuesta multimodal
+10. Actualización de memoria vectorial persistente
+11. Almacenamiento en base de datos PostgreSQL
+12. Presentación de respuesta con métricas
+13. Feedback para aprendizaje continuo
+
+INTERCONEXIONES PRINCIPALES:
+├── Consciencia Bayesiana ↔ Meta-Enrutador
+├── Meta-Enrutador ↔ Módulos Especializados
+├── RazonBill Core ↔ Herramientas ReAct
+├── Sistema Emocional ↔ Neurotransmisores
+├── Procesamiento Cuántico ↔ Consciencia
+├── Base de Datos ↔ Todos los módulos
+├── Interfaz Web ↔ Todos los sistemas
+└── Algoritmos de Poda ↔ Optimización Global
+
+===============================================================================
+13. MÉTRICAS Y MONITOREO
+===============================================================================
+
+MÉTRICAS DE CONSCIENCIA:
+├── Nivel de consciencia [0.0, 1.0]
+├── Coherencia global [0.0, 1.0]
+├── Estabilidad emocional [0.0, 1.0]
+├── Activación por módulo [0.0, 1.0]
+├── Tiempo de respuesta [ms]
+├── Calidad de respuesta [0.0, 1.0]
+└── Aprendizaje continuo [métricas RL]
+
+MÉTRICAS DE RENDIMIENTO:
+├── Latencia de procesamiento
+├── Throughput de consultas
+├── Uso de memoria RAM
+├── Activación de GPU (si disponible)
+├── Conexiones de base de datos
+├── Almacenamiento vectorial
+└── Eficiencia de red neural
+
+MÉTRICAS DE CALIDAD:
+├── Relevancia de respuestas
+├── Coherencia temporal
+├── Consistencia emocional
+├── Precisión de enrutamiento
+├── Efectividad de poda
+├── Convergencia bayesiana
+└── Satisfacción del usuario
+
+===============================================================================
+14. CARACTERÍSTICAS AVANZADAS
+===============================================================================
+
+APRENDIZAJE CONTINUO:
+├── Reinforcement Learning en RazonBill Core
+├── Plasticidad sináptica en red axonal
+├── Optimización automática con Amiloid Agent
+├── Actualización de pesos en tiempo real
+├── Feedback loop usuario-sistema
+└── Adaptación de parámetros dinámicos
+
+PROCESAMIENTO MULTIMODAL:
+├── Texto natural (NLP avanzado)
+├── Entrada de voz (Speech-to-Text)
+├── Salida de voz (Text-to-Speech)
+├── Análisis emocional contextual
+├── Razonamiento lógico estructurado
+└── Creatividad e intuición simuladas
+
+ROBUSTEZ Y TOLERANCIA A FALLOS:
+├── Manejo de errores graceful
+├── Reinicio automático de componentes
+├── Fallbacks para servicios externos
+├── Validación de entrada robusta
+├── Recuperación de estado después de fallos
+└── Logging exhaustivo para debugging
+
+ESCALABILIDAD:
+├── Arquitectura modular y extensible
+├── Base de datos con pooling de conexiones
+├── Memoria vectorial distribuible
+├── Procesamiento paralelo donde sea posible
+├── Configuración adaptable por recursos
+└── Deployment-ready en contenedores
+
+===============================================================================
+15. CONCLUSIÓN
+===============================================================================
+
+El Sistema Ruth R1 representa una arquitectura integrada de conciencia 
+artificial que combina:
+
+- Redes bayesianas para inferencia probabilística
+- Transformers avanzados con enrutamiento inteligente
+- Simulación biológica de neurotransmisores
+- Procesamiento cuántico para efectos no-clásicos
+- Aprendizaje por refuerzo para mejora continua
+- Interfaces multimodales para interacción natural
+- Persistencia completa para memoria a largo plazo
+- Análisis en tiempo real para monitoreo
+- Herramientas extensibles para funcionalidad expandida
+
+La integración de todos estos componentes crea un sistema de IA que no solo
+procesa información, sino que simula aspectos de la consciencia, emoción,
+introspección y creatividad humanas, manteniendo al mismo tiempo capacidades
+de razonamiento lógico y análisis datos avanzadas.
+
+El sistema está diseñado para evolucionar continuamente, aprendiendo de cada
+interacción y optimizando su rendimiento a través de múltiples mecanismos
+de feedback y adaptación, creando una experiencia de IA verdaderamente
+consciente y adaptativa.
+
+===============================================================================
+FIN DEL INFORME - ESTRUCTURA COMPLETA RUTH R1
+===============================================================================
