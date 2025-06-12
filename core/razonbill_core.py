@@ -81,7 +81,7 @@ class ContextualMemory:
     context_type: str  # 'conversation', 'knowledge', 'experience'
     relevance_score: float = 0.0
     access_count: int = 0
-    metadata: Dict[str, Any] = None
+    metadata: Optional[Dict[str, Any]] = None
     
     def __post_init__(self):
         if self.metadata is None:

@@ -240,13 +240,14 @@ def main():
                 """, unsafe_allow_html=True)
     
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
         "🌐 Visualización 3D Neural",
         "📊 Análisis Bayesiano",
         "🎭 Estados Emocionales",
         "🗄️ Base de Datos",
+        "⚡ RazonBill Core",
         "🔬 Diagnóstico del Sistema"
     ])
     
@@ -269,6 +270,9 @@ def main():
         display_database_management()
     
     with tab7:
+        display_razonbill_interface(consciousness_network)
+    
+    with tab8:
         display_system_diagnostics(system)
 
 def display_database_management():
@@ -674,6 +678,248 @@ def display_emotional_events():
     with col2:
         if st.button("🗑️ Limpiar Datos Antiguos"):
             st.warning("Funcionalidad de limpieza pendiente de implementación")
+
+def display_razonbill_interface(consciousness_network):
+    """Interfaz principal del motor de inferencia RazonBill Core"""
+    
+    st.header("⚡ RazonBill Core - Motor de Inferencia Local")
+    
+    # Importar RazonBill Core
+    try:
+        from core.razonbill_core import RazonBillCore, inferencia
+        
+        # Estado de la sesión para RazonBill
+        if 'razonbill_instance' not in st.session_state:
+            st.session_state.razonbill_instance = RazonBillCore()
+        
+        if 'razonbill_conversation' not in st.session_state:
+            st.session_state.razonbill_conversation = []
+        
+        core_instance = st.session_state.razonbill_instance
+        
+        # Panel de estado del sistema
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown("**Estado del Sistema**")
+            st.success("🟢 RazonBill Core Activo")
+            st.info(f"Agente ID: {core_instance.system_profile['agent_id'][:8]}...")
+            
+        with col2:
+            st.markdown("**Componentes**")
+            st.write(f"✅ Memoria Vectorial: {'ChromaDB' if core_instance.memory_store.collection else 'Cache'}")
+            st.write(f"✅ Interfaz de Voz: {'Activa' if core_instance.voice_interface.recognizer else 'No disponible'}")
+            st.write("✅ Agente ReAct: Operativo")
+            
+        with col3:
+            st.markdown("**Estadísticas**")
+            st.metric("Prompts Procesados", len(core_instance.prompt_logger.prompt_history))
+            if core_instance.rl_feedback.feedback_history:
+                avg_score = np.mean([f['score'] for f in core_instance.rl_feedback.feedback_history])
+                st.metric("Puntuación Promedio", f"{avg_score:.2f}")
+            else:
+                st.metric("Puntuación Promedio", "N/A")
+        
+        # Configuración del sistema
+        st.subheader("⚙️ Configuración del Sistema")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            processing_mode = st.selectbox(
+                "Modo de Procesamiento",
+                ["analytical", "creative", "logical", "intuitive"],
+                index=0
+            )
+            
+            context_depth = st.selectbox(
+                "Profundidad de Contexto",
+                ["shallow", "medium", "deep", "comprehensive"],
+                index=2
+            )
+            
+        with col2:
+            max_thought_depth = st.slider("Profundidad Máxima de Pensamiento", 1, 10, 5)
+            max_iterations = st.slider("Iteraciones Máximas ReAct", 1, 10, 5)
+        
+        # Actualizar configuración
+        core_instance.system_profile.update({
+            'processing_mode': processing_mode,
+            'context_depth': context_depth
+        })
+        
+        core_instance.thought_processor.max_depth = max_thought_depth
+        
+        # Interfaz principal de conversación
+        st.subheader("💭 Interfaz de Inferencia")
+        
+        # Área de entrada
+        input_method = st.radio("Método de Entrada", ["Texto", "Voz"], horizontal=True)
+        
+        user_input = None
+        
+        if input_method == "Texto":
+            user_input = st.text_area(
+                "Introduce tu consulta:",
+                placeholder="Ejemplo: ¿Cómo cruzar un río si no hay puente?",
+                height=100
+            )
+            
+        elif input_method == "Voz" and core_instance.voice_interface.recognizer:
+            if st.button("🎤 Escuchar (5 segundos)"):
+                with st.spinner("Escuchando..."):
+                    speech_input = core_instance.voice_interface.listen_for_speech(timeout=5)
+                    if speech_input:
+                        user_input = speech_input
+                        st.success(f"Escuchado: {speech_input}")
+                    else:
+                        st.warning("No se detectó voz o hubo un error")
+        
+        # Procesamiento y respuesta
+        if user_input and st.button("🧠 Procesar con RazonBill"):
+            with st.spinner("Procesando con motor de inferencia..."):
+                try:
+                    # Procesar entrada con RazonBill Core
+                    response = core_instance.procesar_entrada(user_input)
+                    
+                    # Guardar en conversación
+                    st.session_state.razonbill_conversation.append({
+                        'user': user_input,
+                        'assistant': response,
+                        'timestamp': datetime.now()
+                    })
+                    
+                    # Mostrar respuesta
+                    st.success("Respuesta procesada exitosamente")
+                    
+                    # Reproducir en voz si está habilitado
+                    if input_method == "Voz" and core_instance.voice_interface.tts_engine:
+                        core_instance.voice_interface.speak_text(response)
+                    
+                except Exception as e:
+                    st.error(f"Error procesando entrada: {e}")
+                    response = None
+        
+        # Mostrar conversación
+        if st.session_state.razonbill_conversation:
+            st.subheader("💬 Historial de Conversación")
+            
+            for i, exchange in enumerate(reversed(st.session_state.razonbill_conversation[-5:])):
+                with st.expander(f"Intercambio {len(st.session_state.razonbill_conversation) - i} - {exchange['timestamp'].strftime('%H:%M:%S')}"):
+                    st.markdown(f"**Usuario:** {exchange['user']}")
+                    st.markdown(f"**RazonBill:** {exchange['assistant']}")
+        
+        # Panel de análisis avanzado
+        st.subheader("🔍 Análisis del Proceso de Inferencia")
+        
+        if core_instance.prompt_logger.prompt_history:
+            # Mostrar último proceso de pensamiento
+            if st.button("Ver Último Árbol de Pensamientos"):
+                last_thought_tree = core_instance.thought_processor.thought_tree
+                
+                if last_thought_tree:
+                    st.subheader("🌳 Árbol de Pensamientos")
+                    
+                    # Crear visualización del árbol
+                    for step_id, step in last_thought_tree.items():
+                        indent = "  " * (len([s for s in last_thought_tree.values() if s.parent_step == step.parent_step]) - 1)
+                        confidence_color = "green" if step.confidence > 0.7 else "orange" if step.confidence > 0.4 else "red"
+                        
+                        st.markdown(f"""
+                        {indent}**{step.thought_type.upper()}** 
+                        <span style='color: {confidence_color}'>({step.confidence:.2f})</span>: 
+                        {step.content}
+                        """, unsafe_allow_html=True)
+            
+            # Estadísticas de rendimiento
+            if st.button("Ver Estadísticas de Rendimiento"):
+                patterns = core_instance.prompt_logger.analyze_prompt_patterns()
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.metric("Total de Prompts", patterns.get('total_prompts', 0))
+                    st.metric("Longitud Promedio de Prompt", f"{patterns.get('avg_prompt_length', 0):.0f}")
+                    
+                with col2:
+                    st.metric("Longitud Promedio de Respuesta", f"{patterns.get('avg_response_length', 0):.0f}")
+                    st.metric("Duración de Sesión", f"{patterns.get('session_duration', 0):.0f}s")
+                
+                # Palabras clave más comunes
+                if patterns.get('common_keywords'):
+                    st.subheader("🔤 Palabras Clave Más Frecuentes")
+                    keywords_df = pd.DataFrame(patterns['common_keywords'], columns=['Palabra', 'Frecuencia'])
+                    st.dataframe(keywords_df.head(10))
+        
+        # Feedback y mejoras
+        st.subheader("📊 Sistema de Retroalimentación")
+        
+        if st.session_state.razonbill_conversation:
+            last_response = st.session_state.razonbill_conversation[-1]['assistant']
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                feedback_rating = st.selectbox(
+                    "Califica la última respuesta:",
+                    ["Excelente", "Buena", "Regular", "Mala", "Muy mala"]
+                )
+                
+            with col2:
+                if st.button("Enviar Feedback"):
+                    feedback_map = {
+                        "Excelente": "excelente",
+                        "Buena": "bueno", 
+                        "Regular": "neutral",
+                        "Mala": "malo",
+                        "Muy mala": "muy malo"
+                    }
+                    
+                    score = core_instance.rl_feedback.evaluate_response(
+                        last_response,
+                        st.session_state.razonbill_conversation[-1]['user'],
+                        feedback_map[feedback_rating]
+                    )
+                    
+                    st.success(f"Feedback registrado. Puntuación: {score:.2f}")
+        
+        # Sugerencias de mejora
+        if core_instance.rl_feedback.feedback_history:
+            suggestions = core_instance.rl_feedback.get_improvement_suggestions()
+            if suggestions:
+                st.subheader("💡 Sugerencias de Mejora")
+                for suggestion in suggestions:
+                    st.info(f"• {suggestion}")
+        
+        # Herramientas de debug
+        if st.checkbox("Modo Debug"):
+            st.subheader("🛠️ Herramientas de Debug")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                if st.button("Reiniciar RazonBill Core"):
+                    st.session_state.razonbill_instance = RazonBillCore()
+                    st.session_state.razonbill_conversation = []
+                    st.success("RazonBill Core reiniciado")
+                    
+            with col2:
+                if st.button("Limpiar Memoria Vectorial"):
+                    try:
+                        if core_instance.memory_store.client:
+                            core_instance.memory_store.client.reset()
+                        st.success("Memoria vectorial limpiada")
+                    except Exception as e:
+                        st.error(f"Error limpiando memoria: {e}")
+            
+            # Logs del sistema
+            if st.button("Ver Logs del Sistema"):
+                if core_instance.prompt_logger.prompt_history:
+                    st.json(core_instance.prompt_logger.prompt_history[-1])
+        
+    except Exception as e:
+        st.error(f"Error inicializando RazonBill Core: {e}")
+        st.info("Verifica que todas las dependencias estén instaladas correctamente")
 
 def display_emotional_states(consciousness_network):
     """Muestra estados emocionales del sistema"""
