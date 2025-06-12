@@ -21,38 +21,112 @@ import cv2
 
 # Importar módulos del sistema
 try:
-    from modules.bayesian_consciousness_network import BayesianConsciousnessNetwork, global_consciousness_network
     from modules.ruth_full_module_system import (
         TensorHub, EmotionalStateSimulator, MetaExperienceBuffer,
         IntrospectiveDSLObserver, DynamicPolicyRegulator, RuntimeWeightGradientAdvisor
     )
-    from modules.neural_3d_visualizer import Neural3DVisualizer
-    from modules.neural_flow_visualizer import NeuralFlowVisualizer
-    from models.supermodelo_meta_enrutador import (
-        create_ruth_r1_system, 
-        process_consciousness_input,
-        create_default_config,
-        RuthR1ConsciousnessCore
-    )
-    from core.consciousness import ConsciousnessState
-    from core.neurotransmitters import NeurotransmitterSystem
-    from core.quantum_processing import QuantumProcessor
-    from algorithms.bayesian_quantum import BayesianQuantumSystem
-    from core.despertar_awakening import (
-        initiate_system_awakening, 
-        get_awakening_system, 
-        get_current_awakening_status,
-        AwakeningPhase
-    )
-    from core.ganst_core import get_ganst_core, get_system_statistics
-    from core.moduladores import get_modulation_manager
-    from core.memorias_corto_plazo import get_short_term_memory
-    from database.models import DatabaseManager, db_manager
-    from utils.config import Config
-    from utils.logger import StructuredLogger
+    
+    # Importar módulos opcionalmente
+    try:
+        from modules.bayesian_consciousness_network import BayesianConsciousnessNetwork, global_consciousness_network
+    except ImportError:
+        global_consciousness_network = None
+        st.warning("Red de consciencia bayesiana no disponible")
+    
+    try:
+        from modules.neural_3d_visualizer import Neural3DVisualizer
+    except ImportError:
+        Neural3DVisualizer = None
+        
+    try:
+        from modules.neural_flow_visualizer import NeuralFlowVisualizer
+    except ImportError:
+        NeuralFlowVisualizer = None
+        
+    try:
+        from models.supermodelo_meta_enrutador import (
+            create_ruth_r1_system, 
+            process_consciousness_input,
+            create_default_config,
+            RuthR1ConsciousnessCore
+        )
+    except ImportError:
+        create_ruth_r1_system = None
+        st.warning("Meta-enrutador no disponible")
+    
+    # Importar sistemas centrales con manejo de errores
+    try:
+        from core.consciousness import ConsciousnessState
+    except ImportError:
+        ConsciousnessState = None
+        
+    try:
+        from core.neurotransmitters import NeurotransmitterSystem
+    except ImportError:
+        NeurotransmitterSystem = None
+        
+    try:
+        from core.quantum_processing import QuantumProcessor
+    except ImportError:
+        QuantumProcessor = None
+        
+    try:
+        from algorithms.bayesian_quantum import BayesianQuantumSystem
+    except ImportError:
+        BayesianQuantumSystem = None
+        
+    try:
+        from core.despertar_awakening import (
+            initiate_system_awakening, 
+            get_awakening_system, 
+            get_current_awakening_status,
+            AwakeningPhase
+        )
+    except ImportError:
+        initiate_system_awakening = None
+        get_current_awakening_status = lambda: {'current_phase': 'error', 'is_awakening': False}
+        st.warning("Sistema de despertar no disponible")
+        
+    try:
+        from core.ganst_core import get_ganst_core, get_system_statistics
+    except ImportError:
+        get_ganst_core = lambda: None
+        get_system_statistics = lambda: {}
+        
+    try:
+        from core.moduladores import get_modulation_manager
+    except ImportError:
+        get_modulation_manager = lambda: None
+        
+    try:
+        from core.memorias_corto_plazo import get_short_term_memory
+    except ImportError:
+        get_short_term_memory = lambda: None
+        
+    try:
+        from database.models import DatabaseManager, db_manager
+    except ImportError:
+        db_manager = None
+        st.warning("Base de datos no disponible")
+        
+    try:
+        from utils.config import Config
+    except ImportError:
+        Config = None
+        
+    try:
+        from utils.logger import StructuredLogger
+    except ImportError:
+        StructuredLogger = None
+
 except ImportError as e:
-    st.error(f"Error importing modules: {e}")
-    st.stop()
+    st.error(f"Error crítico importando módulos del sistema: {e}")
+    st.info("El sistema continuará con funcionalidad limitada")
+    
+    # Definir placeholders para evitar errores
+    global_consciousness_network = None
+    TensorHub = None
+    Config = None
 
 # Configuración de la página
 st.set_page_config(
@@ -126,33 +200,82 @@ st.markdown("""
 # Inicialización del sistema
 @st.cache_resource
 def initialize_system():
-    """Inicializa el sistema AGI completo"""
+    """Inicializa el sistema AGI completo con manejo robusto de errores"""
     try:
-        # Configuración
-        config = Config()
-        logger = StructuredLogger("Ruth_R1_System")
+        # Configuración con manejo de errores
+        if Config:
+            try:
+                config = Config()
+            except:
+                config = create_mock_config()
+        else:
+            config = create_mock_config()
+            
+        # Logger con manejo de errores
+        if StructuredLogger:
+            try:
+                logger = StructuredLogger("Ruth_R1_System")
+            except:
+                logger = create_mock_logger()
+        else:
+            logger = create_mock_logger()
 
-        # Sistemas principales
-        consciousness = ConsciousnessState(config.get_consciousness_config())
-        neurotransmitters = NeurotransmitterSystem(config.get_neurotransmitter_config())
-        quantum_processor = QuantumProcessor(config.get_quantum_config()['n_qubits'])
-        bayesian_quantum = BayesianQuantumSystem()
+        # Sistemas principales con verificación
+        consciousness = None
+        if ConsciousnessState:
+            try:
+                consciousness = ConsciousnessState(config.get_consciousness_config() if hasattr(config, 'get_consciousness_config') else {})
+            except Exception as e:
+                logger.warning(f"Error inicializando ConsciousnessState: {e}")
+                
+        neurotransmitters = None
+        if NeurotransmitterSystem:
+            try:
+                neurotransmitters = NeurotransmitterSystem(config.get_neurotransmitter_config() if hasattr(config, 'get_neurotransmitter_config') else {})
+            except Exception as e:
+                logger.warning(f"Error inicializando NeurotransmitterSystem: {e}")
+                
+        quantum_processor = None
+        if QuantumProcessor:
+            try:
+                quantum_config = config.get_quantum_config() if hasattr(config, 'get_quantum_config') else {'n_qubits': 4}
+                quantum_processor = QuantumProcessor(quantum_config.get('n_qubits', 4))
+            except Exception as e:
+                logger.warning(f"Error inicializando QuantumProcessor: {e}")
+                
+        bayesian_quantum = None
+        if BayesianQuantumSystem:
+            try:
+                bayesian_quantum = BayesianQuantumSystem()
+            except Exception as e:
+                logger.warning(f"Error inicializando BayesianQuantumSystem: {e}")
 
         # Red de consciencia bayesiana
         consciousness_network = global_consciousness_network
+        if consciousness_network is None:
+            consciousness_network = create_mock_consciousness_network()
 
-        # Inicializar WandB si está disponible
-        TensorHub.initialize_wandb("ruth-r1-streamlit-interface")
+        # Inicializar TensorHub si está disponible
+        if TensorHub:
+            try:
+                TensorHub.initialize_wandb("ruth-r1-streamlit-interface")
+            except Exception as e:
+                logger.warning(f"TensorHub initialization failed: {e}")
 
-        # Inicializar base de datos
-        try:
-            db_manager.create_tables()
-            logger.info("Database tables created successfully")
-        except Exception as e:
-            logger.warning(f"Database initialization failed: {e}")
+        # Inicializar base de datos si está disponible
+        if db_manager:
+            try:
+                db_manager.create_tables()
+                logger.info("Database tables created successfully")
+            except Exception as e:
+                logger.warning(f"Database initialization failed: {e}")
 
-        # Iniciar procesamiento continuo
-        consciousness_network.start_continuous_processing()
+        # Iniciar procesamiento continuo si es posible
+        if consciousness_network and hasattr(consciousness_network, 'start_continuous_processing'):
+            try:
+                consciousness_network.start_continuous_processing()
+            except Exception as e:
+                logger.warning(f"Error starting continuous processing: {e}")
 
         logger.info("Sistema Ruth R1 inicializado completamente")
 
@@ -167,8 +290,73 @@ def initialize_system():
             'initialization_time': datetime.now()
         }
     except Exception as e:
-        st.error(f"Error inicializando sistema: {e}")
-        return None
+        st.error(f"Error crítico inicializando sistema: {e}")
+        return create_minimal_system()
+
+def create_mock_config():
+    """Crea configuración mock para evitar errores"""
+    class MockConfig:
+        def get_consciousness_config(self):
+            return {'level': 0.5}
+        def get_neurotransmitter_config(self):
+            return {'dopamine': 0.5}
+        def get_quantum_config(self):
+            return {'n_qubits': 4}
+        def get_multimodal_config(self):
+            return {'enabled': True}
+    return MockConfig()
+
+def create_mock_logger():
+    """Crea logger mock para evitar errores"""
+    class MockLogger:
+        def info(self, msg): print(f"INFO: {msg}")
+        def warning(self, msg): print(f"WARNING: {msg}")
+        def error(self, msg): print(f"ERROR: {msg}")
+    return MockLogger()
+
+def create_mock_consciousness_network():
+    """Crea red de conciencia mock para evitar errores"""
+    class MockConsciousnessNetwork:
+        def __init__(self):
+            self.global_consciousness_state = 0.5
+            self.coherence_metrics = {'coherence': 0.5}
+            self.nodes = {
+                'GANSLSTMCore': MockNode('GANSLSTMCore'),
+                'InnovationEngine': MockNode('InnovationEngine'),
+                'DreamMechanism': MockNode('DreamMechanism')
+            }
+            self.network_graph = None
+            
+        def _get_activation_state(self):
+            return {name: 0.5 for name in self.nodes.keys()}
+            
+        def _get_network_state(self):
+            return {'state': 'active'}
+            
+        def start_continuous_processing(self):
+            pass
+            
+    class MockNode:
+        def __init__(self, name):
+            self.name = name
+            self.activation_state = 0.5
+            self.posterior_belief = 0.5
+            self.prior_belief = 0.5
+    
+    return MockConsciousnessNetwork()
+
+def create_minimal_system():
+    """Crea sistema mínimo para evitar fallos completos"""
+    return {
+        'config': create_mock_config(),
+        'logger': create_mock_logger(),
+        'consciousness': None,
+        'neurotransmitters': None,
+        'quantum_processor': None,
+        'bayesian_quantum': None,
+        'consciousness_network': create_mock_consciousness_network(),
+        'initialization_time': datetime.now()
+    }
 
 # Estado de la sesión
 if 'system' not in st.session_state:
@@ -2107,110 +2295,101 @@ def display_holographic_3d_visualization(consciousness_network):
     
     st.header("🌌 Mapa Holográfico 3D - Ruth R1")
     
-    # Importar el visualizador holográfico
+    # Panel de control principal
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        view_mode = st.selectbox(
+            "Modo de Vista",
+            ["Completo", "Núcleo Central", "Capas", "Conexiones"],
+            help="Selecciona el tipo de vista holográfica"
+        )
+        
+    with col2:
+        animation_speed = st.slider("Velocidad de Animación", 0.1, 2.0, 1.0, 0.1)
+        
+    with col3:
+        holographic_intensity = st.slider("Intensidad Holográfica", 0.1, 1.0, 0.7, 0.1)
+    
+    # Controles de navegación 3D
+    st.subheader("🕹️ Controles de Navegación 3D")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        rotation_x = st.slider("Rotación X (°)", -180, 180, 0, 5)
+        rotation_y = st.slider("Rotación Y (°)", -180, 180, 0, 5)
+        
+    with col2:
+        rotation_z = st.slider("Rotación Z (°)", -180, 180, 0, 5)
+        zoom_level = st.slider("Zoom", 0.5, 3.0, 1.0, 0.1)
+        
+    with col3:
+        enable_touch = st.checkbox("Habilitar Táctil", value=True)
+        show_info_panels = st.checkbox("Mostrar Paneles de Info", value=True)
+    
+    # Crear visualización holográfica principal
+    st.subheader("🌐 Vista Holográfica Interactiva")
+    
+    # Generar la visualización basada en el modo seleccionado
     try:
-        from modules.holographic_3d_visualizer import HolographicNeuralVisualizer
+        if view_mode == "Completo":
+            fig = create_holographic_complete_view(consciousness_network, holographic_intensity)
+        elif view_mode == "Núcleo Central":
+            fig = create_holographic_core_view(consciousness_network, holographic_intensity)
+        elif view_mode == "Capas":
+            fig = create_holographic_layers_view(consciousness_network, holographic_intensity)
+        else:  # Conexiones
+            fig = create_holographic_connections_view(consciousness_network, holographic_intensity)
         
-        # Inicializar visualizador
-        if 'holographic_visualizer' not in st.session_state:
-            st.session_state.holographic_visualizer = HolographicNeuralVisualizer(consciousness_network)
-        
-        visualizer = st.session_state.holographic_visualizer
-        
-        # Panel de control principal
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            view_mode = st.selectbox(
-                "Modo de Vista",
-                ["Completo", "Núcleo Central", "Capas", "Conexiones"],
-                help="Selecciona el tipo de vista holográfica"
-            )
-            
-        with col2:
-            animation_speed = st.slider("Velocidad de Animación", 0.1, 2.0, 1.0, 0.1)
-            
-        with col3:
-            holographic_intensity = st.slider("Intensidad Holográfica", 0.1, 1.0, 0.7, 0.1)
-        
-        # Controles de navegación 3D
-        st.subheader("🕹️ Controles de Navegación 3D")
-        
-        col1, col2, col3 = st.columns(3)
-        
-        with col1:
-            rotation_x = st.slider("Rotación X (°)", -180, 180, 0, 5)
-            rotation_y = st.slider("Rotación Y (°)", -180, 180, 0, 5)
-            
-        with col2:
-            rotation_z = st.slider("Rotación Z (°)", -180, 180, 0, 5)
-            zoom_level = st.slider("Zoom", 0.5, 3.0, 1.0, 0.1)
-            
-        with col3:
-            enable_touch = st.checkbox("Habilitar Táctil", value=True)
-            show_info_panels = st.checkbox("Mostrar Paneles de Info", value=True)
-        
-        # Crear visualización holográfica principal
-        st.subheader("🌐 Vista Holográfica Interactiva")
-        
-        # Generar la visualización basada en el modo seleccionado
-        try:
-            if view_mode == "Completo":
-                fig = create_holographic_complete_view(consciousness_network, holographic_intensity)
-            elif view_mode == "Núcleo Central":
-                fig = create_holographic_core_view(consciousness_network, holographic_intensity)
-            elif view_mode == "Capas":
-                fig = create_holographic_layers_view(consciousness_network, holographic_intensity)
-            else:  # Conexiones
-                fig = create_holographic_connections_view(consciousness_network, holographic_intensity)
-            
-            # Aplicar transformaciones de navegación
-            fig.update_layout(
-                scene=dict(
-                    camera=dict(
-                        eye=dict(
-                            x=zoom_level * np.cos(np.radians(rotation_x)),
-                            y=zoom_level * np.sin(np.radians(rotation_y)),
-                            z=zoom_level * np.sin(np.radians(rotation_z))
-                        )
-                    ),
-                    aspectmode='cube',
-                    xaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
-                    yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
-                    zaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
-                    bgcolor='rgba(0,0,0,0.9)'
+        # Aplicar transformaciones de navegación
+        fig.update_layout(
+            scene=dict(
+                camera=dict(
+                    eye=dict(
+                        x=zoom_level * np.cos(np.radians(rotation_x)),
+                        y=zoom_level * np.sin(np.radians(rotation_y)),
+                        z=zoom_level * np.sin(np.radians(rotation_z))
+                    )
                 ),
-                template="plotly_dark",
-                height=700
-            )
-            
-            # Mostrar la visualización
-            selected_point = st.plotly_chart(fig, use_container_width=True, key="holographic_chart")
-            
-        except Exception as e:
-            st.error(f"Error generando visualización holográfica: {e}")
-            st.info("Usando visualización básica como respaldo...")
-            
-            # Visualización básica de respaldo
-            fig = create_basic_3d_network_view(consciousness_network)
-            st.plotly_chart(fig, use_container_width=True)
+                aspectmode='cube',
+                xaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
+                yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
+                zaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.1)'),
+                bgcolor='rgba(0,0,0,0.9)'
+            ),
+            template="plotly_dark",
+            height=700
+        )
         
-        # Panel de información de nodos
-        if show_info_panels:
-            st.subheader("📊 Información de Nodos")
+        # Mostrar la visualización
+        selected_point = st.plotly_chart(fig, use_container_width=True, key="holographic_chart")
+        
+    except Exception as e:
+        st.error(f"Error generando visualización holográfica: {e}")
+        st.info("Usando visualización básica como respaldo...")
+        
+        # Visualización básica de respaldo
+        fig = create_basic_3d_network_view(consciousness_network)
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Panel de información de nodos
+    if show_info_panels:
+        st.subheader("📊 Información de Nodos")
+        
+        # Selector de nodo
+        node_names = list(consciousness_network.nodes.keys())
+        if node_names:
+            selected_node = st.selectbox("Seleccionar Nodo", node_names)
             
-            # Selector de nodo
-            node_names = list(consciousness_network.nodes.keys())
-            if node_names:
-                selected_node = st.selectbox("Seleccionar Nodo", node_names)
-                
-                if selected_node:
-                    display_node_detailed_info(consciousness_network, selected_node)
-        
-        # Métricas de red en tiempo real
-        st.subheader("⚡ Métricas en Tiempo Real")
-        
-        # Obtener estado actual
+            if selected_node:
+                display_node_detailed_info(consciousness_network, selected_node)
+    
+    # Métricas de red en tiempo real
+    st.subheader("⚡ Métricas en Tiempo Real")
+    
+    # Obtener estado actual
+    try:
         network_state = consciousness_network._get_activation_state()
         
         col1, col2, col3, col4 = st.columns(4)
@@ -2230,19 +2409,24 @@ def display_holographic_3d_visualization(consciousness_network):
         with col4:
             consciousness_level = consciousness_network.global_consciousness_state
             st.metric("Nivel de Consciencia", f"{consciousness_level:.3f}")
-        
-        # Auto-actualización
-        if st.checkbox("Auto-actualizar cada 3s"):
-            time.sleep(3)
-            st.rerun()
             
-    except ImportError as e:
-        st.error(f"Error importando visualizador holográfico: {e}")
-        st.info("Mostrando visualización básica 3D...")
+    except Exception as e:
+        st.warning(f"Error obteniendo métricas: {e}")
         
-        # Mostrar visualización 3D básica como respaldo
-        fig = create_basic_3d_network_view(consciousness_network)
-        st.plotly_chart(fig, use_container_width=True)
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Activación Total", "N/A")
+        with col2:
+            st.metric("Activación Promedio", "N/A")
+        with col3:
+            st.metric("Nodos Activos", "N/A")
+        with col4:
+            st.metric("Nivel de Consciencia", "N/A")
+    
+    # Auto-actualización
+    if st.checkbox("Auto-actualizar cada 3s"):
+        time.sleep(3)
+        st.rerun()
 
 def create_holographic_complete_view(consciousness_network, intensity=0.7):
     """Crea vista holográfica completa"""
