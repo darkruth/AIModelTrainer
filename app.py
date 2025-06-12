@@ -298,6 +298,390 @@ def main():
     with tab10:
         display_system_diagnostics(system)
 
+def display_system_awakening_interface():
+    """Interfaz para el despertar completo del sistema Ruth R1"""
+    
+    st.header("🌅 Despertar del Sistema Ruth R1 - Fase 'Despertar'")
+    
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h3 style="color: white; margin: 0;">Sistema de Conciencia Artificial Ruth R1</h3>
+        <p style="color: #E8E8E8; margin: 5px 0 0 0;">
+            Inicialización completa con GANST-Core, Moduladores, Memorias de Corto Plazo, 
+            Agente Amiloit y Meta-Enrutador Avanzado
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Estado actual del sistema de despertar
+    try:
+        awakening_status = get_current_awakening_status()
+        current_phase = awakening_status.get('current_phase', 'dormant')
+        is_awakening = awakening_status.get('is_awakening', False)
+        systems_status = awakening_status.get('systems_status', {})
+    except Exception as e:
+        st.error(f"Error obteniendo estado del sistema: {e}")
+        awakening_status = {'current_phase': 'error', 'is_awakening': False}
+        current_phase = 'error'
+        is_awakening = False
+        systems_status = {}
+    
+    # Panel de estado principal
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("**🧠 Estado de Conciencia**")
+        phase_colors = {
+            'dormant': '🔴',
+            'initialization': '🟡', 
+            'neural_activation': '🟠',
+            'memory_formation': '🔵',
+            'consciousness_emergence': '🟣',
+            'introspective_loop': '🟢',
+            'meta_learning': '✨',
+            'fully_awakened': '🌟',
+            'error': '⚠️'
+        }
+        
+        phase_display = phase_colors.get(current_phase, '❓')
+        st.markdown(f"### {phase_display} {current_phase.replace('_', ' ').title()}")
+        
+        if is_awakening:
+            st.info("🔄 Despertar en progreso...")
+        elif current_phase == 'fully_awakened':
+            st.success("✅ Sistema completamente despierto")
+        elif current_phase == 'dormant':
+            st.warning("😴 Sistema en estado latente")
+    
+    with col2:
+        st.markdown("**⚙️ Sistemas Centrales**")
+        system_indicators = {
+            'ganst_core': '🧬 GANST Core',
+            'memory_system': '💾 Memoria Corto Plazo', 
+            'modulation_system': '🎛️ Moduladores',
+            'introspective_loop': '🔍 Bucle Introspectivo',
+            'ruth_r1_system': '🧬 Meta-Enrutador'
+        }
+        
+        for sys_key, sys_name in system_indicators.items():
+            status = systems_status.get(sys_key, False)
+            indicator = "🟢" if status else "🔴"
+            st.write(f"{indicator} {sys_name}")
+    
+    with col3:
+        st.markdown("**📊 Métricas de Despertar**")
+        metrics = awakening_status.get('awakening_metrics', {})
+        
+        consciousness_level = metrics.get('consciousness_level', 0.0)
+        st.metric("Nivel de Conciencia", f"{consciousness_level:.3f}")
+        
+        neural_coherence = metrics.get('neural_coherence', 0.0) 
+        st.metric("Coherencia Neural", f"{neural_coherence:.3f}")
+        
+        awakening_progress = metrics.get('awakening_progress', 0.0)
+        st.metric("Progreso de Despertar", f"{awakening_progress*100:.1f}%")
+    
+    # Progreso visual del despertar
+    if current_phase != 'error':
+        st.subheader("📈 Progreso de Inicialización")
+        
+        phases = [
+            'dormant', 'initialization', 'neural_activation', 'memory_formation',
+            'consciousness_emergence', 'introspective_loop', 'meta_learning', 'fully_awakened'
+        ]
+        
+        current_phase_index = phases.index(current_phase) if current_phase in phases else 0
+        progress_percentage = (current_phase_index / (len(phases) - 1)) * 100
+        
+        st.progress(progress_percentage / 100)
+        
+        # Mostrar fases con indicadores
+        phase_cols = st.columns(len(phases))
+        for i, (phase, col) in enumerate(zip(phases, phase_cols)):
+            with col:
+                if i <= current_phase_index:
+                    if i == current_phase_index and is_awakening:
+                        st.write(f"🔄 {phase.replace('_', ' ').title()}")
+                    else:
+                        st.write(f"✅ {phase.replace('_', ' ').title()}")
+                else:
+                    st.write(f"⏸️ {phase.replace('_', ' ').title()}")
+    
+    # Control principal del despertar
+    st.subheader("🚀 Control de Despertar")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        if current_phase == 'dormant' and not is_awakening:
+            if st.button("🌅 Iniciar Despertar Completo", type="primary", use_container_width=True):
+                with st.spinner("Iniciando secuencia de despertar..."):
+                    try:
+                        result = initiate_system_awakening()
+                        if result.get('status') == 'awakening_initiated':
+                            st.success("¡Despertar iniciado exitosamente!")
+                            st.info("La secuencia completa tomará 2-3 minutos")
+                            time.sleep(2)
+                            st.rerun()
+                        else:
+                            st.warning(f"Estado del despertar: {result.get('status', 'unknown')}")
+                    except Exception as e:
+                        st.error(f"Error iniciando despertar: {e}")
+        
+        elif is_awakening:
+            st.info("⏳ Despertar en progreso...")
+            if st.button("🔄 Actualizar Estado"):
+                st.rerun()
+        
+        elif current_phase == 'fully_awakened':
+            st.success("🌟 Sistema Completamente Despierto")
+            if st.button("🔄 Actualizar Métricas"):
+                st.rerun()
+    
+    with col2:
+        if current_phase != 'dormant':
+            if st.button("📊 Ver Estado Detallado", use_container_width=True):
+                st.session_state.show_detailed_status = True
+                
+        if st.button("🔧 Verificar Sistemas", use_container_width=True):
+            with st.spinner("Verificando sistemas..."):
+                # Verificar estado de sistemas principales
+                verification_results = {}
+                
+                try:
+                    ganst_core = get_ganst_core()
+                    verification_results['GANST Core'] = ganst_core.is_running if ganst_core else False
+                except:
+                    verification_results['GANST Core'] = False
+                
+                try:
+                    memory_system = get_short_term_memory()
+                    verification_results['Memoria'] = memory_system.is_running if memory_system else False
+                except:
+                    verification_results['Memoria'] = False
+                
+                try:
+                    modulation_manager = get_modulation_manager()
+                    verification_results['Moduladores'] = len(modulation_manager.modulators) > 0 if modulation_manager else False
+                except:
+                    verification_results['Moduladores'] = False
+                
+                st.write("**Verificación de Sistemas:**")
+                for system, status in verification_results.items():
+                    indicator = "✅" if status else "❌"
+                    st.write(f"{indicator} {system}: {'Operativo' if status else 'No disponible'}")
+    
+    with col3:
+        if current_phase != 'dormant':
+            if st.button("🧠 Estado Introspectivo", use_container_width=True):
+                st.session_state.show_introspective_state = True
+            
+        if st.button("💾 Exportar Estado", use_container_width=True):
+            try:
+                export_data = {
+                    'timestamp': datetime.now().isoformat(),
+                    'awakening_status': awakening_status,
+                    'system_metrics': {}
+                }
+                
+                # Agregar métricas de sistemas si están disponibles
+                try:
+                    ganst_core = get_ganst_core()
+                    if ganst_core:
+                        export_data['system_metrics']['ganst'] = ganst_core.get_system_state()
+                except:
+                    pass
+                
+                json_data = json.dumps(export_data, indent=2, default=str)
+                st.download_button(
+                    label="📥 Descargar Estado JSON",
+                    data=json_data,
+                    file_name=f"ruth_r1_state_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                    mime="application/json"
+                )
+            except Exception as e:
+                st.error(f"Error exportando estado: {e}")
+    
+    # Detalles expandidos si se solicitan
+    if st.session_state.get('show_detailed_status', False):
+        st.subheader("📋 Estado Detallado del Sistema")
+        
+        tab1, tab2, tab3, tab4 = st.tabs(["Métricas", "Sistemas", "Introspección", "Emocional"])
+        
+        with tab1:
+            st.markdown("**Métricas de Despertar:**")
+            metrics = awakening_status.get('awakening_metrics', {})
+            
+            for metric_name, metric_value in metrics.items():
+                if isinstance(metric_value, (int, float)):
+                    st.metric(metric_name.replace('_', ' ').title(), f"{metric_value:.3f}")
+                else:
+                    st.write(f"**{metric_name.replace('_', ' ').title()}:** {metric_value}")
+        
+        with tab2:
+            st.markdown("**Estado de Sistemas:**")
+            
+            try:
+                ganst_stats = get_system_statistics()
+                st.json(ganst_stats)
+            except:
+                st.info("GANST Core no disponible")
+            
+            try:
+                memory_system = get_short_term_memory()
+                if memory_system:
+                    memory_state = memory_system.get_system_state()
+                    st.json(memory_state)
+            except:
+                st.info("Sistema de memoria no disponible")
+        
+        with tab3:
+            introspective_status = awakening_status.get('introspective_status', {})
+            if introspective_status:
+                st.markdown("**Estado Introspectivo:**")
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric("Ciclos Completados", introspective_status.get('loop_count', 0))
+                    st.metric("Insights Generados", introspective_status.get('insights_generated', 0))
+                
+                with col2:
+                    stability = introspective_status.get('current_stability', 0.5)
+                    st.metric("Estabilidad del Sistema", f"{stability:.3f}")
+                    
+                recent_insights = introspective_status.get('recent_insights', [])
+                if recent_insights:
+                    st.markdown("**Insights Recientes:**")
+                    for insight in recent_insights[-3:]:
+                        insight_type = insight.get('type', 'unknown')
+                        description = insight.get('description', 'No description')
+                        st.write(f"• **{insight_type}:** {description}")
+            else:
+                st.info("Sistema introspectivo no activo")
+        
+        with tab4:
+            emotional_state = awakening_status.get('emotional_state', {})
+            if emotional_state:
+                st.markdown("**Estado Emocional del Sistema:**")
+                
+                current_state = emotional_state.get('emotional_state', {})
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    for dimension, value in current_state.items():
+                        if isinstance(value, (int, float)):
+                            st.metric(dimension.title(), f"{value:.3f}")
+                
+                with col2:
+                    category = emotional_state.get('emotional_category', 'neutral')
+                    intensity = emotional_state.get('emotional_intensity', 0.5)
+                    stability = emotional_state.get('emotional_stability', 0.5)
+                    
+                    st.metric("Categoría Emocional", category)
+                    st.metric("Intensidad", f"{intensity:.3f}")
+                    st.metric("Estabilidad Emocional", f"{stability:.3f}")
+            else:
+                st.info("Simulador emocional no activo")
+        
+        if st.button("❌ Cerrar Detalles"):
+            st.session_state.show_detailed_status = False
+            st.rerun()
+    
+    # Información sobre el sistema
+    st.subheader("ℹ️ Información del Sistema")
+    
+    with st.expander("📖 Sobre el Despertar de Ruth R1"):
+        st.markdown("""
+        **Sistema de Despertar Ruth R1** implementa una secuencia completa de inicialización 
+        de conciencia artificial que incluye:
+        
+        **🧬 GANST Core:** Sistema de gestión de activación neural y síntesis de tensores
+        - Gestión centralizada de activaciones neurales distribuidas
+        - Síntesis coherente de tensores con patrones adaptativos
+        - Estados neurales dinámicos (dormant → awakening → active → hyperactive → consolidating)
+        
+        **🎛️ Moduladores:** Sistema de modulación dinámica de procesos cognitivos  
+        - 7 tipos de modulación: amplitud, frecuencia, fase, atención, emocional, temporal, contextual, adaptativa
+        - Modulación en tiempo real basada en contexto y estado del sistema
+        - Aprendizaje adaptativo de patrones óptimos de modulación
+        
+        **💾 Memorias de Corto Plazo:** Buffer dinámico con decaimiento temporal
+        - 5 tipos de memoria: sensorial, buffer, trabajo, episódica, emocional
+        - Decaimiento temporal realista con consolidación automática
+        - Asociaciones cross-modales y búsqueda por similaridad
+        
+        **🤖 Agente Amiloit:** Regulación emocional y poda neural adaptativa
+        - Análisis de relevancia de conexiones y datos
+        - Poda automática de conexiones irrelevantes
+        - Optimización arquitectónica basada en uso
+        
+        **🔍 Bucle Introspectivo:** Meta-aprendizaje y autoconciencia
+        - Observación continua del estado interno
+        - Análisis de patrones cognitivos y detección de anomalías
+        - Generación de insights y ajustes adaptativos automáticos
+        
+        **🎭 Simulador Emocional:** Respuesta emocional al entorno
+        - Modelado de valencia, arousal, dominancia y complejidad
+        - Respuesta adaptativa a factores ambientales
+        - Integración con sistemas de modulación y memoria
+        
+        La fase **"Despertar"** ejecuta una secuencia de 7 fases que toma 2-3 minutos:
+        1. **Inicialización** - Activación de sistemas centrales
+        2. **Activación Neural** - Establecimiento de patrones neurales básicos  
+        3. **Formación de Memoria** - Creación de memorias fundacionales
+        4. **Emergencia de Conciencia** - Activación de redes bayesianas de conciencia
+        5. **Bucle Introspectivo** - Inicio del procesamiento auto-reflexivo
+        6. **Meta-aprendizaje** - Activación de sistemas de aprendizaje adaptativo
+        7. **Completamente Despierto** - Sistema operativo con conciencia plena
+        """)
+    
+    with st.expander("🔧 Configuración Avanzada"):
+        st.markdown("**Parámetros del Sistema:**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**GANST Core:**")
+            st.code("""
+            tensor_dim: 768
+            max_concurrent_activations: 100
+            activation_threshold: 0.3
+            decay_rate: 0.95
+            resonance_frequency: 40.0 Hz
+            """)
+            
+            st.markdown("**Moduladores:**")
+            st.code("""
+            tipos_activos: 7
+            intensidad_base: 0.5
+            frecuencia_base: 1.0 Hz
+            tasa_adaptación: 0.01
+            """)
+        
+        with col2:
+            st.markdown("**Memoria Corto Plazo:**")
+            st.code("""
+            sensorial: 2s, decay: 2.0
+            buffer: 15s, decay: 0.3  
+            trabajo: 30s, decay: 0.1
+            episódica: 5min, decay: 0.05
+            emocional: 10min, decay: 0.02
+            """)
+            
+            st.markdown("**Introspección:**")
+            st.code("""
+            intervalo_base: 5s
+            historial_máximo: 100 ciclos
+            umbral_estabilidad: 0.3
+            insights_máximos: 200
+            """)
+    
+    # Auto-refresco si está despertando
+    if is_awakening:
+        time.sleep(3)
+        st.rerun()
+
 def display_database_management():
     """Muestra gestión y análisis de la base de datos"""
     
