@@ -580,26 +580,38 @@ def create_default_config():
         'dropout': 0.1
     }
 
-def initialize_neural_graph(num_nodes=5, plasticity_rate=0.01):
-    """Inicializa grafo neuronal con nodos especializados"""
+def initialize_neural_graph(num_nodes=6, plasticity_rate=0.01):
+    """Inicializa grafo neuronal con nodos especializados incluyendo Axón Mealenizado"""
+    from modules.axon_mealenizado import AxonMealenizado
+    
     grafo_neuronal = MyelinatedAxonNetwork(plasticity_rate=plasticity_rate)
     
-    # Crear nodos especializados
+    # Crear nodos especializados incluyendo el axón mealenizado
     node_configs = [
         ("razonbill_core", torch.randn(768), 0.15),
         ("emotion_processor", torch.randn(768), 0.12),
         ("introspective_analyzer", torch.randn(768), 0.18),
         ("memory_consolidator", torch.randn(768), 0.10),
-        ("consciousness_integrator", torch.randn(768), 0.20)
+        ("consciousness_integrator", torch.randn(768), 0.20),
+        ("axon_mealenizado", torch.randn(768), 0.14)
     ]
     
     nodes = []
+    axon_mealenizado_module = None
+    
     for name, embedding, threshold in node_configs:
-        node = AxonNode(embedding, name=name, activation_threshold=threshold)
+        if name == "axon_mealenizado":
+            # Crear instancia del módulo axón mealenizado
+            axon_mealenizado_module = AxonMealenizado(dim=768)
+            node = AxonNode(embedding, name=name, activation_threshold=threshold)
+            node.axon_module = axon_mealenizado_module  # Vincular módulo
+        else:
+            node = AxonNode(embedding, name=name, activation_threshold=threshold)
+        
         nodes.append(node)
         grafo_neuronal.add_node(node)
     
-    # Conectar nodos con pesos iniciales
+    # Conectar nodos con pesos iniciales - patrones expandidos para axón mealenizado
     connection_patterns = [
         (0, 1, 0.7),  # razonbill -> emotion
         (0, 2, 0.8),  # razonbill -> introspective
@@ -608,6 +620,11 @@ def initialize_neural_graph(num_nodes=5, plasticity_rate=0.01):
         (3, 4, 0.9),  # memory -> consciousness
         (4, 0, 0.4),  # consciousness -> razonbill (feedback)
         (1, 4, 0.6),  # emotion -> consciousness
+        (5, 0, 0.8),  # axon_mealenizado -> razonbill (impulso neuroplástico)
+        (5, 1, 0.7),  # axon_mealenizado -> emotion (brinco emocional)
+        (5, 2, 0.9),  # axon_mealenizado -> introspective (alta conexión)
+        (3, 5, 0.6),  # memory -> axon_mealenizado (consolidación)
+        (4, 5, 0.8),  # consciousness -> axon_mealenizado (modulación consciente)
     ]
     
     for i, j, weight in connection_patterns:
