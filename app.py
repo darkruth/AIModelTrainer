@@ -2734,4 +2734,3 @@ def display_node_detailed_info(consciousness_network, node_name):
                     st.write(f"{i+1}. {evidence.get('evidence', 'N/A'):.3f}")
             else:
                 st.write("No hay historial de evidencia")
-
