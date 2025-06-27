@@ -739,6 +739,13 @@ class BayesianQuantumSystem:
         # Contexto del sistema de conciencia
         self.consciousness_context = {}
         
+        # Integración con GANST
+        self.ganst_integration = {
+            'activation_buffer': deque(maxlen=100),
+            'coherence_sync': 0.0,
+            'last_ganst_sync': None
+        }
+        
         self.logger = Logger()
         self.logger.log("INFO", "BayesianQuantumSystem initialized")
     
@@ -1028,3 +1035,139 @@ class BayesianQuantumSystem:
             network_stats['average_causal_strength'] = np.mean(all_strengths)
         
         return network_stats
+    
+    def integrate_with_ganst(self, ganst_activation_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Integra datos de activación de GANST con el sistema Bayesiano cuántico
+        
+        Args:
+            ganst_activation_data: Datos de activación del núcleo GANST
+        
+        Returns:
+            Resultado de la integración
+        """
+        # Almacenar activación GANST
+        self.ganst_integration['activation_buffer'].append(ganst_activation_data)
+        
+        # Extraer información relevante
+        activation_tensor = ganst_activation_data.get('activation_tensor')
+        coherence_score = ganst_activation_data.get('coherence_score', 0.5)
+        neural_state = ganst_activation_data.get('neural_state', 'active')
+        
+        # Convertir activación GANST a eventos bayesianos
+        ganst_event_name = f"ganst_activation_{ganst_activation_data.get('activation_id', 'unknown')}"
+        
+        # Registrar evento de activación GANST
+        if ganst_event_name not in self.inference_engine.events:
+            # Crear estado cuántico inicial basado en tensor de activación
+            if activation_tensor is not None:
+                if hasattr(activation_tensor, 'numpy'):
+                    activation_array = activation_tensor.numpy()
+                else:
+                    activation_array = np.array(activation_tensor)
+                
+                # Normalizar y usar primeras dimensiones como estado cuántico
+                state_vector = activation_array[:4] / (np.linalg.norm(activation_array[:4]) + 1e-8)
+                
+                ganst_event = self.inference_engine.register_event(
+                    ganst_event_name,
+                    initial_state=state_vector,
+                    prior_probability=coherence_score
+                )
+            else:
+                ganst_event = self.inference_engine.register_event(ganst_event_name)
+        
+        # Crear hipótesis de consciencia basada en estado neural GANST
+        consciousness_hypothesis = f"consciousness_state_{neural_state}"
+        
+        # Realizar actualización Bayesiana
+        update_result = self.inference_engine.quantum_bayes_update(
+            consciousness_hypothesis,
+            ganst_event_name,
+            evidence_data={
+                'coherence_score': coherence_score,
+                'neural_state': neural_state,
+                'activation_magnitude': float(np.linalg.norm(activation_array)) if activation_tensor is not None else 0.0
+            },
+            confidence=coherence_score
+        )
+        
+        # Actualizar sincronización de coherencia
+        self.ganst_integration['coherence_sync'] = (
+            self.ganst_integration['coherence_sync'] * 0.9 + coherence_score * 0.1
+        )
+        self.ganst_integration['last_ganst_sync'] = datetime.now()
+        
+        # Generar respuesta integrada
+        integration_result = {
+            'ganst_integration': {
+                'event_created': ganst_event_name,
+                'hypothesis_updated': consciousness_hypothesis,
+                'bayes_update': update_result,
+                'coherence_sync': self.ganst_integration['coherence_sync'],
+                'integration_timestamp': datetime.now().isoformat()
+            },
+            'quantum_influence': self._calculate_quantum_influence_on_ganst(activation_tensor),
+            'feedback_recommendations': self._generate_ganst_feedback(update_result)
+        }
+        
+        return integration_result
+    
+    def _calculate_quantum_influence_on_ganst(self, activation_tensor) -> Dict[str, float]:
+        """Calcula influencia cuántica en el sistema GANST"""
+        if activation_tensor is None:
+            return {'quantum_coherence': 0.0, 'entanglement_strength': 0.0}
+        
+        if hasattr(activation_tensor, 'numpy'):
+            tensor_array = activation_tensor.numpy()
+        else:
+            tensor_array = np.array(activation_tensor)
+        
+        # Calcular métricas cuánticas
+        tensor_norm = np.linalg.norm(tensor_array)
+        tensor_entropy = -np.sum(np.abs(tensor_array) * np.log(np.abs(tensor_array) + 1e-8))
+        
+        quantum_coherence = min(1.0, tensor_norm / 10.0)  # Normalizar
+        entanglement_strength = 1.0 / (1.0 + tensor_entropy)  # Inverso de entropía
+        
+        return {
+            'quantum_coherence': quantum_coherence,
+            'entanglement_strength': entanglement_strength,
+            'tensor_magnitude': tensor_norm,
+            'information_content': tensor_entropy
+        }
+    
+    def _generate_ganst_feedback(self, bayes_update_result: Dict) -> List[str]:
+        """Genera recomendaciones de retroalimentación para GANST"""
+        feedback = []
+        
+        probability_change = bayes_update_result.get('probability_change', 0)
+        entropy_change = bayes_update_result.get('entropy_change', 0)
+        
+        if probability_change > 0.3:
+            feedback.append("Aumentar frecuencia de activaciones similares")
+        elif probability_change < -0.3:
+            feedback.append("Reducir patrones de activación similares")
+        
+        if entropy_change > 0.2:
+            feedback.append("Incrementar diversidad en síntesis de tensores")
+        elif entropy_change < -0.2:
+            feedback.append("Enfocar síntesis hacia patrones más coherentes")
+        
+        if not feedback:
+            feedback.append("Mantener configuración actual de activación")
+        
+        return feedback
+    
+    def get_ganst_integration_status(self) -> Dict[str, Any]:
+        """Obtiene estado de integración con GANST"""
+        return {
+            'buffer_size': len(self.ganst_integration['activation_buffer']),
+            'coherence_sync': self.ganst_integration['coherence_sync'],
+            'last_sync': self.ganst_integration['last_ganst_sync'].isoformat() 
+                         if self.ganst_integration['last_sync'] else None,
+            'recent_activations': len([
+                act for act in self.ganst_integration['activation_buffer']
+                if (datetime.now() - act.get('timestamp', datetime.min)).seconds < 60
+            ]) if self.ganst_integration['activation_buffer'] else 0
+        }

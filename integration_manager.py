@@ -125,6 +125,15 @@ class RuthR1IntegrationManager:
         # Registrar callback emocional
         def emotional_callback(emotion, intensity, trigger):
             despertar.emotional_state = emotional_sim.get_emotional_profile()
+        
+        # Integrar submódulo k-ubit para memorias vividas
+        self._initialize_kubit_subsystem()
+        
+        # Conectar procesador multimodal con sistemas principales
+        self._establish_multimodal_connections()
+        
+        # Establecer conexiones bayesian-quantum con GANST
+        self._establish_bayesian_ganst_bridge()
     
     def _start_system_heartbeat(self):
         """Inicia el heartbeat para monitoreo del sistema"""
@@ -292,6 +301,77 @@ class RuthR1IntegrationManager:
             self.heartbeat_thread.join(timeout=5)
         
         logging.info("Sistema Ruth R1 apagado correctamente")
+    
+    def _initialize_kubit_subsystem(self):
+        """Inicializa el submódulo k-ubit para memorias vividas"""
+        from modules.kubit_memory_router import KUbitMemoryRouter
+        
+        kubit_router = KUbitMemoryRouter()
+        self.subsystems['kubit_router'] = kubit_router
+        
+        # Conectar con simulador emocional para memorias con emoción
+        emotional_sim = self.subsystems['emotional_simulator']
+        kubit_router.set_emotional_context_provider(emotional_sim.get_emotional_profile)
+        
+        logging.info("✅ Submódulo k-ubit inicializado")
+    
+    def _establish_multimodal_connections(self):
+        """Establece conexiones del procesador multimodal"""
+        from modules.multimodal import MultimodalProcessor
+        
+        multimodal_processor = MultimodalProcessor()
+        self.subsystems['multimodal_processor'] = multimodal_processor
+        
+        # Conectar con red de consciencia
+        consciousness_net = self.subsystems['consciousness_network']
+        
+        def multimodal_to_consciousness(result):
+            if result.get('processing_status') == 'success':
+                consciousness_net.process_input(
+                    result,
+                    context={'source': 'multimodal_processor', 'modalities': result.get('modalities_processed', [])}
+                )
+        
+        multimodal_processor.consciousness_callback = multimodal_to_consciousness
+        
+        logging.info("✅ Conexiones multimodales establecidas")
+    
+    def _establish_bayesian_ganst_bridge(self):
+        """Establece puente entre sistemas bayesian-quantum y GANST"""
+        from algorithms.bayesian_quantum import BayesianQuantumSystem
+        
+        bayesian_quantum = BayesianQuantumSystem()
+        self.subsystems['bayesian_quantum'] = bayesian_quantum
+        
+        ganst_core = self.subsystems['ganst_core']
+        
+        # Callback bidireccional
+        def ganst_to_bayesian(activation_result):
+            # Convertir activaciones GANST a eventos bayesianos
+            activation_tensor = activation_result.get('activation_tensor')
+            if activation_tensor is not None:
+                bayesian_quantum.process_consciousness_input({
+                    'neural_activation': activation_tensor.tolist(),
+                    'activation_id': activation_result.get('activation_id'),
+                    'coherence_score': activation_result.get('coherence_score', 0.5)
+                })
+        
+        def bayesian_to_ganst(decision_result):
+            # Convertir decisiones bayesianas a activaciones GANST
+            if decision_result.get('decision') != 'no_action':
+                import torch
+                decision_tensor = torch.tensor([decision_result.get('confidence', 0.5)] * 768)
+                ganst_core.process_neural_activation(
+                    'bayesian_quantum_decision',
+                    [decision_tensor]
+                )
+        
+        self.bayesian_ganst_bridge = {
+            'ganst_to_bayesian': ganst_to_bayesian,
+            'bayesian_to_ganst': bayesian_to_ganst
+        }
+        
+        logging.info("✅ Puente Bayesian-GANST establecido")
 
 # Instancia global del gestor de integración
 integration_manager = RuthR1IntegrationManager()

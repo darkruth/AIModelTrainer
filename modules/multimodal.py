@@ -141,6 +141,15 @@ class MultimodalProcessor:
         self.max_memory_size = 100
         
         self.logger.log("INFO", "MultimodalProcessor initialized successfully")
+        
+        # Callback para integración con consciencia
+        self.consciousness_callback = None
+        
+        # Cache de integración
+        self.integration_cache = {
+            'recent_fusions': deque(maxlen=50),
+            'consciousness_responses': deque(maxlen=30)
+        }
     
     def process_text(self, text: str, context: Dict = None) -> Dict:
         """
@@ -749,4 +758,299 @@ class MultimodalProcessor:
         except Exception as e:
             self.logger.log("ERROR", f"Multimodal processor health check failed: {str(e)}")
             return False
+    
+    def integrate_with_consciousness(self, consciousness_network, ganst_core=None) -> Dict[str, Any]:
+        """
+        Integra procesador multimodal con la red de consciencia principal
+        
+        Args:
+            consciousness_network: Red de consciencia bayesiana
+            ganst_core: Núcleo GANST opcional
+        
+        Returns:
+            Estado de integración
+        """
+        integration_result = {
+            'consciousness_connection': False,
+            'ganst_connection': False,
+            'multimodal_nodes_registered': 0,
+            'cross_modal_pathways': []
+        }
+        
+        try:
+            # Registrar nodos multimodales en la red de consciencia
+            modal_nodes = ['text_processor', 'vision_processor', 'audio_processor', 'fusion_engine']
+            
+            for node_name in modal_nodes:
+                if hasattr(consciousness_network, 'register_module'):
+                    consciousness_network.register_module(
+                        node_name,
+                        self._create_modal_node_interface(node_name)
+                    )
+                    integration_result['multimodal_nodes_registered'] += 1
+            
+            integration_result['consciousness_connection'] = True
+            
+            # Conectar con GANST si está disponible
+            if ganst_core is not None:
+                self._establish_ganst_multimodal_bridge(ganst_core)
+                integration_result['ganst_connection'] = True
+            
+            # Establecer pathways cross-modales
+            cross_modal_pathways = self._establish_cross_modal_pathways(consciousness_network)
+            integration_result['cross_modal_pathways'] = cross_modal_pathways
+            
+            self.logger.log("INFO", "Multimodal integration with consciousness completed")
+            
+        except Exception as e:
+            self.logger.log("ERROR", f"Multimodal consciousness integration failed: {str(e)}")
+            integration_result['error'] = str(e)
+        
+        return integration_result
+    
+    def _create_modal_node_interface(self, node_name: str) -> Dict[str, Any]:
+        """Crea interfaz de nodo modal para la red de consciencia"""
+        
+        interfaces = {
+            'text_processor': {
+                'process_function': self.process_text,
+                'input_types': ['text', 'string'],
+                'output_format': 'text_analysis',
+                'consciousness_weight': 0.8
+            },
+            'vision_processor': {
+                'process_function': self.process_image,
+                'input_types': ['image', 'visual'],
+                'output_format': 'vision_analysis',
+                'consciousness_weight': 0.9
+            },
+            'audio_processor': {
+                'process_function': self.process_audio,
+                'input_types': ['audio', 'sound'],
+                'output_format': 'audio_analysis',
+                'consciousness_weight': 0.7
+            },
+            'fusion_engine': {
+                'process_function': self.process_multimodal,
+                'input_types': ['multimodal', 'fusion'],
+                'output_format': 'integrated_analysis',
+                'consciousness_weight': 1.0
+            }
+        }
+        
+        return interfaces.get(node_name, {})
+    
+    def _establish_ganst_multimodal_bridge(self, ganst_core):
+        """Establece puente entre procesamiento multimodal y GANST"""
+        
+        def multimodal_to_ganst(fusion_result):
+            """Convierte resultado de fusión multimodal a activación GANST"""
+            if 'fusion_result' in fusion_result and 'error' not in fusion_result['fusion_result']:
+                try:
+                    # Extraer características fusionadas
+                    fusion_data = fusion_result['fusion_result']
+                    fusion_magnitude = fusion_data.get('fusion_magnitude', 0.5)
+                    
+                    # Crear tensor de activación para GANST
+                    import torch
+                    activation_tensor = torch.tensor([fusion_magnitude] * 768)
+                    
+                    # Enviar a GANST
+                    ganst_result = ganst_core.process_neural_activation(
+                        'multimodal_fusion',
+                        [activation_tensor],
+                        priority=0.8
+                    )
+                    
+                    # Almacenar en cache
+                    self.integration_cache['recent_fusions'].append({
+                        'fusion_result': fusion_result,
+                        'ganst_activation': ganst_result,
+                        'timestamp': datetime.now()
+                    })
+                    
+                except Exception as e:
+                    self.logger.log("ERROR", f"Multimodal to GANST bridge error: {str(e)}")
+        
+        self.ganst_bridge_callback = multimodal_to_ganst
+        
+        self.logger.log("INFO", "GANST-Multimodal bridge established")
+    
+    def _establish_cross_modal_pathways(self, consciousness_network) -> List[str]:
+        """Establece vías de comunicación cross-modal en la red de consciencia"""
+        
+        pathways = []
+        
+        # Pathway texto-visión
+        if hasattr(consciousness_network, 'add_causal_relationship'):
+            consciousness_network.add_causal_relationship(
+                'text_processor', 'vision_processor', strength=0.6
+            )
+            pathways.append('text_to_vision')
+            
+            # Pathway visión-audio
+            consciousness_network.add_causal_relationship(
+                'vision_processor', 'audio_processor', strength=0.5
+            )
+            pathways.append('vision_to_audio')
+            
+            # Pathway texto-audio
+            consciousness_network.add_causal_relationship(
+                'text_processor', 'audio_processor', strength=0.7
+            )
+            pathways.append('text_to_audio')
+            
+            # Pathway fusión bidireccional
+            consciousness_network.add_causal_relationship(
+                'fusion_engine', 'text_processor', strength=0.4
+            )
+            consciousness_network.add_causal_relationship(
+                'fusion_engine', 'vision_processor', strength=0.4
+            )
+            consciousness_network.add_causal_relationship(
+                'fusion_engine', 'audio_processor', strength=0.4
+            )
+            pathways.extend(['fusion_to_text', 'fusion_to_vision', 'fusion_to_audio'])
+        
+        return pathways
+    
+    def process_with_consciousness_context(self, input_data: Dict, consciousness_context: Dict) -> Dict:
+        """
+        Procesa entrada multimodal con contexto de consciencia
+        
+        Args:
+            input_data: Datos de entrada (texto, imagen, audio)
+            consciousness_context: Contexto de la red de consciencia
+        
+        Returns:
+            Resultado de procesamiento integrado con consciencia
+        """
+        # Extraer modalidades de input_data
+        text = input_data.get('text')
+        image = input_data.get('image')
+        audio = input_data.get('audio')
+        
+        # Procesar multimodal con contexto de consciencia
+        base_result = self.process_multimodal(text, image, audio)
+        
+        # Integrar contexto de consciencia
+        consciousness_integration = self._integrate_consciousness_context(
+            base_result, consciousness_context
+        )
+        
+        # Enviar callback a consciencia si está configurado
+        if self.consciousness_callback:
+            try:
+                self.consciousness_callback(base_result)
+            except Exception as e:
+                self.logger.log("ERROR", f"Consciousness callback error: {str(e)}")
+        
+        # Resultado integrado
+        integrated_result = {
+            **base_result,
+            'consciousness_integration': consciousness_integration,
+            'processing_context': consciousness_context,
+            'integration_timestamp': datetime.now().isoformat()
+        }
+        
+        return integrated_result
+    
+    def _integrate_consciousness_context(self, multimodal_result: Dict, consciousness_context: Dict) -> Dict:
+        """Integra contexto de consciencia con resultado multimodal"""
+        
+        integration = {
+            'consciousness_influence': 0.0,
+            'enhanced_insights': [],
+            'modal_consciousness_sync': {},
+            'emergent_properties': []
+        }
+        
+        # Calcular influencia de consciencia
+        consciousness_level = consciousness_context.get('consciousness_level', 0.5)
+        awareness_metrics = consciousness_context.get('awareness_metrics', {})
+        
+        integration['consciousness_influence'] = consciousness_level
+        
+        # Sincronización modal con consciencia
+        for modality in multimodal_result.get('modalities_processed', []):
+            modal_result = multimodal_result['individual_results'].get(modality, {})
+            
+            if modal_result.get('processing_status') == 'success':
+                # Calcular sincronización específica por modalidad
+                sync_score = self._calculate_modal_consciousness_sync(
+                    modal_result, consciousness_context
+                )
+                integration['modal_consciousness_sync'][modality] = sync_score
+        
+        # Insights mejorados por consciencia
+        if consciousness_level > 0.7:
+            integration['enhanced_insights'].extend([
+                "Procesamiento consciente de alta integración",
+                "Correlaciones multimodales detectadas con alta certeza"
+            ])
+        
+        # Propiedades emergentes
+        holistic_analysis = multimodal_result.get('holistic_analysis', {})
+        consciousness_indicators = holistic_analysis.get('consciousness_indicators', [])
+        
+        if len(consciousness_indicators) > 2:
+            integration['emergent_properties'].append("Consciencia multimodal emergente")
+        
+        if consciousness_level > 0.8 and len(multimodal_result.get('modalities_processed', [])) > 1:
+            integration['emergent_properties'].append("Síntesis cross-modal consciente")
+        
+        return integration
+    
+    def _calculate_modal_consciousness_sync(self, modal_result: Dict, consciousness_context: Dict) -> float:
+        """Calcula sincronización entre modalidad específica y consciencia"""
+        
+        consciousness_level = consciousness_context.get('consciousness_level', 0.5)
+        
+        # Factores de sincronización
+        factors = []
+        
+        # Factor de calidad de procesamiento
+        if modal_result.get('processing_status') == 'success':
+            factors.append(0.8)
+        else:
+            factors.append(0.2)
+        
+        # Factor de coherencia emocional
+        modal_emotions = modal_result.get('emotions', {})
+        context_emotions = consciousness_context.get('emotional_state', {})
+        
+        if modal_emotions and context_emotions:
+            emotional_sync = self._calculate_emotion_correlation(modal_emotions, context_emotions)
+            factors.append(emotional_sync)
+        
+        # Factor de complejidad
+        if 'cross_modal_context' in modal_result:
+            cross_modal_data = modal_result['cross_modal_context']
+            if cross_modal_data.get('related_memories'):
+                factors.append(0.9)
+            else:
+                factors.append(0.5)
+        
+        # Combinar factores con nivel de consciencia
+        base_sync = np.mean(factors) if factors else 0.5
+        consciousness_weighted_sync = base_sync * consciousness_level
+        
+        return consciousness_weighted_sync
+    
+    def get_integration_status(self) -> Dict[str, Any]:
+        """Obtiene estado de integración multimodal"""
+        
+        return {
+            'cache_sizes': {
+                'recent_fusions': len(self.integration_cache['recent_fusions']),
+                'consciousness_responses': len(self.integration_cache['consciousness_responses'])
+            },
+            'callbacks_configured': {
+                'consciousness_callback': self.consciousness_callback is not None,
+                'ganst_bridge': hasattr(self, 'ganst_bridge_callback')
+            },
+            'memory_summary': self.get_memory_summary(),
+            'health_status': self.check_health(),
+            'integration_timestamp': datetime.now().isoformat()
+        }
 
