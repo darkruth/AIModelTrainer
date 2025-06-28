@@ -519,13 +519,15 @@ def display_live_neural_flows(consciousness_network):
 
     # Importar visualizador
     try:
-        from modules.neural_flow_visualizer import NeuralFlowVisualizer
+        if NeuralFlowVisualizer is not None:
+            # Inicializar visualizador en estado de sesión
+            if 'neural_flow_visualizer' not in st.session_state:
+                st.session_state.neural_flow_visualizer = NeuralFlowVisualizer(consciousness_network)
 
-        # Inicializar visualizador en estado de sesión
-        if 'neural_flow_visualizer' not in st.session_state:
-            st.session_state.neural_flow_visualizer = NeuralFlowVisualizer(consciousness_network)
-
-        visualizer = st.session_state.neural_flow_visualizer
+            visualizer = st.session_state.neural_flow_visualizer
+        else:
+            st.error("Visualizador neural no disponible")
+            return
 
         # Panel de control
         col1, col2, col3 = st.columns(3)
@@ -651,7 +653,9 @@ def display_system_awakening_interface():
 
     # Estado actual del sistema de despertar
     try:
-        awakening_status = get_current_awakening_status()
+        from core.system_awakening_manager import get_awakening_manager
+        awakening_manager = get_awakening_manager()
+        awakening_status = awakening_manager.get_current_status()
         current_phase = awakening_status.get('current_phase', 'dormant')
         is_awakening = awakening_status.get('is_awakening', False)
         systems_status = awakening_status.get('systems_status', {})
@@ -753,7 +757,7 @@ def display_system_awakening_interface():
             if st.button("🌅 Iniciar Despertar Completo", type="primary", use_container_width=True):
                 with st.spinner("Iniciando secuencia de despertar..."):
                     try:
-                        result = initiate_system_awakening()
+                        result = awakening_manager.initiate_full_awakening()
                         if result.get('status') == 'awakening_initiated':
                             st.success("¡Despertar iniciado exitosamente!")
                             st.info("La secuencia completa tomará 2-3 minutos")

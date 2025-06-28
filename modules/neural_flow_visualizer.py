@@ -575,6 +575,9 @@ class NeuralFlowVisualizer:
         self.flow_data = []
         self.connection_strengths = {}
         
+        # Simular datos iniciales para demostración inmediata
+        self._initialize_sample_data()
+        
     def _setup_color_scheme(self) -> Dict:
         """Define el esquema de colores para visualización"""
         return {
@@ -1034,6 +1037,30 @@ class NeuralFlowVisualizer:
         )
         
         return fig
+    
+    def _initialize_sample_data(self):
+        """Inicializa datos de muestra para demostración inmediata"""
+        current_time = datetime.now()
+        
+        # Generar datos de activaciones simuladas para todos los módulos
+        sample_activations = {}
+        for node_id, node in self.topology.nodes.items():
+            module = node.properties.get("module", "unknown")
+            base_activation = 0.4 + 0.3 * np.sin(time.time() * 0.5 + hash(node_id) % 100)
+            sample_activations[node_id] = max(0.0, min(1.0, base_activation))
+        
+        # Agregar datos iniciales al historial
+        self.flow_data.append({
+            'timestamp': current_time,
+            'activations': sample_activations,
+            'total_activity': np.mean(list(sample_activations.values()))
+        })
+        
+        # Generar fortalezas de conexión iniciales
+        for node_id, node in self.topology.nodes.items():
+            for target_id in node.connections:
+                connection_key = f"{node_id}->{target_id}"
+                self.connection_strengths[connection_key] = 0.3 + 0.4 * np.random.random()
 
 # Función principal para la interfaz de Streamlit
 def create_neural_flow_interface():
