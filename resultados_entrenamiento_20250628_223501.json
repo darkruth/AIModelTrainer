@@ -1,0 +1,1199 @@
+{
+  "individual_word_results": {
+    "computadora": {
+      "word": "computadora",
+      "training_time": 0.20009803771972656,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "computadora",
+          "execution_time": 0.7660294030904196,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.207170750350433,
+            "semantic_integration": 0.39741051526871785,
+            "pattern_strength": 0.38683159590480987,
+            "emotional_resonance": 0.715730961195099,
+            "contextual_flexibility": 0.610672583499097,
+            "consolidation_strength": 0.6196305708516976
+          },
+          "consciousness_influence": 0.5531710914399416
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "computadora",
+          "execution_time": 1.3271558587637597,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.2738821932391158,
+            "semantic_integration": 0.45528104078629295,
+            "pattern_strength": 0.2952994249553595,
+            "emotional_resonance": 0.4610520013418882,
+            "contextual_flexibility": 0.4592436069883754,
+            "consolidation_strength": 0.5606169352404715
+          },
+          "consciousness_influence": 0.5561405105274284
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "computadora",
+          "execution_time": 1.9419399874814474,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5802044408944707,
+            "semantic_integration": 0.3946377849958369,
+            "pattern_strength": 0.2474533317858209,
+            "emotional_resonance": 0.21006650893215048,
+            "contextual_flexibility": 0.5160987151189385,
+            "consolidation_strength": 0.7093293963535385
+          },
+          "consciousness_influence": 0.5707155085808536
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "computadora",
+          "execution_time": 1.991349587749769,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7226178269839076,
+            "semantic_integration": 0.6461522484113088,
+            "pattern_strength": 0.26297843453964764,
+            "emotional_resonance": 0.7788366682645803,
+            "contextual_flexibility": 0.3467771531737185,
+            "consolidation_strength": 0.7905035851919424
+          },
+          "consciousness_influence": 0.43403154349247075
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "computadora",
+          "execution_time": 1.6574306360494158,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7950221816326568,
+            "semantic_integration": 0.45798602003456534,
+            "pattern_strength": 0.3213740701317453,
+            "emotional_resonance": 0.6125459638135111,
+            "contextual_flexibility": 0.6765274177181901,
+            "consolidation_strength": 0.7238328976814143
+          },
+          "consciousness_influence": 0.30448026438889453
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "computadora",
+          "execution_time": 1.1847920278069528,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.441269415892541,
+            "semantic_integration": 0.1875475473048373,
+            "pattern_strength": 0.5109695771245777,
+            "emotional_resonance": 0.669763135094216,
+            "contextual_flexibility": 0.3734106177981258,
+            "consolidation_strength": 0.8012796593350049
+          },
+          "consciousness_influence": 0.5130776134387806
+        }
+      },
+      "final_evaluation": {
+        "word": "computadora",
+        "understanding_level": 0.6974624708759747,
+        "semantic_integration": 0.5060442263453814,
+        "emotional_resonance": 0.5891259655022508,
+        "contextual_flexibility": 0.6730446834417146,
+        "distillation_score": 0.6242779405534425,
+        "learning_quality": "bueno",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.2092387412627924,
+          "semantic_network_growth": 0.20241769053815256,
+          "emotional_development": 0.11782519310045017,
+          "cognitive_flexibility": 0.06730446834417146
+        },
+        "total_consciousness_impact": 0.5967860932455666,
+        "impact_category": "significativo"
+      }
+    },
+    "humano": {
+      "word": "humano",
+      "training_time": 0.2001030445098877,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "humano",
+          "execution_time": 1.3733046002007323,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7926457526941929,
+            "semantic_integration": 0.2818665272746333,
+            "pattern_strength": 0.8828291958587244,
+            "emotional_resonance": 0.24282271960643353,
+            "contextual_flexibility": 0.22755199886331468,
+            "consolidation_strength": 0.4298097625157975
+          },
+          "consciousness_influence": 0.18756512905736353
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "humano",
+          "execution_time": 1.432157472673294,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5523973094687272,
+            "semantic_integration": 0.44744380204165723,
+            "pattern_strength": 0.6128626408887932,
+            "emotional_resonance": 0.5089626365373804,
+            "contextual_flexibility": 0.6658596724208611,
+            "consolidation_strength": 0.8852122755395173
+          },
+          "consciousness_influence": 0.1993376991275793
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "humano",
+          "execution_time": 0.7847703979515621,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.37465629738286577,
+            "semantic_integration": 0.30666188367984604,
+            "pattern_strength": 0.7182675263764535,
+            "emotional_resonance": 0.7432791267299591,
+            "contextual_flexibility": 0.5941229642658025,
+            "consolidation_strength": 0.8758282671485222
+          },
+          "consciousness_influence": 0.37396016640235197
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "humano",
+          "execution_time": 1.0964159119302779,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.37911449125784313,
+            "semantic_integration": 0.5903478088071656,
+            "pattern_strength": 0.5103643049082338,
+            "emotional_resonance": 0.35844320211247616,
+            "contextual_flexibility": 0.5548091811967824,
+            "consolidation_strength": 0.6110144692898878
+          },
+          "consciousness_influence": 0.5562816459059223
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "humano",
+          "execution_time": 1.2868712283873116,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.36823963911625823,
+            "semantic_integration": 0.6688833433090726,
+            "pattern_strength": 0.2171466966326696,
+            "emotional_resonance": 0.21404026445678725,
+            "contextual_flexibility": 0.3274698021795228,
+            "consolidation_strength": 0.5649413418325397
+          },
+          "consciousness_influence": 0.23717607975535435
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "humano",
+          "execution_time": 1.896539527978646,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6163616604509108,
+            "semantic_integration": 0.5675357220124259,
+            "pattern_strength": 0.5784554469637042,
+            "emotional_resonance": 0.7923189521885585,
+            "contextual_flexibility": 0.6626459646731907,
+            "consolidation_strength": 0.3574811206462949
+          },
+          "consciousness_influence": 0.2560872282635672
+        }
+      },
+      "final_evaluation": {
+        "word": "humano",
+        "understanding_level": 0.8374282616476162,
+        "semantic_integration": 0.7646538607469324,
+        "emotional_resonance": 0.7463087737141573,
+        "contextual_flexibility": 0.8709780659453386,
+        "distillation_score": 0.8060432344804118,
+        "learning_quality": "excelente",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.25122847849428487,
+          "semantic_network_growth": 0.305861544298773,
+          "emotional_development": 0.14926175474283146,
+          "cognitive_flexibility": 0.08709780659453387
+        },
+        "total_consciousness_impact": 0.7934495841304232,
+        "impact_category": "transformador"
+      }
+    },
+    "mujer": {
+      "word": "mujer",
+      "training_time": 0.2001197338104248,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "mujer",
+          "execution_time": 1.1944071610938232,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7626157152409518,
+            "semantic_integration": 0.40884228413289203,
+            "pattern_strength": 0.7185125834281361,
+            "emotional_resonance": 0.18726003409242503,
+            "contextual_flexibility": 0.6361055863025471,
+            "consolidation_strength": 0.8578553592872933
+          },
+          "consciousness_influence": 0.1018851435174031
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "mujer",
+          "execution_time": 1.2145613459341793,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6793569025471493,
+            "semantic_integration": 0.1771500519252815,
+            "pattern_strength": 0.4508129669927572,
+            "emotional_resonance": 0.46605611738292385,
+            "contextual_flexibility": 0.33453292506749577,
+            "consolidation_strength": 0.3607728894212262
+          },
+          "consciousness_influence": 0.4645173863416905
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "mujer",
+          "execution_time": 1.5216988056267557,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6969716936815055,
+            "semantic_integration": 0.3075808338142507,
+            "pattern_strength": 0.3075086099406456,
+            "emotional_resonance": 0.24587048183437396,
+            "contextual_flexibility": 0.4600177572103649,
+            "consolidation_strength": 0.3412977239334841
+          },
+          "consciousness_influence": 0.3338355854178101
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "mujer",
+          "execution_time": 1.0194467139501888,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5274424462491032,
+            "semantic_integration": 0.5474195572152055,
+            "pattern_strength": 0.3329519316407132,
+            "emotional_resonance": 0.10940528330854513,
+            "contextual_flexibility": 0.49916054959476536,
+            "consolidation_strength": 0.4850871308253156
+          },
+          "consciousness_influence": 0.2713390762563904
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "mujer",
+          "execution_time": 1.736094586523551,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.1614278805899698,
+            "semantic_integration": 0.2380872148578526,
+            "pattern_strength": 0.24182979636964166,
+            "emotional_resonance": 0.11595599254296522,
+            "contextual_flexibility": 0.6640413649161243,
+            "consolidation_strength": 0.8002213687359792
+          },
+          "consciousness_influence": 0.2050914803899295
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "mujer",
+          "execution_time": 1.4966997151055024,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.26534550894970577,
+            "semantic_integration": 0.6784146470116404,
+            "pattern_strength": 0.21674241540128417,
+            "emotional_resonance": 0.7098090922380894,
+            "contextual_flexibility": 0.6820785175199353,
+            "consolidation_strength": 0.3764252758956806
+          },
+          "consciousness_influence": 0.4349547438681005
+        }
+      },
+      "final_evaluation": {
+        "word": "mujer",
+        "understanding_level": 0.884616462944644,
+        "semantic_integration": 0.9023740395996759,
+        "emotional_resonance": 0.95,
+        "contextual_flexibility": 0.7013806197440576,
+        "distillation_score": 0.8746471880393853,
+        "learning_quality": "excelente",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.2653849388833932,
+          "semantic_network_growth": 0.3609496158398704,
+          "emotional_development": 0.19,
+          "cognitive_flexibility": 0.07013806197440577
+        },
+        "total_consciousness_impact": 0.8864726166976694,
+        "impact_category": "transformador"
+      }
+    },
+    "hombre": {
+      "word": "hombre",
+      "training_time": 0.20015168190002441,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "hombre",
+          "execution_time": 0.9033058236852052,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.23952667617934303,
+            "semantic_integration": 0.12106505138021006,
+            "pattern_strength": 0.7114843778790299,
+            "emotional_resonance": 0.4404703474673748,
+            "contextual_flexibility": 0.22042603218119455,
+            "consolidation_strength": 0.6933449794786909
+          },
+          "consciousness_influence": 0.4772710581554922
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "hombre",
+          "execution_time": 1.7559366292508851,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5338330385579972,
+            "semantic_integration": 0.5175681043902194,
+            "pattern_strength": 0.5895019514787427,
+            "emotional_resonance": 0.15948168630986426,
+            "contextual_flexibility": 0.4019552127040942,
+            "consolidation_strength": 0.49518647469534344
+          },
+          "consciousness_influence": 0.17301857263088197
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "hombre",
+          "execution_time": 1.6234040250550392,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5196557937905751,
+            "semantic_integration": 0.12383914148363838,
+            "pattern_strength": 0.5137109856226545,
+            "emotional_resonance": 0.6343970373065044,
+            "contextual_flexibility": 0.37922963100882723,
+            "consolidation_strength": 0.8761468643953865
+          },
+          "consciousness_influence": 0.13581359644972776
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "hombre",
+          "execution_time": 0.8102035430752121,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.16999625137006208,
+            "semantic_integration": 0.3225593574324973,
+            "pattern_strength": 0.3616939571678718,
+            "emotional_resonance": 0.5458528633140168,
+            "contextual_flexibility": 0.26222862656916207,
+            "consolidation_strength": 0.508282308643061
+          },
+          "consciousness_influence": 0.24135023495275684
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "hombre",
+          "execution_time": 0.9230404177892348,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.20121420864258782,
+            "semantic_integration": 0.6398784094341587,
+            "pattern_strength": 0.8876116093098778,
+            "emotional_resonance": 0.33951567308565256,
+            "contextual_flexibility": 0.5429944656164161,
+            "consolidation_strength": 0.5645319634940158
+          },
+          "consciousness_influence": 0.2894677035482629
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "hombre",
+          "execution_time": 1.9596963850883236,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7098631084666663,
+            "semantic_integration": 0.42922728900347096,
+            "pattern_strength": 0.8738684381129611,
+            "emotional_resonance": 0.4214855973873983,
+            "contextual_flexibility": 0.6786281436475817,
+            "consolidation_strength": 0.5388199313112998
+          },
+          "consciousness_influence": 0.503610023306917
+        }
+      },
+      "final_evaluation": {
+        "word": "hombre",
+        "understanding_level": 0.5822598258121898,
+        "semantic_integration": 0.5498777742902413,
+        "emotional_resonance": 0.5424798999573264,
+        "contextual_flexibility": 0.5953009082356623,
+        "distillation_score": 0.5681644901242509,
+        "learning_quality": "regular",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.17467794774365694,
+          "semantic_network_growth": 0.21995110971609655,
+          "emotional_development": 0.10849597999146528,
+          "cognitive_flexibility": 0.05953009082356623
+        },
+        "total_consciousness_impact": 0.562655128274785,
+        "impact_category": "significativo"
+      }
+    },
+    "ni\u00f1o": {
+      "word": "ni\u00f1o",
+      "training_time": 0.20011210441589355,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "ni\u00f1o",
+          "execution_time": 1.9611431530407162,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6277965765655706,
+            "semantic_integration": 0.5845625125201794,
+            "pattern_strength": 0.8766536498215307,
+            "emotional_resonance": 0.6176053626396989,
+            "contextual_flexibility": 0.5259304357827558,
+            "consolidation_strength": 0.34846931670597425
+          },
+          "consciousness_influence": 0.476334926751088
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "ni\u00f1o",
+          "execution_time": 1.6686627441795108,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.3550630415164219,
+            "semantic_integration": 0.34156498403776614,
+            "pattern_strength": 0.3034964532139043,
+            "emotional_resonance": 0.3522475313886092,
+            "contextual_flexibility": 0.5716716711789009,
+            "consolidation_strength": 0.6927629748436409
+          },
+          "consciousness_influence": 0.5658510048526844
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "ni\u00f1o",
+          "execution_time": 0.7964056167761266,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6704063740727367,
+            "semantic_integration": 0.36739363589353247,
+            "pattern_strength": 0.4725613024764583,
+            "emotional_resonance": 0.4908051532473102,
+            "contextual_flexibility": 0.5480085359150024,
+            "consolidation_strength": 0.7103041037265129
+          },
+          "consciousness_influence": 0.45054544320109235
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "ni\u00f1o",
+          "execution_time": 1.2761802829477258,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.10357956544371268,
+            "semantic_integration": 0.677294678752858,
+            "pattern_strength": 0.27990252370277924,
+            "emotional_resonance": 0.600006631892828,
+            "contextual_flexibility": 0.4731923694703548,
+            "consolidation_strength": 0.8573094617036883
+          },
+          "consciousness_influence": 0.5638937547369411
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "ni\u00f1o",
+          "execution_time": 1.9118077185222766,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.4221419350657678,
+            "semantic_integration": 0.39963064811494164,
+            "pattern_strength": 0.7162958393654821,
+            "emotional_resonance": 0.7624580627690483,
+            "contextual_flexibility": 0.4275947401781397,
+            "consolidation_strength": 0.7892361627602043
+          },
+          "consciousness_influence": 0.5404858557020885
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "ni\u00f1o",
+          "execution_time": 1.8311274930910093,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.48118503653533606,
+            "semantic_integration": 0.20857376975745118,
+            "pattern_strength": 0.7330962566706007,
+            "emotional_resonance": 0.5227868046582355,
+            "contextual_flexibility": 0.36206355318273664,
+            "consolidation_strength": 0.5436944337934134
+          },
+          "consciousness_influence": 0.4101902357737519
+        }
+      },
+      "final_evaluation": {
+        "word": "ni\u00f1o",
+        "understanding_level": 0.6060743372910331,
+        "semantic_integration": 0.4072628203051213,
+        "emotional_resonance": 0.431494015209483,
+        "contextual_flexibility": 0.5383750766959912,
+        "distillation_score": 0.5113005045389888,
+        "learning_quality": "regular",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.18182230118730994,
+          "semantic_network_growth": 0.16290512812204852,
+          "emotional_development": 0.0862988030418966,
+          "cognitive_flexibility": 0.05383750766959912
+        },
+        "total_consciousness_impact": 0.48486374002085414,
+        "impact_category": "moderado"
+      }
+    },
+    "ni\u00f1a": {
+      "word": "ni\u00f1a",
+      "training_time": 0.20006966590881348,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "ni\u00f1a",
+          "execution_time": 0.6085206251286741,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6796967188179075,
+            "semantic_integration": 0.5328928351299561,
+            "pattern_strength": 0.5656048951881101,
+            "emotional_resonance": 0.6588981269527715,
+            "contextual_flexibility": 0.23328599520872012,
+            "consolidation_strength": 0.7393307034086691
+          },
+          "consciousness_influence": 0.38530106108802986
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "ni\u00f1a",
+          "execution_time": 1.6781168262171902,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6526934191599247,
+            "semantic_integration": 0.460625670595339,
+            "pattern_strength": 0.6468285274770171,
+            "emotional_resonance": 0.5972751358257481,
+            "contextual_flexibility": 0.24155367802740674,
+            "consolidation_strength": 0.45339000153520115
+          },
+          "consciousness_influence": 0.49292191543409447
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "ni\u00f1a",
+          "execution_time": 0.5140659493186782,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5451758638198984,
+            "semantic_integration": 0.5679934162912776,
+            "pattern_strength": 0.5358530881821326,
+            "emotional_resonance": 0.3990296993234833,
+            "contextual_flexibility": 0.5761560652925701,
+            "consolidation_strength": 0.5827610315844812
+          },
+          "consciousness_influence": 0.24825400359292724
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "ni\u00f1a",
+          "execution_time": 1.3189484167719163,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6145265506850908,
+            "semantic_integration": 0.16548224466910566,
+            "pattern_strength": 0.3456037867688223,
+            "emotional_resonance": 0.6484343799078879,
+            "contextual_flexibility": 0.5608018849901131,
+            "consolidation_strength": 0.38897455098312567
+          },
+          "consciousness_influence": 0.2947999246640811
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "ni\u00f1a",
+          "execution_time": 1.1589600095541894,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.2624410924272036,
+            "semantic_integration": 0.19975517157652503,
+            "pattern_strength": 0.5271087575085018,
+            "emotional_resonance": 0.14907564946363408,
+            "contextual_flexibility": 0.35936007620696586,
+            "consolidation_strength": 0.42924692276949117
+          },
+          "consciousness_influence": 0.13205835604320146
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "ni\u00f1a",
+          "execution_time": 1.927113945352791,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.10590552524451564,
+            "semantic_integration": 0.4590937746909909,
+            "pattern_strength": 0.6567214685498295,
+            "emotional_resonance": 0.338184994585379,
+            "contextual_flexibility": 0.5443722279100832,
+            "consolidation_strength": 0.7497668148612227
+          },
+          "consciousness_influence": 0.24205890196500748
+        }
+      },
+      "final_evaluation": {
+        "word": "ni\u00f1a",
+        "understanding_level": 0.5128066274741694,
+        "semantic_integration": 0.5202085539124737,
+        "emotional_resonance": 0.6856321135630417,
+        "contextual_flexibility": 0.6461193041951219,
+        "distillation_score": 0.5692191078096628,
+        "learning_quality": "regular",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.15384198824225082,
+          "semantic_network_growth": 0.2080834215649895,
+          "emotional_development": 0.13712642271260833,
+          "cognitive_flexibility": 0.06461193041951219
+        },
+        "total_consciousness_impact": 0.5636637629393608,
+        "impact_category": "significativo"
+      }
+    },
+    "adolescente": {
+      "word": "adolescente",
+      "training_time": 0.20011091232299805,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "adolescente",
+          "execution_time": 1.912866668153824,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.15052701915489242,
+            "semantic_integration": 0.1340475272145204,
+            "pattern_strength": 0.42596003774869085,
+            "emotional_resonance": 0.6695873988808304,
+            "contextual_flexibility": 0.366700575827714,
+            "consolidation_strength": 0.5833553703055585
+          },
+          "consciousness_influence": 0.10574042529863595
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "adolescente",
+          "execution_time": 1.3064608242207014,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6564202089051612,
+            "semantic_integration": 0.2091652329661699,
+            "pattern_strength": 0.542402641595798,
+            "emotional_resonance": 0.14827354579017266,
+            "contextual_flexibility": 0.2639971910981725,
+            "consolidation_strength": 0.38528899918351006
+          },
+          "consciousness_influence": 0.4503296004551133
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "adolescente",
+          "execution_time": 1.8260975890997826,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.26306975766790763,
+            "semantic_integration": 0.2556500219596538,
+            "pattern_strength": 0.30603357783973867,
+            "emotional_resonance": 0.1640986895708075,
+            "contextual_flexibility": 0.41250234517660556,
+            "consolidation_strength": 0.3799004608809259
+          },
+          "consciousness_influence": 0.3981915203111386
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "adolescente",
+          "execution_time": 1.585326465356971,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7837799569350368,
+            "semantic_integration": 0.4248378725509496,
+            "pattern_strength": 0.51214358464872,
+            "emotional_resonance": 0.2494561033698121,
+            "contextual_flexibility": 0.6190089600379534,
+            "consolidation_strength": 0.589050963714743
+          },
+          "consciousness_influence": 0.24713915599517247
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "adolescente",
+          "execution_time": 1.559863008306295,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.4240653478770873,
+            "semantic_integration": 0.4285825856336781,
+            "pattern_strength": 0.21865880749043615,
+            "emotional_resonance": 0.4511142073511335,
+            "contextual_flexibility": 0.4594118415956131,
+            "consolidation_strength": 0.35085614975979595
+          },
+          "consciousness_influence": 0.5917655044777407
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "adolescente",
+          "execution_time": 0.7715857055347732,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7955172469554577,
+            "semantic_integration": 0.682226394392423,
+            "pattern_strength": 0.342992759179497,
+            "emotional_resonance": 0.1604409537155062,
+            "contextual_flexibility": 0.2914347848685622,
+            "consolidation_strength": 0.8838338376055861
+          },
+          "consciousness_influence": 0.5393014725401035
+        }
+      },
+      "final_evaluation": {
+        "word": "adolescente",
+        "understanding_level": 0.8055256587522249,
+        "semantic_integration": 0.9299163378574666,
+        "emotional_resonance": 0.7876673414804592,
+        "contextual_flexibility": 0.7619227324942734,
+        "distillation_score": 0.8265112261354894,
+        "learning_quality": "excelente",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.24165769762566747,
+          "semantic_network_growth": 0.37196653514298667,
+          "emotional_development": 0.15753346829609186,
+          "cognitive_flexibility": 0.07619227324942734
+        },
+        "total_consciousness_impact": 0.8473499743141732,
+        "impact_category": "transformador"
+      }
+    },
+    "anciano": {
+      "word": "anciano",
+      "training_time": 0.20011234283447266,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "anciano",
+          "execution_time": 1.2775276024924955,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6563811982706879,
+            "semantic_integration": 0.5319748920228475,
+            "pattern_strength": 0.7380487037261516,
+            "emotional_resonance": 0.6242210574239615,
+            "contextual_flexibility": 0.23227176418803708,
+            "consolidation_strength": 0.33750666858986644
+          },
+          "consciousness_influence": 0.32046774556482194
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "anciano",
+          "execution_time": 1.3096545014051761,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6512927460591637,
+            "semantic_integration": 0.6418031763404226,
+            "pattern_strength": 0.20573491516689724,
+            "emotional_resonance": 0.3847509572788217,
+            "contextual_flexibility": 0.5004166860243302,
+            "consolidation_strength": 0.7356937398610521
+          },
+          "consciousness_influence": 0.38669568302890567
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "anciano",
+          "execution_time": 1.140547904549519,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6918716249735065,
+            "semantic_integration": 0.4950015137863639,
+            "pattern_strength": 0.7153326707690764,
+            "emotional_resonance": 0.11919506981140425,
+            "contextual_flexibility": 0.6658381350451981,
+            "consolidation_strength": 0.37231717006849935
+          },
+          "consciousness_influence": 0.5701886799573129
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "anciano",
+          "execution_time": 1.0788796296003622,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7221447260707713,
+            "semantic_integration": 0.3938787961292768,
+            "pattern_strength": 0.2304956085692287,
+            "emotional_resonance": 0.6784362113137585,
+            "contextual_flexibility": 0.2976456998626774,
+            "consolidation_strength": 0.36900043436117225
+          },
+          "consciousness_influence": 0.26227145992587453
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "anciano",
+          "execution_time": 0.9882515413357873,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.22837627558475979,
+            "semantic_integration": 0.383693355609545,
+            "pattern_strength": 0.5049771326993058,
+            "emotional_resonance": 0.25854680541616293,
+            "contextual_flexibility": 0.6265698044498754,
+            "consolidation_strength": 0.6397935933221979
+          },
+          "consciousness_influence": 0.4458040591084187
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "anciano",
+          "execution_time": 1.2065680675058061,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5292569442770414,
+            "semantic_integration": 0.47954229872286336,
+            "pattern_strength": 0.596323431025319,
+            "emotional_resonance": 0.35333771506363465,
+            "contextual_flexibility": 0.44315471366343107,
+            "consolidation_strength": 0.3279968092360907
+          },
+          "consciousness_influence": 0.18410856258005928
+        }
+      },
+      "final_evaluation": {
+        "word": "anciano",
+        "understanding_level": 0.36446042461892725,
+        "semantic_integration": 0.5501810465142088,
+        "emotional_resonance": 0.3466632921989029,
+        "contextual_flexibility": 0.4288071166943651,
+        "distillation_score": 0.4169831574200585,
+        "learning_quality": "regular",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.10933812738567818,
+          "semantic_network_growth": 0.22007241860568355,
+          "emotional_development": 0.06933265843978058,
+          "cognitive_flexibility": 0.042880711669436515
+        },
+        "total_consciousness_impact": 0.44162391610057883,
+        "impact_category": "moderado"
+      }
+    },
+    "casa": {
+      "word": "casa",
+      "training_time": 0.20010781288146973,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "casa",
+          "execution_time": 0.8231032485644401,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.4420294427296657,
+            "semantic_integration": 0.393296987555785,
+            "pattern_strength": 0.4456937153675136,
+            "emotional_resonance": 0.6636232054345027,
+            "contextual_flexibility": 0.6053864958412303,
+            "consolidation_strength": 0.6013868034231369
+          },
+          "consciousness_influence": 0.2591415693918363
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "casa",
+          "execution_time": 0.6959774494557591,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7408282580432282,
+            "semantic_integration": 0.10735121750109766,
+            "pattern_strength": 0.8923576405183964,
+            "emotional_resonance": 0.6261896077657165,
+            "contextual_flexibility": 0.6130221717900477,
+            "consolidation_strength": 0.7774117922838442
+          },
+          "consciousness_influence": 0.10800068635836177
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "casa",
+          "execution_time": 0.6463617010711079,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.2124355973347936,
+            "semantic_integration": 0.35597925892976445,
+            "pattern_strength": 0.37382299043771583,
+            "emotional_resonance": 0.38567211043547156,
+            "contextual_flexibility": 0.6484625244504941,
+            "consolidation_strength": 0.7566696511072953
+          },
+          "consciousness_influence": 0.21535880745658106
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "casa",
+          "execution_time": 1.877506571683647,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.5151020853262834,
+            "semantic_integration": 0.514624904029796,
+            "pattern_strength": 0.48803188298337086,
+            "emotional_resonance": 0.13939164117915104,
+            "contextual_flexibility": 0.4245223578474212,
+            "consolidation_strength": 0.7104122608794156
+          },
+          "consciousness_influence": 0.5045024400584074
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "casa",
+          "execution_time": 0.6814251009458114,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.7822639526501557,
+            "semantic_integration": 0.6957799513055546,
+            "pattern_strength": 0.8113330864454342,
+            "emotional_resonance": 0.5003447296369191,
+            "contextual_flexibility": 0.5005563583989278,
+            "consolidation_strength": 0.7010087623041061
+          },
+          "consciousness_influence": 0.5857000749781645
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "casa",
+          "execution_time": 1.4247466763441747,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.6423516827921522,
+            "semantic_integration": 0.4438466670408945,
+            "pattern_strength": 0.35591378026131143,
+            "emotional_resonance": 0.7357077475612163,
+            "contextual_flexibility": 0.4937604880238892,
+            "consolidation_strength": 0.7442610295171023
+          },
+          "consciousness_influence": 0.5924587582499665
+        }
+      },
+      "final_evaluation": {
+        "word": "casa",
+        "understanding_level": 0.8093884181142209,
+        "semantic_integration": 0.8034084198204862,
+        "emotional_resonance": 0.7226007547742477,
+        "contextual_flexibility": 0.7262733119799732,
+        "distillation_score": 0.7780686199526555,
+        "learning_quality": "bueno",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.24281652543426627,
+          "semantic_network_growth": 0.3213633679281945,
+          "emotional_development": 0.14452015095484955,
+          "cognitive_flexibility": 0.07262733119799733
+        },
+        "total_consciousness_impact": 0.7813273755153077,
+        "impact_category": "transformador"
+      }
+    },
+    "pared": {
+      "word": "pared",
+      "training_time": 0.20009851455688477,
+      "phase_results": {
+        "initial_exposure": {
+          "phase_name": "initial_exposure",
+          "word": "pared",
+          "execution_time": 1.7874930957604511,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.4268796144632936,
+            "semantic_integration": 0.24927378942710499,
+            "pattern_strength": 0.696764608688911,
+            "emotional_resonance": 0.17822147558774365,
+            "contextual_flexibility": 0.4328774602057881,
+            "consolidation_strength": 0.5864833226773145
+          },
+          "consciousness_influence": 0.5903510167716866
+        },
+        "pattern_recognition": {
+          "phase_name": "pattern_recognition",
+          "word": "pared",
+          "execution_time": 0.7848421509577455,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.3671643057935349,
+            "semantic_integration": 0.392210231550542,
+            "pattern_strength": 0.5437150262396488,
+            "emotional_resonance": 0.415925979999313,
+            "contextual_flexibility": 0.5847342748519546,
+            "consolidation_strength": 0.4259631423806022
+          },
+          "consciousness_influence": 0.336420200109821
+        },
+        "semantic_integration": {
+          "phase_name": "semantic_integration",
+          "word": "pared",
+          "execution_time": 1.2915562066313477,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.10673244776414137,
+            "semantic_integration": 0.4641102089017627,
+            "pattern_strength": 0.22844840733596475,
+            "emotional_resonance": 0.2260447951551328,
+            "contextual_flexibility": 0.6001232250481409,
+            "consolidation_strength": 0.8259160585920375
+          },
+          "consciousness_influence": 0.5355057016336793
+        },
+        "contextual_expansion": {
+          "phase_name": "contextual_expansion",
+          "word": "pared",
+          "execution_time": 1.1289337180671777,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.4317943707312695,
+            "semantic_integration": 0.6292383862729056,
+            "pattern_strength": 0.6152658667796873,
+            "emotional_resonance": 0.3564961825531753,
+            "contextual_flexibility": 0.46515589768631005,
+            "consolidation_strength": 0.5855610429000058
+          },
+          "consciousness_influence": 0.17162953982686555
+        },
+        "emotional_association": {
+          "phase_name": "emotional_association",
+          "word": "pared",
+          "execution_time": 0.8030831857678522,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.37499761743975246,
+            "semantic_integration": 0.3395091172033252,
+            "pattern_strength": 0.5946825240431938,
+            "emotional_resonance": 0.4807432504331477,
+            "contextual_flexibility": 0.21742848605862508,
+            "consolidation_strength": 0.30077089785270544
+          },
+          "consciousness_influence": 0.5173575753121773
+        },
+        "consolidation": {
+          "phase_name": "consolidation",
+          "word": "pared",
+          "execution_time": 1.8150600824550012,
+          "epochs_completed": 8,
+          "metrics": {
+            "understanding_gain": 0.12933348426848848,
+            "semantic_integration": 0.3414552307008798,
+            "pattern_strength": 0.7614252485913102,
+            "emotional_resonance": 0.19307003222755104,
+            "contextual_flexibility": 0.5991711459953308,
+            "consolidation_strength": 0.4413060577046627
+          },
+          "consciousness_influence": 0.40710167654647456
+        }
+      },
+      "final_evaluation": {
+        "word": "pared",
+        "understanding_level": 0.5782381526878424,
+        "semantic_integration": 0.35896361936926613,
+        "emotional_resonance": 0.3272768725361786,
+        "contextual_flexibility": 0.508288969144059,
+        "distillation_score": 0.46273488579629807,
+        "learning_quality": "regular",
+        "phases_completed": 6
+      },
+      "consciousness_impact": {
+        "individual_impacts": {
+          "conceptual_expansion": 0.1734714458063527,
+          "semantic_network_growth": 0.14358544774770646,
+          "emotional_development": 0.06545537450723572,
+          "cognitive_flexibility": 0.0508288969144059
+        },
+        "total_consciousness_impact": 0.4333411649757008,
+        "impact_category": "moderado"
+      }
+    }
+  },
+  "total_training_time": 2.0023112297058105,
+  "final_evaluation": {
+    "words_trained": 10,
+    "avg_understanding_level": 0.6678260640218843,
+    "avg_distillation_score": 0.6437950354850643,
+    "total_consciousness_impact": 6.39153335621442,
+    "quality_distribution": {
+      "bueno": 2,
+      "excelente": 3,
+      "regular": 5
+    },
+    "system_learning_efficiency": 0.6865060699517985,
+    "final_consciousness_level": 1.0,
+    "neurotransmitter_final_balance": {
+      "individual_balances": {
+        "dopamine": 0.8329881165557849,
+        "noradrenaline": 0.6879976942744798,
+        "acetylcholine": 0.7537807831312572,
+        "serotonin": 0.8118037740180563
+      },
+      "overall_balance": 0.7716425919948945,
+      "balance_quality": "bueno"
+    }
+  },
+  "system_consciousness_level": 1.0,
+  "neurotransmitter_final_state": {
+    "individual_balances": {
+      "dopamine": 0.8329881165557849,
+      "noradrenaline": 0.6879976942744798,
+      "acetylcholine": 0.7537807831312572,
+      "serotonin": 0.8118037740180563
+    },
+    "overall_balance": 0.7716425919948945,
+    "balance_quality": "bueno"
+  }
+}

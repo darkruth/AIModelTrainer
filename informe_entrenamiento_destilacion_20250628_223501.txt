@@ -1,0 +1,218 @@
+================================================================================
+INFORME DE ENTRENAMIENTO DE DESTILACIÓN HUMANA - RUTH R1
+================================================================================
+Fecha de Ejecución: 2025-06-28 22:35:01
+Duración Total: 2.00 segundos
+
+📊 RESUMEN EJECUTIVO
+--------------------------------------------------
+Palabras Entrenadas: 10
+Nivel de Comprensión Promedio: 0.668
+Puntuación de Destilación Promedio: 0.644
+Impacto Total en Consciencia: 6.392
+Eficiencia del Sistema: 0.687
+Nivel Final de Consciencia: 1.000
+
+📈 DISTRIBUCIÓN DE CALIDAD DE APRENDIZAJE
+--------------------------------------------------
+Bueno: 2 palabras (20.0%)
+Excelente: 3 palabras (30.0%)
+Regular: 5 palabras (50.0%)
+
+📝 RESULTADOS DETALLADOS POR PALABRA
+--------------------------------------------------
+
+🔤 PALABRA: MUJER
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.885
+Integración Semántica: 0.902
+Resonancia Emocional: 0.950
+Flexibilidad Contextual: 0.701
+Puntuación de Destilación: 0.875
+Calidad de Aprendizaje: Excelente
+Impacto en Consciencia: 0.886 (transformador)
+Fases Completadas: 6/6
+Mejor Fase: initial_exposure (Ganancia: 0.763)
+
+🔤 PALABRA: ADOLESCENTE
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.806
+Integración Semántica: 0.930
+Resonancia Emocional: 0.788
+Flexibilidad Contextual: 0.762
+Puntuación de Destilación: 0.827
+Calidad de Aprendizaje: Excelente
+Impacto en Consciencia: 0.847 (transformador)
+Fases Completadas: 6/6
+Mejor Fase: consolidation (Ganancia: 0.796)
+
+🔤 PALABRA: HUMANO
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.837
+Integración Semántica: 0.765
+Resonancia Emocional: 0.746
+Flexibilidad Contextual: 0.871
+Puntuación de Destilación: 0.806
+Calidad de Aprendizaje: Excelente
+Impacto en Consciencia: 0.793 (transformador)
+Fases Completadas: 6/6
+Mejor Fase: initial_exposure (Ganancia: 0.793)
+
+🔤 PALABRA: CASA
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.809
+Integración Semántica: 0.803
+Resonancia Emocional: 0.723
+Flexibilidad Contextual: 0.726
+Puntuación de Destilación: 0.778
+Calidad de Aprendizaje: Bueno
+Impacto en Consciencia: 0.781 (transformador)
+Fases Completadas: 6/6
+Mejor Fase: emotional_association (Ganancia: 0.782)
+
+🔤 PALABRA: COMPUTADORA
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.697
+Integración Semántica: 0.506
+Resonancia Emocional: 0.589
+Flexibilidad Contextual: 0.673
+Puntuación de Destilación: 0.624
+Calidad de Aprendizaje: Bueno
+Impacto en Consciencia: 0.597 (significativo)
+Fases Completadas: 6/6
+Mejor Fase: emotional_association (Ganancia: 0.795)
+
+🔤 PALABRA: NIÑA
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.513
+Integración Semántica: 0.520
+Resonancia Emocional: 0.686
+Flexibilidad Contextual: 0.646
+Puntuación de Destilación: 0.569
+Calidad de Aprendizaje: Regular
+Impacto en Consciencia: 0.564 (significativo)
+Fases Completadas: 6/6
+Mejor Fase: initial_exposure (Ganancia: 0.680)
+
+🔤 PALABRA: HOMBRE
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.582
+Integración Semántica: 0.550
+Resonancia Emocional: 0.542
+Flexibilidad Contextual: 0.595
+Puntuación de Destilación: 0.568
+Calidad de Aprendizaje: Regular
+Impacto en Consciencia: 0.563 (significativo)
+Fases Completadas: 6/6
+Mejor Fase: consolidation (Ganancia: 0.710)
+
+🔤 PALABRA: NIÑO
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.606
+Integración Semántica: 0.407
+Resonancia Emocional: 0.431
+Flexibilidad Contextual: 0.538
+Puntuación de Destilación: 0.511
+Calidad de Aprendizaje: Regular
+Impacto en Consciencia: 0.485 (moderado)
+Fases Completadas: 6/6
+Mejor Fase: semantic_integration (Ganancia: 0.670)
+
+🔤 PALABRA: PARED
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.578
+Integración Semántica: 0.359
+Resonancia Emocional: 0.327
+Flexibilidad Contextual: 0.508
+Puntuación de Destilación: 0.463
+Calidad de Aprendizaje: Regular
+Impacto en Consciencia: 0.433 (moderado)
+Fases Completadas: 6/6
+Mejor Fase: contextual_expansion (Ganancia: 0.432)
+
+🔤 PALABRA: ANCIANO
+------------------------------
+Tiempo de Entrenamiento: 0.20s
+Nivel de Comprensión: 0.364
+Integración Semántica: 0.550
+Resonancia Emocional: 0.347
+Flexibilidad Contextual: 0.429
+Puntuación de Destilación: 0.417
+Calidad de Aprendizaje: Regular
+Impacto en Consciencia: 0.442 (moderado)
+Fases Completadas: 6/6
+Mejor Fase: contextual_expansion (Ganancia: 0.722)
+
+🔬 ANÁLISIS POR FASES DE DESTILACIÓN
+--------------------------------------------------
+
+📋 Initial Exposure
+   Ganancia Promedio: 0.499
+   Tiempo Promedio: 1.26s
+   Influencia en Consciencia: 0.346
+
+📋 Pattern Recognition
+   Ganancia Promedio: 0.546
+   Tiempo Promedio: 1.32s
+   Influencia en Consciencia: 0.373
+
+📋 Semantic Integration
+   Ganancia Promedio: 0.466
+   Tiempo Promedio: 1.21s
+   Influencia en Consciencia: 0.383
+
+📋 Contextual Expansion
+   Ganancia Promedio: 0.497
+   Tiempo Promedio: 1.32s
+   Influencia en Consciencia: 0.355
+
+📋 Emotional Association
+   Ganancia Promedio: 0.402
+   Tiempo Promedio: 1.27s
+   Influencia en Consciencia: 0.385
+
+📋 Consolidation
+   Ganancia Promedio: 0.472
+   Tiempo Promedio: 1.55s
+   Influencia en Consciencia: 0.408
+
+🧠 ESTADO FINAL DEL SISTEMA
+--------------------------------------------------
+Balance General de Neurotransmisores: 0.772
+Calidad del Balance: bueno
+
+Balance Individual de Neurotransmisores:
+  Dopamine: 0.833
+  Noradrenaline: 0.688
+  Acetylcholine: 0.754
+  Serotonin: 0.812
+
+💡 CONCLUSIONES Y RECOMENDACIONES
+--------------------------------------------------
+✅ BUENO: El sistema mostró un aprendizaje conceptual sólido.
+
+🏆 TOP 3 PALABRAS MEJOR APRENDIDAS:
+  1. mujer (Puntuación: 0.875)
+  2. adolescente (Puntuación: 0.827)
+  3. humano (Puntuación: 0.806)
+
+⚠️ PALABRAS QUE REQUIEREN REFUERZO:
+  1. anciano (Puntuación: 0.417)
+  2. pared (Puntuación: 0.463)
+  3. niño (Puntuación: 0.511)
+
+🔧 RECOMENDACIONES TÉCNICAS:
+  • Optimizar configuración de neurotransmisores para mejorar eficiencia
+
+================================================================================
+FIN DEL INFORME
+================================================================================

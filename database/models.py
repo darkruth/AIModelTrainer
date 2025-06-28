@@ -63,7 +63,7 @@ class NeuralState(Base):
     evidence_count = Column(Integer, default=0)
     stability_score = Column(Float)
     timestamp = Column(DateTime, default=datetime.utcnow)
-    metadata = Column(JSON)
+    neural_metadata = Column(JSON)
     
     # Relaciones
     session = relationship("ConsciousnessSession", back_populates="neural_states")

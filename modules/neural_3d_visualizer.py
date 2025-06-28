@@ -824,7 +824,6 @@ class Neural3DVisualizer:
                 x0, y0, z0 = self.module_positions[source]
                 x1, y1, z1 = self.module_positions[target]
 
-```python
                 if coherence > 0.8:
                     high_coherence_x.extend([x0, x1, None])
                     high_coherence_y.extend([y0, y1, None])

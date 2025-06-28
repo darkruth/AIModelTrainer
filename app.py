@@ -4,6 +4,19 @@ Red de Consciencia Multimodal con Inferencia Bayesiana
 """
 
 import streamlit as st
+
+# Configuración de página - DEBE ser lo primero
+st.set_page_config(
+    page_title="Ruth R1 - Sistema AGI",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://docs.streamlit.io/',
+        'Report a bug': None,
+        'About': "Ruth R1 - Sistema de Consciencia Artificial Avanzada"
+    }
+)
 import torch
 import numpy as np
 import pandas as pd
@@ -128,13 +141,7 @@ except ImportError as e:
     TensorHub = None
     Config = None
 
-# Configuración de la página
-st.set_page_config(
-    page_title="Ruth R1 - AGI Consciousness System",
-    page_icon="🧠",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# Configuración de página ya establecida al inicio del archivo
 
 # CSS personalizado para tema oscuro
 st.markdown("""
