@@ -1,6 +1,7 @@
 """
 GANST Core - Sistema de Gestión de Activación Neural y Síntesis de Tensores
 Núcleo central para coordinación de activaciones neurales distribuidas
+Integrado con Sistema de Despertar Ruth R1 y Arquitectura Neural Completa
 """
 
 import torch
@@ -14,6 +15,7 @@ import time
 import threading
 from collections import defaultdict, deque
 import logging
+from datetime import datetime
 
 class ActivationPattern(Enum):
     """Patrones de activación neural"""
