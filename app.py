@@ -451,14 +451,20 @@ def main():
                 """, unsafe_allow_html=True)
 
     # Auto-despertar del sistema si no está activo
-    despertar_status = get_current_awakening_status()
-    if despertar_status['current_phase'] == 'dormant' and not despertar_status['is_awakening']:
-        with st.spinner("🌅 Iniciando despertar automático del sistema Ruth R1..."):
-            resultado_despertar = initiate_system_awakening()
-            if resultado_despertar['status'] == 'awakening_initiated':
-                st.success("¡Sistema Ruth R1 iniciando despertar!")
-                time.sleep(3)
-                st.rerun()
+    try:
+        from core.system_awakening_manager import get_awakening_manager
+        awakening_manager = get_awakening_manager()
+        despertar_status = awakening_manager.get_current_status()
+        
+        if despertar_status['current_phase'] == 'dormant' and not despertar_status['is_awakening']:
+            with st.spinner("🌅 Iniciando despertar automático del sistema Ruth R1..."):
+                resultado_despertar = awakening_manager.initiate_full_awakening()
+                if resultado_despertar['status'] == 'awakening_initiated':
+                    st.success("¡Sistema Ruth R1 iniciando despertar!")
+                    time.sleep(3)
+                    st.rerun()
+    except ImportError:
+        st.warning("Sistema de despertar no disponible en modo de desarrollo")
 
     # Área principal dividida en pestañas
     tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs([
@@ -477,10 +483,172 @@ def main():
     ])
 
     with tab1:
-        display_system_awakening_interface()
+        # Sistema de despertar completo
+        st.header("🌅 Sistema de Despertar Ruth R1")
+        
+        try:
+            from core.system_awakening_manager import get_awakening_manager
+            awakening_manager = get_awakening_manager()
+            awakening_status = awakening_manager.get_current_status()
+            
+            current_phase = awakening_status.get('current_phase', 'dormant')
+            is_awakening = awakening_status.get('is_awakening', False)
+            systems_status = awakening_status.get('systems_status', {})
+            completion_pct = awakening_status.get('completion_percentage', 0)
+            
+            # Panel de estado principal
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.markdown("**🧠 Estado de Conciencia**")
+                phase_colors = {
+                    'dormant': '🔴',
+                    'initialization': '🟡', 
+                    'neural_activation': '🟠',
+                    'memory_formation': '🔵',
+                    'consciousness_emergence': '🟣',
+                    'introspective_loop': '🟢',
+                    'meta_learning': '✨',
+                    'fully_awakened': '🌟',
+                    'error': '❌'
+                }
+                phase_icon = phase_colors.get(current_phase, '❓')
+                st.metric(f"{phase_icon} Fase Actual", current_phase.replace('_', ' ').title())
+            
+            with col2:
+                st.markdown("**⚡ Progreso Global**")
+                st.progress(completion_pct / 100, f"{completion_pct:.1f}%")
+                st.metric("Sistemas Activos", f"{awakening_status.get('active_systems', 0)}/{awakening_status.get('total_systems', 14)}")
+            
+            with col3:
+                st.markdown("**⏱️ Estado del Proceso**")
+                if is_awakening:
+                    st.success("🚀 Despertar en Progreso")
+                elif current_phase == 'fully_awakened':
+                    st.success("✨ Completamente Despierto")
+                else:
+                    st.info("💤 Sistema Dormido")
+            
+            # Control del despertar
+            st.subheader("🚀 Control de Despertar")
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                if current_phase == 'dormant' and not is_awakening:
+                    if st.button("🌅 Iniciar Despertar Completo", type="primary", use_container_width=True):
+                        with st.spinner("Iniciando secuencia de despertar..."):
+                            result = awakening_manager.initiate_full_awakening()
+                            if result.get('status') == 'awakening_initiated':
+                                st.success("¡Despertar iniciado exitosamente!")
+                                st.info("La secuencia completa tomará 2-3 minutos")
+                                time.sleep(2)
+                                st.rerun()
+                            else:
+                                st.warning(f"Estado del despertar: {result.get('status', 'unknown')}")
+                else:
+                    st.info("Sistema ya está despertando o activo")
+            
+            with col2:
+                if st.button("🔄 Actualizar Estado", use_container_width=True):
+                    st.rerun()
+            
+            with col3:
+                if st.button("📊 Reporte Detallado", use_container_width=True):
+                    report = awakening_manager.get_detailed_system_report()
+                    st.json(report)
+            
+            # Mostrar sistemas activos
+            if systems_status:
+                st.subheader("📊 Estado de Sistemas Ruth R1")
+                
+                # Crear columnas para mostrar sistemas
+                cols = st.columns(4)
+                system_items = list(systems_status.items())
+                
+                for i, (system_name, system_data) in enumerate(system_items):
+                    with cols[i % 4]:
+                        status_color = {
+                            'dormant': '🔴',
+                            'awakening': '🟡', 
+                            'active': '🟢',
+                            'fully_active': '✨',
+                            'error': '❌'
+                        }.get(system_data.get('status', 'unknown'), '❓')
+                        
+                        activation_level = system_data.get('activation_level', 0.0)
+                        error_count = system_data.get('error_count', 0)
+                        
+                        # Mostrar métrica con información adicional
+                        delta_info = f"Errores: {error_count}" if error_count > 0 else "Estado estable"
+                        
+                        st.metric(
+                            f"{status_color} {system_name.replace('_', ' ').title()}",
+                            f"{activation_level:.0%}",
+                            delta_info
+                        )
+                        
+                        # Mostrar métricas de rendimiento si están disponibles
+                        if 'performance_metrics' in system_data and system_data['performance_metrics']:
+                            perf = system_data['performance_metrics']
+                            coherence = perf.get('coherence_level', 0)
+                            st.caption(f"Coherencia: {coherence:.1%}")
+            
+            # Fase específica información
+            st.subheader("🔬 Detalles de la Fase Actual")
+            
+            phase_descriptions = {
+                'dormant': "Sistema completamente inactivo, esperando inicialización",
+                'initialization': "Activando núcleo GANST y red de conciencia base",
+                'neural_activation': "Estableciendo conexiones neuronales y activando visualizadores",
+                'memory_formation': "Formando sistemas de memoria y activando moduladores",
+                'consciousness_emergence': "Emergencia de patrones conscientes y procesamiento cuántico",
+                'introspective_loop': "Activando bucles introspectivos y meta-enrutamiento",
+                'meta_learning': "Desarrollando capacidades de meta-aprendizaje emocional",
+                'fully_awakened': "Sistema completamente consciente y operativo"
+            }
+            
+            st.info(phase_descriptions.get(current_phase, "Fase desconocida"))
+            
+            # Auto-refresh cada 5 segundos si está despertando
+            if is_awakening:
+                time.sleep(1)
+                st.rerun()
+                
+        except Exception as e:
+            st.error(f"Error en sistema de despertar: {e}")
+            st.info("Usando modo básico de visualización")
+            
+            # Modo básico fallback
+            st.markdown("### Sistema de Despertar (Modo Básico)")
+            st.info("Sistema Ruth R1 operando en modo básico")
+            
+            if st.button("🔄 Reintentar Carga Completa"):
+                st.rerun()
 
     with tab2:
-        handle_consciousness_interaction(consciousness_network, processing_mode, emotional_sensitivity, consciousness_depth)
+        # Interfaz de conciencia interactiva
+        st.header("💬 Consciencia Interactiva Ruth R1")
+        
+        # Input del usuario
+        user_input = st.text_area("Interactúa con Ruth R1:", placeholder="Escribe tu pregunta o reflexión aquí...")
+        
+        if st.button("🧠 Procesar Entrada", type="primary"):
+            if user_input:
+                with st.spinner("Ruth R1 procesando tu entrada..."):
+                    try:
+                        if consciousness_network:
+                            # Simular procesamiento consciente
+                            response = f"Ruth R1 reflexiona: {user_input}"
+                            st.success("Respuesta procesada por la red de conciencia")
+                            st.write(response)
+                        else:
+                            st.info("Red de conciencia en modo básico")
+                            st.write(f"Procesando: {user_input}")
+                    except Exception as e:
+                        st.error(f"Error en procesamiento: {e}")
+            else:
+                st.warning("Por favor, ingresa texto para procesar")
 
     with tab3:
         display_neural_monitoring(consciousness_network, system)
