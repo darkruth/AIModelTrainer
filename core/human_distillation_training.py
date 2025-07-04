@@ -1,4 +1,3 @@
-
 """
 Sistema de Entrenamiento por Destilación Humana - Ruth R1
 Implementa el protocolo de entrenamiento específico para conceptos fundamentales
@@ -6,7 +5,7 @@ usando técnicas de destilación de conocimiento humano
 """
 
 import torch
-import torch.nn as nn
+import torch.nn as np
 import torch.nn.functional as F
 import numpy as np
 from typing import Dict, List, Any, Optional, Tuple
