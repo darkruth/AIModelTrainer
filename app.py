@@ -3,6 +3,10 @@ Aplicación Principal - Sistema AGI Ruth R1
 Red de Consciencia Multimodal con Inferencia Bayesiana
 """
 
+import os
+# Configurar wandb para no requerir interacción
+os.environ['WANDB_MODE'] = 'disabled'
+
 import streamlit as st
 
 # Configuración de página - DEBE ser lo primero
@@ -89,13 +93,15 @@ try:
         BayesianQuantumSystem = None
         
     try:
-        from core.despertar_awakening import (
-            initiate_system_awakening, 
-            get_awakening_system, 
-            get_current_awakening_status,
-            AwakeningPhase
+        from core.system_awakening_manager import (
+            get_awakening_manager,
+            SystemAwakeningManager
         )
+        awakening_manager = get_awakening_manager()
+        initiate_system_awakening = awakening_manager.initiate_full_awakening
+        get_current_awakening_status = awakening_manager.get_current_status
     except ImportError:
+        awakening_manager = None
         initiate_system_awakening = None
         get_current_awakening_status = lambda: {'current_phase': 'error', 'is_awakening': False}
         st.warning("Sistema de despertar no disponible")
@@ -651,19 +657,30 @@ def main():
                 st.warning("Por favor, ingresa texto para procesar")
 
     with tab3:
-        display_neural_monitoring(consciousness_network, system)
+        if 'display_neural_monitoring' in globals():
+            display_neural_monitoring(consciousness_network, system)
+        else:
+            st.header("🔍 Monitoreo Neural")
+            st.info("Módulo de monitoreo neural en desarrollo")
 
     with tab4:
         display_live_neural_flows(consciousness_network)
 
     with tab5:
-        display_3d_neural_visualization(consciousness_network)
+        if 'display_3d_neural_visualization' in globals():
+            display_3d_neural_visualization(consciousness_network)
+        else:
+            display_holographic_3d_visualization(consciousness_network)
 
     with tab6:
         display_holographic_3d_visualization(consciousness_network)
 
     with tab7:
-        display_bayesian_analysis(consciousness_network)
+        if 'display_bayesian_analysis' in globals():
+            display_bayesian_analysis(consciousness_network)
+        else:
+            st.header("📊 Análisis Bayesiano")
+            st.info("Análisis bayesiano en desarrollo")
 
     with tab8:
         display_emotional_states(consciousness_network)
