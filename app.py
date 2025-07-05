@@ -93,6 +93,18 @@ try:
         BayesianQuantumSystem = None
         
     try:
+        from core.cognitive_resonance_feedback import (
+            CognitiveResonanceFeedbackMechanism,
+            get_cognitive_resonance_mechanism,
+            initialize_cognitive_resonance_system,
+            ResonanceType,
+            FeedbackMode
+        )
+    except ImportError:
+        CognitiveResonanceFeedbackMechanism = None
+        get_cognitive_resonance_mechanism = lambda: None
+        
+    try:
         from core.system_awakening_manager import (
             get_awakening_manager,
             SystemAwakeningManager
@@ -473,7 +485,7 @@ def main():
         st.warning("Sistema de despertar no disponible en modo de desarrollo")
 
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13 = st.tabs([
         "🌅 Despertar del Sistema",
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
@@ -482,6 +494,7 @@ def main():
         "🌌 Mapa Holográfico 3D",
         "📊 Análisis Bayesiano",
         "🎭 Estados Emocionales",
+        "🔊 Resonancia Cognitiva",
         "🗄️ Base de Datos",
         "⚡ RazonBill Core",
         "🧬 Meta-Enrutador Ruth R1",
@@ -686,15 +699,18 @@ def main():
         display_emotional_states(consciousness_network)
 
     with tab9:
-        display_database_management()
+        display_cognitive_resonance_feedback(consciousness_network)
 
     with tab10:
-        display_razonbill_interface(consciousness_network)
+        display_database_management()
 
     with tab11:
-        display_meta_enrutador_interface(consciousness_network)
+        display_razonbill_interface(consciousness_network)
 
     with tab12:
+        display_meta_enrutador_interface(consciousness_network)
+
+    with tab13:
         display_system_diagnostics(system)
 
 def display_live_neural_flows(consciousness_network):
@@ -2482,6 +2498,54 @@ def display_system_diagnostics(system):
                 for key in list(st.session_state.keys()):
                     del st.session_state[key]
                 st.rerun()
+
+def display_cognitive_resonance_feedback(consciousness_network):
+    """Muestra interfaz del Mecanismo de Retroalimentación de Resonancia Cognitiva"""
+    
+    st.header("🔊 Resonancia Cognitiva - Ruth R1")
+    st.markdown("*Sistema avanzado de optimización neural mediante resonancia cognitiva*")
+    
+    # Sistema simplificado para demostración
+    st.subheader("🔧 Modo Demostración")
+    
+    demo_col1, demo_col2 = st.columns(2)
+    
+    with demo_col1:
+        st.markdown("**Parámetros de Configuración:**")
+        freq = st.slider("Frecuencia Base", 20, 100, 40)
+        threshold = st.slider("Umbral", 0.1, 1.0, 0.7)
+        
+    with demo_col2:
+        st.markdown("**Estado Simulado:**")
+        st.metric("Resonancia Detectada", "85%")
+        st.metric("Coherencia Global", "0.78")
+        
+    if st.button("🧪 Simular Detección"):
+        st.success("Patrón de resonancia detectado a 42Hz")
+        st.info("Feedback generado y enviado a módulos activos")
+        
+    # Visualización básica
+    st.subheader("🌊 Patrones de Resonancia")
+    temporal_data = np.random.rand(100) * 0.8 + 0.2
+    temporal_data = temporal_data + 0.3 * np.sin(np.linspace(0, 4*np.pi, 100))
+    
+    fig_temporal = go.Figure()
+    fig_temporal.add_trace(go.Scatter(
+        y=temporal_data,
+        mode='lines',
+        name='Actividad Neural',
+        line=dict(color='rgba(78, 205, 196, 0.8)', width=2)
+    ))
+    
+    fig_temporal.update_layout(
+        title="Actividad Neural en Tiempo Real",
+        xaxis_title="Tiempo (ms)",
+        yaxis_title="Amplitud de Activación",
+        template="plotly_dark",
+        height=400
+    )
+    
+    st.plotly_chart(fig_temporal, use_container_width=True)
 
 if __name__ == "__main__":
     main()

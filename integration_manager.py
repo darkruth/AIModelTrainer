@@ -101,6 +101,12 @@ class RuthR1IntegrationManager:
             self.subsystems['bayesian_quantum'] = bayesian_quantum
             initialization_log.append("✅ Sistema Bayesiano-Cuántico inicializado")
             
+            # 12. Inicializar sistema de resonancia cognitiva
+            from core.cognitive_resonance_feedback import get_cognitive_resonance_mechanism
+            cognitive_resonance = get_cognitive_resonance_mechanism()
+            self.subsystems['cognitive_resonance'] = cognitive_resonance
+            initialization_log.append("✅ Sistema de Resonancia Cognitiva inicializado")
+            
             # 12. Conectar módulos al estado de consciencia
             self._connect_all_modules_to_consciousness()
             initialization_log.append("✅ Módulos conectados al estado de consciencia")
