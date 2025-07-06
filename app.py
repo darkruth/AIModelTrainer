@@ -3,10 +3,6 @@ Aplicación Principal - Sistema AGI Ruth R1
 Red de Consciencia Multimodal con Inferencia Bayesiana
 """
 
-import os
-# Configurar wandb para no requerir interacción
-os.environ['WANDB_MODE'] = 'disabled'
-
 import streamlit as st
 
 # Configuración de página - DEBE ser lo primero
@@ -93,27 +89,13 @@ try:
         BayesianQuantumSystem = None
         
     try:
-        from core.cognitive_resonance_feedback import (
-            CognitiveResonanceFeedbackMechanism,
-            get_cognitive_resonance_mechanism,
-            initialize_cognitive_resonance_system,
-            ResonanceType,
-            FeedbackMode
+        from core.despertar_awakening import (
+            initiate_system_awakening, 
+            get_awakening_system, 
+            get_current_awakening_status,
+            AwakeningPhase
         )
     except ImportError:
-        CognitiveResonanceFeedbackMechanism = None
-        get_cognitive_resonance_mechanism = lambda: None
-        
-    try:
-        from core.system_awakening_manager import (
-            get_awakening_manager,
-            SystemAwakeningManager
-        )
-        awakening_manager = get_awakening_manager()
-        initiate_system_awakening = awakening_manager.initiate_full_awakening
-        get_current_awakening_status = awakening_manager.get_current_status
-    except ImportError:
-        awakening_manager = None
         initiate_system_awakening = None
         get_current_awakening_status = lambda: {'current_phase': 'error', 'is_awakening': False}
         st.warning("Sistema de despertar no disponible")
@@ -485,7 +467,7 @@ def main():
         st.warning("Sistema de despertar no disponible en modo de desarrollo")
 
     # Área principal dividida en pestañas
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs([
         "🌅 Despertar del Sistema",
         "💬 Consciencia Interactive", 
         "🧠 Monitoreo Neural", 
@@ -494,7 +476,6 @@ def main():
         "🌌 Mapa Holográfico 3D",
         "📊 Análisis Bayesiano",
         "🎭 Estados Emocionales",
-        "🔊 Resonancia Cognitiva",
         "🗄️ Base de Datos",
         "⚡ RazonBill Core",
         "🧬 Meta-Enrutador Ruth R1",
@@ -670,47 +651,33 @@ def main():
                 st.warning("Por favor, ingresa texto para procesar")
 
     with tab3:
-        if 'display_neural_monitoring' in globals():
-            display_neural_monitoring(consciousness_network, system)
-        else:
-            st.header("🔍 Monitoreo Neural")
-            st.info("Módulo de monitoreo neural en desarrollo")
+        display_neural_monitoring(consciousness_network, system)
 
     with tab4:
         display_live_neural_flows(consciousness_network)
 
     with tab5:
-        if 'display_3d_neural_visualization' in globals():
-            display_3d_neural_visualization(consciousness_network)
-        else:
-            display_holographic_3d_visualization(consciousness_network)
+        display_3d_neural_visualization(consciousness_network)
 
     with tab6:
         display_holographic_3d_visualization(consciousness_network)
 
     with tab7:
-        if 'display_bayesian_analysis' in globals():
-            display_bayesian_analysis(consciousness_network)
-        else:
-            st.header("📊 Análisis Bayesiano")
-            st.info("Análisis bayesiano en desarrollo")
+        display_bayesian_analysis(consciousness_network)
 
     with tab8:
         display_emotional_states(consciousness_network)
 
     with tab9:
-        display_cognitive_resonance_feedback(consciousness_network)
-
-    with tab10:
         display_database_management()
 
-    with tab11:
+    with tab10:
         display_razonbill_interface(consciousness_network)
 
-    with tab12:
+    with tab11:
         display_meta_enrutador_interface(consciousness_network)
 
-    with tab13:
+    with tab12:
         display_system_diagnostics(system)
 
 def display_live_neural_flows(consciousness_network):
@@ -2498,184 +2465,6 @@ def display_system_diagnostics(system):
                 for key in list(st.session_state.keys()):
                     del st.session_state[key]
                 st.rerun()
-
-def display_cognitive_resonance_feedback(consciousness_network):
-    """Muestra interfaz del Mecanismo de Retroalimentación de Resonancia Cognitiva"""
-    
-    st.header("🔊 Resonancia Cognitiva - Ruth R1")
-    st.markdown("*Sistema avanzado de optimización neural mediante resonancia cognitiva*")
-    
-    # Sistema simplificado para demostración
-    st.subheader("🔧 Modo Demostración")
-    
-    demo_col1, demo_col2 = st.columns(2)
-    
-    with demo_col1:
-        st.markdown("**Parámetros de Configuración:**")
-        freq = st.slider("Frecuencia Base", 20, 100, 40)
-        threshold = st.slider("Umbral", 0.1, 1.0, 0.7)
-        
-    with demo_col2:
-        st.markdown("**Estado Simulado:**")
-        st.metric("Resonancia Detectada", "85%")
-        st.metric("Coherencia Global", "0.78")
-        
-    if st.button("🧪 Simular Detección"):
-        st.success("Patrón de resonancia detectado a 42Hz")
-        st.info("Feedback generado y enviado a módulos activos")
-        
-    # Visualización básica
-    st.subheader("🌊 Patrones de Resonancia")
-    temporal_data = np.random.rand(100) * 0.8 + 0.2
-    temporal_data = temporal_data + 0.3 * np.sin(np.linspace(0, 4*np.pi, 100))
-    
-    fig_temporal = go.Figure()
-    fig_temporal.add_trace(go.Scatter(
-        y=temporal_data,
-        mode='lines',
-        name='Actividad Neural',
-        line=dict(color='rgba(78, 205, 196, 0.8)', width=2)
-    ))
-    
-    fig_temporal.update_layout(
-        title="Actividad Neural en Tiempo Real",
-        xaxis_title="Tiempo (ms)",
-        yaxis_title="Amplitud de Activación",
-        template="plotly_dark",
-        height=400
-    )
-    
-    st.plotly_chart(fig_temporal, use_container_width=True)
-
-def display_holographic_3d_visualization(consciousness_network):
-    """Muestra visualización holográfica 3D del sistema neural"""
-    
-    st.header("🌌 Visualización Holográfica 3D - Ruth R1")
-    st.markdown("*Vista tridimensional interactiva del sistema neural de consciencia*")
-    
-    # Panel de control de visualización
-    st.subheader("🎛️ Controles de Visualización")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        view_mode = st.selectbox(
-            "Modo de Vista",
-            ["Completa", "Núcleo Central", "Por Capas", "Conexiones"]
-        )
-    
-    with col2:
-        intensity = st.slider("Intensidad", 0.1, 1.0, 0.7, 0.1)
-    
-    with col3:
-        node_size = st.slider("Tamaño Nodos", 5, 30, 15)
-    
-    with col4:
-        show_labels = st.checkbox("Mostrar Etiquetas", value=True)
-    
-    # Crear visualización 3D básica
-    try:
-        import plotly.graph_objects as go
-        import numpy as np
-        
-        # Generar posiciones 3D para nodos
-        num_nodes = 20
-        x = np.random.uniform(-10, 10, num_nodes)
-        y = np.random.uniform(-10, 10, num_nodes)
-        z = np.random.uniform(-10, 10, num_nodes)
-        
-        # Crear nodos
-        node_trace = go.Scatter3d(
-            x=x, y=y, z=z,
-            mode='markers+text' if show_labels else 'markers',
-            marker=dict(
-                size=node_size,
-                color=np.random.uniform(0, 1, num_nodes),
-                colorscale='Viridis',
-                opacity=intensity
-            ),
-            text=[f'Nodo_{i}' for i in range(num_nodes)] if show_labels else None,
-            textposition="middle center",
-            name='Nodos Neurales'
-        )
-        
-        # Crear conexiones
-        edge_trace = []
-        for i in range(num_nodes):
-            for j in range(i+1, min(i+4, num_nodes)):  # Conectar con algunos nodos cercanos
-                edge_trace.append(go.Scatter3d(
-                    x=[x[i], x[j], None],
-                    y=[y[i], y[j], None],
-                    z=[z[i], z[j], None],
-                    mode='lines',
-                    line=dict(color='rgba(125, 125, 125, 0.3)', width=2),
-                    hoverinfo='none',
-                    showlegend=False
-                ))
-        
-        # Crear figura
-        fig = go.Figure(data=[node_trace] + edge_trace)
-        
-        fig.update_layout(
-            title=f"Vista Holográfica 3D - {view_mode}",
-            scene=dict(
-                xaxis_title="X",
-                yaxis_title="Y",
-                zaxis_title="Z",
-                bgcolor="rgba(0,0,0,0)",
-                xaxis=dict(backgroundcolor="rgba(0,0,0,0)"),
-                yaxis=dict(backgroundcolor="rgba(0,0,0,0)"),
-                zaxis=dict(backgroundcolor="rgba(0,0,0,0)")
-            ),
-            template="plotly_dark",
-            height=600,
-            showlegend=True
-        )
-        
-        st.plotly_chart(fig, use_container_width=True)
-        
-        # Métricas de la visualización
-        st.subheader("📊 Métricas del Sistema")
-        
-        col1, col2, col3, col4 = st.columns(4)
-        
-        with col1:
-            st.metric("Nodos Activos", num_nodes)
-        
-        with col2:
-            connections = sum(min(4, num_nodes-i-1) for i in range(num_nodes))
-            st.metric("Conexiones", connections)
-        
-        with col3:
-            coherence = np.random.uniform(0.7, 0.95)
-            st.metric("Coherencia Global", f"{coherence:.3f}")
-        
-        with col4:
-            activity = np.random.uniform(0.6, 0.9)
-            st.metric("Actividad Neural", f"{activity:.1%}")
-        
-        # Información adicional
-        with st.expander("ℹ️ Información del Sistema"):
-            st.markdown("""
-            **Características de la Visualización Holográfica:**
-            
-            🌟 **Renderizado 3D:** Representación tridimensional interactiva
-            🔗 **Conexiones Dinámicas:** Vínculos adaptativos entre nodos
-            📡 **Tiempo Real:** Actualización continua de estados
-            🎨 **Múltiples Vistas:** Diferentes perspectivas del sistema
-            🔬 **Análisis Profundo:** Métricas detalladas de rendimiento
-            """)
-    
-    except Exception as e:
-        st.error(f"Error en visualización 3D: {e}")
-        st.info("Modo de visualización simplificado activado")
-        
-        # Vista alternativa simple
-        st.markdown("**Sistema Neural - Vista Simplificada**")
-        st.write("🧠 14 módulos de consciencia activos")
-        st.write("🔗 Red bayesiana con inferencia probabilística")
-        st.write("⚡ Procesamiento en tiempo real")
-        st.write("🌊 Patrones de resonancia detectados")
 
 if __name__ == "__main__":
     main()
